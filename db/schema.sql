@@ -1,83 +1,126 @@
-CREATE TABLE schema_migrations (
-		version varchar(255) primary key);
-CREATE TABLE 'images' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'name'	VARCHAR(54) NOT NULL
-);
-CREATE TABLE 'technologys' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'name'	VARCHAR(40) NOT NULL,
-  'description'	TEXT NOT NULL,
-  'image'	VARCHAR(54) NOT NULL
-);
-CREATE TABLE 'technologys_images' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'technology_id'	INTEGER,
-  'image_id'	INTEGER,
-  FOREIGN KEY(`technology_id`) REFERENCES 'technologys' ( 'id' ) ON DELETE CASCADE,
-  FOREIGN KEY(`image_id`) REFERENCES 'images' ( 'id' ) ON DELETE CASCADE
-);
-CREATE TABLE 'branch_types' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'name'	VARCHAR(54) NOT NULL
-);
-CREATE TABLE 'dentists' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'name'	VARCHAR(45) NOT NULL,
-  'cop'	VARCHAR(10) NOT NULL,
-  'rne'	VARCHAR(10),
-  'image'	VARCHAR(54) NOT NULL
-);
-CREATE TABLE 'branches' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'name'	VARCHAR(30) NOT NULL,
-  'addrress'	VARCHAR(50) NOT NULL,
-  'phone'	VARCHAR(25),
-  'whatsapp'	VARCHAR(25),
-  'emergency'	VARCHAR(25),
-  'image'	VARCHAR(54) NOT NULL,
-  'latitude' FLOAT,
-  'longitude' FLOAT,
-  'branch_type_id'	INTEGER,
-  'director_id'	INTEGER,
-  FOREIGN KEY(`branch_type_id`) REFERENCES 'branch_types' ( 'id' ) ON DELETE CASCADE,
-  FOREIGN KEY(`director_id`) REFERENCES 'dentists' ( 'id' ) ON DELETE CASCADE
-);
-CREATE TABLE 'branches_images' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'branch_id'	INTEGER,
-  'image_id'	INTEGER,
-  FOREIGN KEY(`branch_id`) REFERENCES 'branches' ( 'id' ) ON DELETE CASCADE,
-  FOREIGN KEY(`image_id`) REFERENCES 'images' ( 'id' ) ON DELETE CASCADE
-);
-CREATE TABLE 'specialisms' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'name'	VARCHAR(30) NOT NULL
-);
-CREATE TABLE 'dentists_specialisms' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'dentist_id'	INTEGER,
-  'specialism_id'	INTEGER,
-  FOREIGN KEY(`dentist_id`) REFERENCES 'dentists' ( 'id' ) ON DELETE CASCADE,
-  FOREIGN KEY(`specialism_id`) REFERENCES 'specialisms' ( 'id' ) ON DELETE CASCADE
-);
-CREATE TABLE 'dentists_branches' (
-	'id'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	'dentist_id'	INTEGER,
-  'branche_id'	INTEGER,
-  FOREIGN KEY(`dentist_id`) REFERENCES 'dentists' ( 'id' ) ON DELETE CASCADE,
-  FOREIGN KEY(`branche_id`) REFERENCES 'branches' ( 'id' ) ON DELETE CASCADE
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `departments`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `departments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `districts`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `districts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `province_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `province_id` (`province_id`),
+  CONSTRAINT `districts_ibfk_1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1834 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `provinces`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `provinces` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `department_id` (`department_id`),
+  CONSTRAINT `provinces_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `schema_migrations`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schema_migrations` (
+  `version` varchar(255) NOT NULL,
+  PRIMARY KEY (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary table structure for view `vw_districts`
+--
+
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vw_districts` AS SELECT
+ 1 AS `id`,
+ 1 AS `name`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping routines for database 'aula'
+--
+
+--
+-- Final view structure for view `vw_districts`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_districts`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_districts` AS select `DI`.`id` AS `id`,concat(`DI`.`name`,', ',`PR`.`name`,', ',`DE`.`name`) AS `name` from ((`districts` `DI` join `provinces` `PR` on((`DI`.`province_id` = `PR`.`id`))) join `departments` `DE` on((`PR`.`department_id` = `DE`.`id`))) limit 2000 */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed
+
+--
 -- Dbmate schema migrations
-INSERT INTO schema_migrations (version) VALUES
-  ('20191003022142'),
-  ('20191003235853'),
-  ('20191004000527'),
-  ('20191004001156'),
-  ('20191004012336'),
-  ('20191004012429'),
-  ('20191004012751'),
-  ('20191004013015'),
-  ('20191004013242'),
-  ('20191004013421'),
-  ('20191010202820');
+--
+
+LOCK TABLES `schema_migrations` WRITE;
+INSERT INTO `schema_migrations` (version) VALUES
+  ('20180716031559'),
+  ('20180716032053'),
+  ('20180716033310'),
+  ('20180716033439'),
+  ('20180716033614'),
+  ('20180716033710'),
+  ('20180716035126');
+UNLOCK TABLES;
