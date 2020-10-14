@@ -1,38 +1,36 @@
-import AdminSpecialismView from '../views/admin/specialism_view';
-import AdminTechnologyView from '../views/admin/technology_view';
+import StudentView from '../views/student_view';
+import TeacherView from '../views/teacher_view';
 
-var AdminRouter = Backbone.Router.extend({
-  specialismView: null,
-  initialize: function() {
-  },
-  routes:{
-    '': 'specialisms',
-    'specialisms': 'specialisms',
-    'technologies': 'technologies',
-    // others
-    '*path' : 'default',
-  },
-  index: function(){
-    
-  },
-  specialisms: function(){
-    if(this.specialismView == null){
-      this.specialismView = new AdminSpecialismView();
-    }
-    this.specialismView.render();
-    this.specialismView.loadComponents();
-  },
-  technologies: function(){
-    if(this.technologyView == null){
-      this.technologyView = new AdminTechnologyView();
-    }
-    this.technologyView.render();
-    this.technologyView.loadComponents();
-  },
-  default: function(path){
-    var newURL = '/' + path;
-    window.location = newURL;
-  },
-});
+page.base('/admin');
 
-export default AdminRouter;
+page('', loading, index);
+page('/student', student);
+page('/teacher', teacher);
+// page('*', notfound)
+page();
+
+function loading(ctx, next){
+  alert('loading...');
+  next();
+}
+
+function index(ctx, next) {
+  document.querySelector('p')
+    .textContent = 'viewing index admin';
+}
+
+function student(ctx, next) {
+  var studentView = new StudentView();
+  studentView.render();
+  studentView.loadComponents();
+}
+
+function teacher(ctx, next) {
+  var teacherView = new TeacherView();
+  teacherView.render();
+  teacherView.loadComponents();
+}
+
+function notfound(ctx, next) {
+  window.location = BASE_URL + 'error/access/404';
+}

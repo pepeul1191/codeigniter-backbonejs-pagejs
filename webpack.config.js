@@ -1,20 +1,14 @@
 const path = require('path');
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 
 var entries = {
-  // main: ['./resources/entries/admin.js'],
-  // admin entires
-  'admin': ['./resources/entries/admin.js', ], 
-  'admin.vendor.js': ['backbone', 'jquery', 'underscore', ],
-  'admin.vendor.css': ['bootstrap/dist/css/bootstrap.min.css', ],
-  // login entries
-  'login': ['./resources/entries/login.js', ], 
-  // site entries
-  'site.vendor.css': ['materialize-css/dist/css/materialize.min.css', ],
-  // error entries
-  'error': ['./resources/entries/error.js', ], 
+  // main: ['./resources/entries/index.jsx'],
+  index: ['./resources/routes/index.js'],
+  admin: ['./resources/routes/admin.js'],
+  vendors: ['backbone', 'jquery', 'underscore', 'page'],
+  // vendors_login: ['jquery', ],
 };
 
 var plugins = [
@@ -23,18 +17,22 @@ var plugins = [
     '$': 'jquery',
     'Backbone': 'backbone',
     '_': 'underscore',
+    'page': 'page',
+    //'React': 'react',
+    //'ReactDOM': 'react-dom',
+    //'axios': 'axios',
   }),
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional
     filename: '[name].css',
-    chunkFilename: '[name].css',
+    chunkFilename: '[id].css'
   }),
   new CopyPlugin([
     // move ejs files to public
     { 
-      from: 'resources/templates', 
-      to: '../templates' 
+      from: path.resolve(__dirname, 'resources/templates'), 
+      to: path.resolve(__dirname, 'public/templates')
     },
   ]),
 ];
@@ -42,16 +40,24 @@ var plugins = [
 var outputDevelopment = {
   path: path.resolve(__dirname, 'public/dist'),
   filename: '[name].js',
-  //chunkFilename: '[chunkhash].js',
 };
 
 var outputProduction = {
   path: path.resolve(__dirname, 'public/dist'),
   filename: '[name].min.js',
-  //chunkFilename: '[chunkhash].min.js',
 };
 
-var rules = [
+var rules =  [
+  /*
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    include: path.resolve(__dirname, 'resources'),
+    use: {
+      loader: 'babel-loader'
+    },
+  },
+  */
   {
     test: /\.css$/,
     use: [
@@ -70,34 +76,20 @@ var rules = [
 
 var optimization = {
   splitChunks: {
-    cacheGroups: {      
-      /* 
+    cacheGroups: {       
       vendor: {
         test: /node_modules/,
         name: 'vendors',
         chunks: 'all', 
-        enforce: true,
-      },
-      */
-      adminVendor: {
-        test: 'admin.vendor.js',
-        name: 'admin.vendor',
-        chunks: 'all', 
-        enforce: true,
-      },
-      adminVendorCSS: {
-        test: 'admin.vendor.css',
-        name: 'admin.vendor',
-        chunks: 'all', 
-        enforce: true,
-      },
+        enforce: true
+      }
     }
   }
 };
 
 var devServer = {
   host: '0.0.0.0',
-  port: 8090,
+  port: 8080,
   contentBase: [
     path.join(__dirname, 'public'),
   ],

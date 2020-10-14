@@ -1,21 +1,16 @@
-var AdminSpecialismView = Backbone.View.extend({
+var TeacherView = Backbone.View.extend({
   el: '#workspace',
-  system_id: null,
+  branch_id: null,
+  dentistTable: null,
 	initialize: function(){
+    console.log('teacher - initialize');
 	},
 	events: {
   },
-  render: function(){
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date+' '+time;
-		var data = { 
-      message: dateTime,
-    };
+  render: function(data, type){
 		var templateCompiled = null;
 		$.ajax({
-		  url: STATIC_URL + 'templates/admin/specialism.html',
+		  url: STATIC_URL + 'templates/teacher.html',
 		  type: 'GET',
 		  async: false,
 		  success: function(resource) {
@@ -30,8 +25,8 @@ var AdminSpecialismView = Backbone.View.extend({
 		this.$el.html(templateCompiled);
   },
   loadComponents: function(){
-    
+
   },
 });
 
-export default AdminSpecialismView;
+export default TeacherView;

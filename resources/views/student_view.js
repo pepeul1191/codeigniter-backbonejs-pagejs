@@ -1,15 +1,16 @@
-var AdminTechnologyView = Backbone.View.extend({
+var StudentView = Backbone.View.extend({
   el: '#workspace',
-  system_id: null,
+  branch_id: null,
+  dentistTable: null,
 	initialize: function(){
+    console.log('student - initialize');
 	},
 	events: {
   },
-  render: function(){
-		var data = {};
+  render: function(data, type){
 		var templateCompiled = null;
 		$.ajax({
-		  url: STATIC_URL + 'templates/admin/technology.html',
+		  url: STATIC_URL + 'templates/student.html',
 		  type: 'GET',
 		  async: false,
 		  success: function(resource) {
@@ -24,8 +25,8 @@ var AdminTechnologyView = Backbone.View.extend({
 		this.$el.html(templateCompiled);
   },
   loadComponents: function(){
-    
+
   },
 });
 
-export default AdminTechnologyView;
+export default StudentView;
