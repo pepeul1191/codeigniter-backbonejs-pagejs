@@ -78,7 +78,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping routines for database 'aula'
+-- Dumping routines for database 'classroom'
 --
 
 --

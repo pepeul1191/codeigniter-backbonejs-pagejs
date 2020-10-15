@@ -7,7 +7,7 @@ var entries = {
   // main: ['./resources/entries/index.jsx'],
   index: ['./resources/routes/index.js'],
   admin: ['./resources/routes/admin.js'],
-  vendors: ['backbone', 'jquery', 'underscore', 'page'],
+  vendors: ['backbone', 'jquery', 'underscore', 'page', 'bootstrap'],
   // vendors_login: ['jquery', ],
 };
 

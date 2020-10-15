@@ -41,9 +41,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top" id="nav2">
       <a class="navbar-brand" href="/">
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-        Administración de Contenidos
+        Legis Juristas
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="burgerMenuButton">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,23 +53,23 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Datos Maestros
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/admin/student">Student</a>
+              <a class="dropdown-item" href="/admin/teacher">Teacher</a>
+              <a class="dropdown-item" href="/table/images">Imágenes</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/table/teachers">Gestión de Profes</a>
+            </div>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/specialisms">Especialidades</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/technologies">Tecnología</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Tablas
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/table/location">Ubicaciones del Perú</a>
-              <a class="dropdown-item" href="/table/carrers">Carreras</a>
-              <a class="dropdown-item" href="/table/images">Imágenes</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/table/teachers">Gestión de Profes</a>
-            </div>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -79,6 +79,7 @@
       </div>
     </nav>
     <div id="workspace"></div>
+    <p></p>
     <footer>Sitio Desarrollado por <a href="http://softweb.pe/">Software Web Perú 2019</a></footer>
     <?php echo load_jss($this->config, $jss);?>
   </body>

@@ -66,4 +66,4 @@ $route['admin']['GET'] = 'admin/adminIndex/index';
 $route['admin/specialisms']['GET'] = 'admin/adminIndex/index';
 $route['admin/technologies']['GET'] = 'admin/adminIndex/index';
 # admin rest
-$route['admin/specialisms/list']['GET'] = 'admin/AdminSpecialism/list';
+$route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';

@@ -8,12 +8,14 @@ if ( ! function_exists('access_css'))
     switch($config->item('env_static')){
       case 'dev':
         $rpta = [
-          'dist/admin.vendor',
-          'dist/login',
+          'bower_components/bootstrap/dist/css/bootstrap.min',
+          'assets/css/constants',
+          'assets/css/login',
         ];
         break;
       case 'prod':
         $rpta = [
+          'dist/admin.vendor.min',
           'dist/admin.vendor.min',
           'dist/login.min',
         ];

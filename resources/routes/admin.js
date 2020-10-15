@@ -1,16 +1,16 @@
+import 'bootstrap/dist/js/bootstrap.min.js';
 import StudentView from '../views/student_view';
 import TeacherView from '../views/teacher_view';
 
 page.base('/admin');
 
 page('', loading, index);
-page('/student', student);
+page('/student', student, closeToggle);
 page('/teacher', teacher);
 // page('*', notfound)
 page();
 
 function loading(ctx, next){
-  alert('loading...');
   next();
 }
 
@@ -23,6 +23,7 @@ function student(ctx, next) {
   var studentView = new StudentView();
   studentView.render();
   studentView.loadComponents();
+  next();
 }
 
 function teacher(ctx, next) {
@@ -31,6 +32,14 @@ function teacher(ctx, next) {
   teacherView.loadComponents();
 }
 
+function closeToggle(ctx, next){
+  if($('#navbarSupportedContent').hasClass('show')){
+    $('#burgerMenuButton').click();
+  }
+}
+
 function notfound(ctx, next) {
   window.location = BASE_URL + 'error/access/404';
 }
+
+
