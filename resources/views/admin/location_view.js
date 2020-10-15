@@ -1,16 +1,15 @@
-var AdminStudentView = Backbone.View.extend({
+var LocationView = Backbone.View.extend({
   el: '#workspace',
   branch_id: null,
   dentistTable: null,
 	initialize: function(){
-    console.log('student - initialize');
 	},
 	events: {
   },
   render: function(data, type){
 		var templateCompiled = null;
 		$.ajax({
-		  url: STATIC_URL + 'templates/student.html',
+		  url: STATIC_URL + 'templates/admin/location.html',
 		  type: 'GET',
 		  async: false,
 		  success: function(resource) {
@@ -29,4 +28,4 @@ var AdminStudentView = Backbone.View.extend({
   },
 });
 
-export default AdminStudentView;
+export default LocationView;

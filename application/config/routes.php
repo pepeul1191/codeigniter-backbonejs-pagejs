@@ -63,7 +63,11 @@ $route['logout']['GET'] = 'admin/adminLogin/exit';
 $route['session']['GET'] = 'admin/adminLogin/view';
 # admin views
 $route['admin']['GET'] = 'admin/adminIndex/index';
+$route['admin/specialism']['GET'] = 'admin/adminIndex/index';
+$route['admin/location']['GET'] = 'admin/adminIndex/index';
 $route['admin/specialisms']['GET'] = 'admin/adminIndex/index';
 $route['admin/technologies']['GET'] = 'admin/adminIndex/index';
 # admin rest
 $route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';
+$route['admin/specialism/list']['GET'] = 'admin/AdminSpecialism/list';
+$route['admin/specialism/save']['POST'] = 'admin/AdminSpecialism/save';

@@ -58,11 +58,9 @@
               Datos Maestros
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/admin/student">Student</a>
-              <a class="dropdown-item" href="/admin/teacher">Teacher</a>
-              <a class="dropdown-item" href="/table/images">Imágenes</a>
+              <a class="dropdown-item" href="/admin/location">Ubicaciones del Perú</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/table/teachers">Gestión de Profes</a>
+              <a class="dropdown-item" href="/admin/specialism">Especialidades</a>
             </div>
           </li>
           <li class="nav-item">
@@ -79,7 +77,6 @@
       </div>
     </nav>
     <div id="workspace"></div>
-    <p></p>
     <footer>Sitio Desarrollado por <a href="http://softweb.pe/">Software Web Perú 2019</a></footer>
     <?php echo load_jss($this->config, $jss);?>
   </body>

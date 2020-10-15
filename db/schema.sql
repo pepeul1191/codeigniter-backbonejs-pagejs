@@ -67,6 +67,19 @@ CREATE TABLE `schema_migrations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `specialisms`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `specialisms` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Temporary table structure for view `vw_districts`
 --
 
@@ -122,5 +135,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20180716033439'),
   ('20180716033614'),
   ('20180716033710'),
-  ('20180716035126');
+  ('20180716035126'),
+  ('20201015014657'),
+  ('20201015014702');
 UNLOCK TABLES;
