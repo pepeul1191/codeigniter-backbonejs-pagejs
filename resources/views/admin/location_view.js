@@ -23,6 +23,11 @@ var LocationView = Backbone.View.extend({
     'click #provinceTable > tfoot > tr > td > button.add-row': 'addRowProvince',
     'click #provinceTable > tfoot > tr > td > button.save-table': 'saveTableProvince',
     'click #provinceTable > tbody > tr > td > i.showDistricts': 'showDistrictTable',
+    // table districtTable events
+    'click #districtTable > tbody > tr > td > i.delete': 'deleteRowDistrict',
+    'keyup #districtTable > tbody > tr > td > input.text': 'inputTextDistrict',
+    'click #districtTable > tfoot > tr > td > button.add-row': 'addRowDistrict',
+    'click #districtTable > tfoot > tr > td > button.save-table': 'saveTableDistrict',
   },
   render: function(data, type){
 		var templateCompiled = null;
@@ -128,7 +133,7 @@ var LocationView = Backbone.View.extend({
         save: BASE_URL + 'admin/province/save', // String
       },
       extraData: {
-        deparment_id: model.id
+        department_id: model.id
       },
       observer: { // not initialize
       new: [],
@@ -207,7 +212,7 @@ var LocationView = Backbone.View.extend({
         save: BASE_URL + 'admin/district/save', // String
       },
       extraData: {
-      
+        province_id: model.id
       },
       observer: { // not initialize
       new: [],
@@ -251,6 +256,20 @@ var LocationView = Backbone.View.extend({
       },
     });
     this.districtTable.list();
+    this.districtTable.province_id = model.id; 
+  },
+  // district table
+  deleteRowDistrict: function(event){
+    this.districtTable.deleteRow(event);
+  },
+  inputTextDistrict: function(event){
+    this.districtTable.keyUpInputText(event);
+  },
+  addRowDistrict: function(event){
+    this.districtTable.addRow(event);
+  },
+  saveTableDistrict: function(event){
+    this.districtTable.saveTable(event);
   },
 });
 

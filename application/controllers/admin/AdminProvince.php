@@ -70,7 +70,7 @@ class AdminProvince extends CI_Controller
 				foreach ($news as &$new) {
 				  $n = \Model::factory('\Models\Province', 'classroom')->create();
           $n->name = $new->{'name'};
-          $n->department_id = $data->extra->deparment_id;
+          $n->department_id = $data->extra->department_id;
 					$n->save();
 				  $temp = [];
 				  $temp['tempId'] = $new->{'id'};
