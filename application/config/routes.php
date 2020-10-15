@@ -71,6 +71,7 @@ $route['admin/technologies']['GET'] = 'admin/adminIndex/index';
 $route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';
 $route['admin/department/save']['POST'] = 'admin/AdminDepartment/save';
 $route['admin/province/list']['GET'] = 'admin/AdminProvince/list';
+$route['admin/province/save']['POST'] = 'admin/AdminProvince/save';
 $route['admin/district/list']['GET'] = 'admin/AdminDistrict/list';
 # admin specialism
 $route['admin/specialism/list']['GET'] = 'admin/AdminSpecialism/list';

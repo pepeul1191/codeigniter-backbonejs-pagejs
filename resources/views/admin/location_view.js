@@ -17,7 +17,11 @@ var LocationView = Backbone.View.extend({
     'click #departmentTable > tfoot > tr > td > button.add-row': 'addRowDeparment',
     'click #departmentTable > tfoot > tr > td > button.save-table': 'saveTableDeparment',
     'click #departmentTable > tbody > tr > td > i.showProvinces': 'showProvinceTable',
-
+    // table provinceTable events
+    'click #provinceTable > tbody > tr > td > i.delete': 'deleteRowProvince',
+    'keyup #provinceTable > tbody > tr > td > input.text': 'inputTextProvince',
+    'click #provinceTable > tfoot > tr > td > button.add-row': 'addRowProvince',
+    'click #provinceTable > tfoot > tr > td > button.save-table': 'saveTableProvince',
     'click #provinceTable > tbody > tr > td > i.showDistricts': 'showDistrictTable',
   },
   render: function(data, type){
@@ -113,6 +117,7 @@ var LocationView = Backbone.View.extend({
   showProvinceTable: function(event){
     var rowId = event.target.parentElement.parentElement.firstChild.innerHTML;
     var model = this.departmentTable.collection.get(rowId);
+    var _this = this;
     this.provinceTable = new Table({
       el: 'provinceTable', // String
       messageLabelId: 'message', // String
@@ -122,7 +127,9 @@ var LocationView = Backbone.View.extend({
         list: BASE_URL + 'admin/province/list?department_id=' + model.id, // String
         save: BASE_URL + 'admin/province/save', // String
       },
-      extraData: null,
+      extraData: {
+        deparment_id: model.id
+      },
       observer: { // not initialize
       new: [],
       edit: [],
@@ -171,25 +178,25 @@ var LocationView = Backbone.View.extend({
       },
     });
     this.provinceTable.list();
+    this.provinceTable.department_id = model.id; 
   },
   // province table
-  /*
-  deleteRowDeparment: function(event){
-    this.departmentTable.deleteRow(event);
+  deleteRowProvince: function(event){
+    this.provinceTable.deleteRow(event);
   },
-  inputTextDeparment: function(event){
-    this.departmentTable.keyUpInputText(event);
+  inputTextProvince: function(event){
+    this.provinceTable.keyUpInputText(event);
   },
-  addRowDeparment: function(event){
-    this.departmentTable.addRow(event);
+  addRowProvince: function(event){
+    this.provinceTable.addRow(event);
   },
-  saveTableDeparment: function(event){
-    this.departmentTable.saveTable(event);
+  saveTableProvince: function(event){
+    this.provinceTable.saveTable(event);
   },
-  */
   showDistrictTable: function(event){
     var rowId = event.target.parentElement.parentElement.firstChild.innerHTML;
     var model = this.provinceTable.collection.get(rowId);
+    var _this = this;
     this.districtTable = new Table({
       el: 'districtTable', // String
       messageLabelId: 'message', // String
@@ -199,7 +206,9 @@ var LocationView = Backbone.View.extend({
         list: BASE_URL + 'admin/district/list?province_id=' + model.id, // String
         save: BASE_URL + 'admin/district/save', // String
       },
-      extraData: null,
+      extraData: {
+      
+      },
       observer: { // not initialize
       new: [],
       edit: [],
