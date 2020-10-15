@@ -64,10 +64,16 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/specialisms">Especialidades</a>
+            <a class="nav-link" href="/specialisms">Asesores</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/technologies">Tecnología</a>
+            <a class="nav-link" href="/technologies">Ponentes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/technologies">Alumnos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/technologies">Eventos</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

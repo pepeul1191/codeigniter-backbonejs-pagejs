@@ -1,1 +1,69 @@
-location
+<h5>Gestión de Ubicaciones</h5>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert" id="message" role="alert"></div>
+  </div>
+  <div class="col-md-4" id="formTableDepartment">
+    <h6 class="subtitulo" style="margin-bottom:15px">Departamentos</h6>
+    <label class="texto-der" id="mensajeRptaDepartment"></label>
+    <table class="table table-striped" style="" id="departmentTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 150px;">Nombre</th>
+          <th style="width: 80px; padding-left: 17px !important;">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1000" style="text-align:right">
+            <button class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
+            <button class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="col-md-4 oculto" id="formTableProvince">
+    <h6 class="subtitulo" style="margin-bottom:15px">Provincias</h6>
+    <label class="texto-der" id="mensajeRptaProvince"></label>
+    <table class="table table-striped" style="" id="provinceTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 150px;">Nombre</th>
+          <th style="width: 80px">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1000" style="text-align:right">
+            <button class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
+            <button class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="col-md-4 oculto" id="formTableDistrict">
+    <h6 class="subtitulo" style="margin-bottom:15px">Distritos</h6>
+    <label class="texto-der" id="mensajeRptaDistrict"></label>
+    <table class="table table-striped" style="" id="districtTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 150px;">Nombre</th>
+          <th style="width: 80px">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1000" style="text-align:right">
+            <button class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
+            <button class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

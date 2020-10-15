@@ -1,10 +1,24 @@
+import Table from '../../libs/table';
+import DepartmentCollection from '../../collections/department_collection';
+import Department from '../../models/department';
+
 var LocationView = Backbone.View.extend({
   el: '#workspace',
   branch_id: null,
-  dentistTable: null,
+  departmentTable: null,
+  provinceTable: null,
+  districtTable: null,
 	initialize: function(){
 	},
 	events: {
+    // table departmentTable events
+    'click #departmentTable > tbody > tr > td > i.delete': 'deleteRowDeparment',
+    'keyup #departmentTable > tbody > tr > td > input.text': 'inputTextDeparment',
+    'click #departmentTable > tfoot > tr > td > button.add-row': 'addRowDeparment',
+    'click #departmentTable > tfoot > tr > td > button.save-table': 'saveTableDeparment',
+    'click #departmentTable > tbody > tr > td > i.showProvinces': 'showProvinceTable',
+
+    'click #provinceTable > tbody > tr > td > i.showDistricts': 'showDistrictTable',
   },
   render: function(data, type){
 		var templateCompiled = null;
@@ -24,7 +38,210 @@ var LocationView = Backbone.View.extend({
 		this.$el.html(templateCompiled);
   },
   loadComponents: function(){
-
+    this.departmentTable = new Table({
+      el: 'departmentTable', // String
+      messageLabelId: 'message', // String
+      model: Department, // String
+      collection: new DepartmentCollection(), // Backbone collection
+      services: {
+        list: BASE_URL + 'admin/department/list', // String
+        save: BASE_URL + 'admin/department/save', // String
+      },
+      extraData: null,
+      observer: { // not initialize
+      new: [],
+      edit: [],
+      delete: [],
+      },
+      messages: {
+        list500: 'Ocurrió un error no esperado en listar los departamentos',
+        list501: 'Ocurrió un error en listar los departamentos',
+        list404: 'Recurso no encontrado - listar departamentos',
+        save500: 'Ocurrió un error no esperado en grabar los cambios',
+        save501: 'Ocurrió un error en grabar los cambios',
+        save404: 'Recurso no encontrado - guardar departamentos',
+        save200: 'Departamentos actualizados',
+      },
+      serverKeys: ['id', 'name'],
+      row: {
+        table: ['id', 'name'],
+        tds: [
+          { // id
+            type: 'tdId',
+            styles: 'display: none; ', 
+            edit: false,
+            key: 'id',
+          },
+          { // namne
+            type: 'input[text]',
+            styles: '', 
+            edit: true,
+            key: 'name',
+          },
+        ],
+        buttons: [
+          {
+            type: 'i',
+            operation: 'showProvinces',
+            class: 'fa-chevron-right',
+            styles: 'padding-left: 15px;',
+          },
+          {
+            type: 'i',
+            operation: 'delete',
+            class: 'fa-times',
+            styles: 'padding-left: 15px;',
+          },
+        ],
+      },
+    });
+    this.departmentTable.list();
+  },
+  // department table
+  deleteRowDeparment: function(event){
+    this.departmentTable.deleteRow(event);
+  },
+  inputTextDeparment: function(event){
+    this.departmentTable.keyUpInputText(event);
+  },
+  addRowDeparment: function(event){
+    this.departmentTable.addRow(event);
+  },
+  saveTableDeparment: function(event){
+    this.departmentTable.saveTable(event);
+  },
+  showProvinceTable: function(event){
+    var rowId = event.target.parentElement.parentElement.firstChild.innerHTML;
+    var model = this.departmentTable.collection.get(rowId);
+    this.provinceTable = new Table({
+      el: 'provinceTable', // String
+      messageLabelId: 'message', // String
+      model: Department, // String
+      collection: new DepartmentCollection(), // Backbone collection
+      services: {
+        list: BASE_URL + 'admin/province/list?department_id=' + model.id, // String
+        save: BASE_URL + 'admin/province/save', // String
+      },
+      extraData: null,
+      observer: { // not initialize
+      new: [],
+      edit: [],
+      delete: [],
+      },
+      messages: {
+        list500: 'Ocurrió un error no esperado en listar las provincias',
+        list501: 'Ocurrió un error en listar las provincias',
+        list404: 'Recurso no encontrado - listar provincias',
+        save500: 'Ocurrió un error no esperado en grabar las cambios',
+        save501: 'Ocurrió un error en grabar las cambios',
+        save404: 'Recurso no encontrado - guardar provincias',
+        save200: 'Provincias actualizadas',
+      },
+      serverKeys: ['id', 'name'],
+      row: {
+        table: ['id', 'name'],
+        tds: [
+          { // id
+            type: 'tdId',
+            styles: 'display: none; ', 
+            edit: false,
+            key: 'id',
+          },
+          { // namne
+            type: 'input[text]',
+            styles: '', 
+            edit: true,
+            key: 'name',
+          },
+        ],
+        buttons: [
+          {
+            type: 'i',
+            operation: 'showDistricts',
+            class: 'fa-chevron-right',
+            styles: 'padding-left: 15px;',
+          },
+          {
+            type: 'i',
+            operation: 'delete',
+            class: 'fa-times',
+            styles: 'padding-left: 15px;',
+          },
+        ],
+      },
+    });
+    this.provinceTable.list();
+  },
+  // province table
+  /*
+  deleteRowDeparment: function(event){
+    this.departmentTable.deleteRow(event);
+  },
+  inputTextDeparment: function(event){
+    this.departmentTable.keyUpInputText(event);
+  },
+  addRowDeparment: function(event){
+    this.departmentTable.addRow(event);
+  },
+  saveTableDeparment: function(event){
+    this.departmentTable.saveTable(event);
+  },
+  */
+  showDistrictTable: function(event){
+    var rowId = event.target.parentElement.parentElement.firstChild.innerHTML;
+    var model = this.provinceTable.collection.get(rowId);
+    this.districtTable = new Table({
+      el: 'districtTable', // String
+      messageLabelId: 'message', // String
+      model: Department, // String
+      collection: new DepartmentCollection(), // Backbone collection
+      services: {
+        list: BASE_URL + 'admin/district/list?province_id=' + model.id, // String
+        save: BASE_URL + 'admin/district/save', // String
+      },
+      extraData: null,
+      observer: { // not initialize
+      new: [],
+      edit: [],
+      delete: [],
+      },
+      messages: {
+        list500: 'Ocurrió un error no esperado en listar las provincias',
+        list501: 'Ocurrió un error en listar las provincias',
+        list404: 'Recurso no encontrado - listar provincias',
+        save500: 'Ocurrió un error no esperado en grabar las cambios',
+        save501: 'Ocurrió un error en grabar las cambios',
+        save404: 'Recurso no encontrado - guardar provincias',
+        save200: 'Provincias actualizadas',
+      },
+      serverKeys: ['id', 'name'],
+      row: {
+        table: ['id', 'name'],
+        tds: [
+          { // id
+            type: 'tdId',
+            styles: 'display: none; ', 
+            edit: false,
+            key: 'id',
+          },
+          { // namne
+            type: 'input[text]',
+            styles: '', 
+            edit: true,
+            key: 'name',
+          },
+        ],
+        buttons: [
+          {
+            type: 'i',
+            operation: 'delete',
+            class: 'fa-times',
+            styles: 'padding-left: 15px;',
+          },
+        ],
+      },
+    });
+    this.districtTable.list();
   },
 });
 

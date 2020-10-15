@@ -4,8 +4,11 @@ import TeacherView from '../views/teacher_view';
 import AdminLocationView from '../views/admin/location_view';
 import AdminSpecialismView from '../views/admin/specialism_view';
 
+// views
+var specialismView = null;
+var locationView = null; 
+// routes
 page.base('/admin');
-
 page('', loading, index);
 page('/specialism', specialism, closeToggle);
 page('/location', location, closeToggle);
@@ -19,14 +22,18 @@ function loading(ctx, next){
 }
 
 function specialism(ctx, next) {
-  var specialismView = new AdminSpecialismView();
+  if(specialismView == null){
+    specialismView = new AdminSpecialismView();
+  }
   specialismView.render();
   specialismView.loadComponents();
   next();
 }
 
 function location(ctx, next) {
-  var locationView = new AdminLocationView();
+  if(locationView == null){
+    locationView = new AdminLocationView();
+  }
   locationView.render();
   locationView.loadComponents();
   next();

@@ -8,7 +8,7 @@ var AdminSpecialismView = Backbone.View.extend({
 	initialize: function(){
 	},
 	events: {
-    // table departmentTable events
+    // table specialismTable events
     'click #specialismTable > tbody > tr > td > i.delete': 'deleteRowSpecialism',
     'keyup #specialismTable > tbody > tr > td > input.text': 'inputTextSpecialism',
     'click #specialismTable > tfoot > tr > td > button.add-row': 'addRowSpecialism',
