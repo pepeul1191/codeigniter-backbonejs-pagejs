@@ -1,5 +1,5 @@
 import 'bootstrap/dist/js/bootstrap.min.js';
-import StudentView from '../views/student_view';
+import StudentView from '../views/admin/student_view';
 import TeacherView from '../views/teacher_view';
 import AdminLocationView from '../views/admin/location_view';
 import AdminSpecialismView from '../views/admin/specialism_view';

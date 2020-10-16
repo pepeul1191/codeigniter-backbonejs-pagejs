@@ -10,7 +10,7 @@ var AdminStudentView = Backbone.View.extend({
   render: function(data, type){
 		var templateCompiled = null;
 		$.ajax({
-		  url: STATIC_URL + 'templates/student.html',
+		  url: STATIC_URL + 'templates/admin/student.html',
 		  type: 'GET',
 		  async: false,
 		  success: function(resource) {

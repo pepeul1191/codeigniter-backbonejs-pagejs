@@ -65,8 +65,7 @@ $route['session']['GET'] = 'admin/adminLogin/view';
 $route['admin']['GET'] = 'admin/adminIndex/index';
 $route['admin/specialism']['GET'] = 'admin/adminIndex/index';
 $route['admin/location']['GET'] = 'admin/adminIndex/index';
-$route['admin/specialisms']['GET'] = 'admin/adminIndex/index';
-$route['admin/technologies']['GET'] = 'admin/adminIndex/index';
+$route['admin/student']['GET'] = 'admin/adminIndex/index';
 # admin rest
 $route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';
 $route['admin/department/save']['POST'] = 'admin/AdminDepartment/save';

@@ -35,7 +35,7 @@ CREATE TABLE `districts` (
   PRIMARY KEY (`id`),
   KEY `province_id` (`province_id`),
   CONSTRAINT `districts_ibfk_1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1834 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1835 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,6 +77,30 @@ CREATE TABLE `specialisms` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `students`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(11) NOT NULL,
+  `tuition` int(11) DEFAULT NULL,
+  `dni` varchar(8) NOT NULL,
+  `names` varchar(50) NOT NULL,
+  `last_names` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `picture_url` varchar(100) DEFAULT NULL,
+  `address` varchar(120) DEFAULT NULL,
+  `district_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `district_id` (`district_id`),
+  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,5 +161,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20180716033710'),
   ('20180716035126'),
   ('20201015014657'),
-  ('20201015014702');
+  ('20201015014702'),
+  ('20201016163807'),
+  ('20201016170903');
 UNLOCK TABLES;

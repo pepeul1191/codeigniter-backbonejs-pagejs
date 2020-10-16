@@ -1,0 +1,85 @@
+<h5>Gestión de Participantes</h5>
+<div class="row">
+  <div class="col-md-12">
+      <div class="alert" id="message" role="alert"></div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+    <h6 style="margin-bottom:15px">Parámetros de búsqueda (opcional)</h6>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="txtName">Nombre</label>
+      <input type="text" class="form-control" id="txtName" aria-describedby="txtNameHelp" placeholder="Ingrese nombre" value="">
+      <small id="txtNameHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <label for="txtCop">COP</label>
+      <input type="text" class="form-control" id="txtCop" aria-describedby="txtCopHelp" placeholder="COP" value="">
+      <small id="txtCopHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <label for="txtRne">RNE</label>
+      <input type="text" class="form-control" id="txtRne" aria-describedby="txtRneHelp" placeholder="RNE" value="">
+      <small id="txtRneHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <button id="btnSearch" class="btn btn-primary" style="margin-top: 25px;" >
+        <i class="fa fa-search" style="margin-right:5px"></i>
+        Buscar
+      </button>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <button id="btnClean" class="btn btn-warning" style="margin-top: 25px;" >
+        <i class="fa fa-repeat" style="margin-right:5px"></i>
+        Limpiar
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-7">
+      <hr>
+      <br>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-7" id="formTableDentist">
+    <h6 style="margin-bottom:15px">Lista de Dentistas</h6>
+    <table class="table table-striped" styles="" id="dentistTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 250px;">Nombre</th>
+          <th style="width: 80px;">COP</th>
+          <th style="width: 80px;">RNE</th>
+          <th style="width: 30px; ">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1" style="">
+            <i id="btnGoBegin" class="fa fa-angle-double-left footer-icon pagination-btn" aria-hidden="true"></i>
+            <i id="btnGoPrevious" class="fa fa-angle-left footer-icon pagination-btn" aria-hidden="true"></i>
+            <label id="pagination" class="pagination-number"></label>
+            <i id="btnGoNext" class="fa fa-angle-right footer-icon pagination-btn" aria-hidden="true"></i>
+            <i id="btnGoLast" class="fa fa-angle-double-right footer-icon pagination-btn" aria-hidden="true"></i>
+          </td>
+          <td colspan="3" style="text-align:right">
+            <a class="btn btn-primary" href="/dentist/new"> <i class="fa fa-plus" style="margin-right:5px; color: #fff !important;"></i>Agregar Registro</a>
+            <button class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
