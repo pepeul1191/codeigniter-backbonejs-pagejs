@@ -21,21 +21,21 @@ class AdminSpecialism extends CI_Controller
       )
     );
     //controller function
-    $rpta = '';
+    $resp = '';
     $status = 200;
     try {
       $rs = \Model::factory('\Models\Specialism', 'classroom')
         ->select('id')
         ->select('name')
         ->find_array();
-      $rpta = json_encode($rs);
+      $resp = json_encode($rs);
     }catch (Exception $e) {
       $status = 500;
-      $rpta = $e->getMessage();
+      $resp = $e->getMessage();
     }
     $this->output
       ->set_status_header($status)
-      ->set_output($rpta);
+      ->set_output($resp);
   }
 
   public function save()
@@ -60,7 +60,7 @@ class AdminSpecialism extends CI_Controller
 		$edits = $data->{'edit'};
     $deletes = $data->{'delete'};
     $created_ids = [];
-    $resp_data = '';
+    $resp = '';
     $status = 200;
     try {
       // news
@@ -96,14 +96,14 @@ class AdminSpecialism extends CI_Controller
       // commit
       \ORM::get_db('classroom')->commit();
       // response data
-      $resp_data = json_encode($created_ids);
+      $resp = json_encode($created_ids);
     }catch (Exception $e) {
       $status = 500;
-      $resp_data = json_encode($e->getMessage());
+      $resp = json_encode($e->getMessage());
     }
     $this->output
       ->set_status_header($status)
-      ->set_output($resp_data);
+      ->set_output($resp);
   }
 }
 

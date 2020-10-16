@@ -17,16 +17,23 @@
   </div>
   <div class="col-md-1">
     <div class="form-group">
-      <label for="txtCop">COP</label>
-      <input type="text" class="form-control" id="txtCop" aria-describedby="txtCopHelp" placeholder="COP" value="">
-      <small id="txtCopHelp" class="form-text"></small>
+      <label for="txtDNI">DNI</label>
+      <input type="text" class="form-control" id="txtDNI" aria-describedby="txtDNIHelp" placeholder="DNI" value="">
+      <small id="txtDNIHelp" class="form-text"></small>
     </div>
   </div>
   <div class="col-md-1">
     <div class="form-group">
-      <label for="txtRne">RNE</label>
-      <input type="text" class="form-control" id="txtRne" aria-describedby="txtRneHelp" placeholder="RNE" value="">
-      <small id="txtRneHelp" class="form-text"></small>
+      <label for="txtCode">Código</label>
+      <input type="text" class="form-control" id="txtCode" aria-describedby="txtCodeHelp" placeholder="Código" value="">
+      <small id="txtCodeHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <label for="txtTuition">Colegiatura</label>
+      <input type="text" class="form-control" id="txtTuition" aria-describedby="txtTuitionHelp" placeholder="Colegiatura" value="">
+      <small id="txtTuitionHelp" class="form-text"></small>
     </div>
   </div>
   <div class="col-md-1">
@@ -53,15 +60,16 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-7" id="formTableDentist">
-    <h6 style="margin-bottom:15px">Lista de Dentistas</h6>
-    <table class="table table-striped" styles="" id="dentistTable">
+  <div class="col-md-8" id="formTableStudent">
+    <h6 style="margin-bottom:15px">Lista de Participantes</h6>
+    <table class="table table-striped" styles="" id="studentTable">
       <thead>
         <tr>
           <th style="width: 10px; display:none;">id</th>
           <th style="width: 250px;">Nombre</th>
-          <th style="width: 80px;">COP</th>
-          <th style="width: 80px;">RNE</th>
+          <th style="width: 80px;">DNI</th>
+          <th style="width: 80px;">Código</th>
+          <th style="width: 80px;">Colegiatura</th>
           <th style="width: 30px; ">Botones</th>
         </tr>
       </thead>
@@ -74,8 +82,8 @@
             <i id="btnGoNext" class="fa fa-angle-right footer-icon pagination-btn" aria-hidden="true"></i>
             <i id="btnGoLast" class="fa fa-angle-double-right footer-icon pagination-btn" aria-hidden="true"></i>
           </td>
-          <td colspan="3" style="text-align:right">
-            <a class="btn btn-primary" href="/dentist/new"> <i class="fa fa-plus" style="margin-right:5px; color: #fff !important;"></i>Agregar Registro</a>
+          <td colspan="4" style="text-align:right">
+            <a class="btn btn-primary" href="/admin/student/new"> <i class="fa fa-plus" style="margin-right:5px; color: #fff !important;"></i>Agregar Registro</a>
             <button class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
           </td>
         </tr>
