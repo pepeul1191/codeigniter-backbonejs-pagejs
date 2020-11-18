@@ -66,7 +66,8 @@ $route['admin']['GET'] = 'admin/adminIndex/index';
 $route['admin/specialism']['GET'] = 'admin/adminIndex/index';
 $route['admin/location']['GET'] = 'admin/adminIndex/index';
 $route['admin/student']['GET'] = 'admin/adminIndex/index';
-# admin rest
+$route['admin/student/new']['GET'] = 'admin/adminIndex/index';
+  # admin loctions
 $route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';
 $route['admin/department/save']['POST'] = 'admin/AdminDepartment/save';
 $route['admin/province/list']['GET'] = 'admin/AdminProvince/list';
@@ -75,6 +76,7 @@ $route['admin/district/list']['GET'] = 'admin/AdminDistrict/list';
 $route['admin/district/save']['POST'] = 'admin/AdminDistrict/save';
   # admin student
 $route['admin/student/list']['GET'] = 'admin/AdminStudent/list';
+$route['admin/student/specialism/list']['GET'] = 'admin/AdminStudent/specialism';
   # admin specialism
 $route['admin/specialism/list']['GET'] = 'admin/AdminSpecialism/list';
 $route['admin/specialism/save']['POST'] = 'admin/AdminSpecialism/save';

@@ -35,7 +35,55 @@ CREATE TABLE `districts` (
   PRIMARY KEY (`id`),
   KEY `province_id` (`province_id`),
   CONSTRAINT `districts_ibfk_1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1835 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1834 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `event_types`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `event_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `events`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `hours` int(11) NOT NULL,
+  `picture_url` varchar(100) DEFAULT NULL,
+  `init_date` datetime NOT NULL,
+  `init_hour` datetime NOT NULL,
+  `gift` varchar(40) DEFAULT NULL,
+  `description` text,
+  `event_type_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_type_id` (`event_type_id`),
+  CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `genders`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `genders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,6 +115,30 @@ CREATE TABLE `schema_migrations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `speakers`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `speakers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(11) DEFAULT NULL,
+  `tuition` int(11) DEFAULT NULL,
+  `dni` varchar(8) NOT NULL,
+  `names` varchar(50) NOT NULL,
+  `last_names` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `picture_url` varchar(100) DEFAULT NULL,
+  `resume` text,
+  `gender_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `gender_id` (`gender_id`),
+  CONSTRAINT `speakers_ibfk_1` FOREIGN KEY (`gender_id`) REFERENCES `genders` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `specialisms`
 --
 
@@ -77,6 +149,42 @@ CREATE TABLE `specialisms` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `specialisms_speakers`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `specialisms_speakers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `speaker_id` int(11) DEFAULT NULL,
+  `specialism_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `speaker_id` (`speaker_id`),
+  KEY `specialism_id` (`specialism_id`),
+  CONSTRAINT `specialisms_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `specialisms_speakers_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `specialisms_students`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `specialisms_students` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) DEFAULT NULL,
+  `specialism_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `student_id` (`student_id`),
+  KEY `specialism_id` (`specialism_id`),
+  CONSTRAINT `specialisms_students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `specialisms_students_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,5 +271,13 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20201015014657'),
   ('20201015014702'),
   ('20201016163807'),
-  ('20201016170903');
+  ('20201016170903'),
+  ('20201017020259'),
+  ('20201118144041'),
+  ('20201118144047'),
+  ('20201118145050'),
+  ('20201118145055'),
+  ('20201118150654'),
+  ('20201118150655'),
+  ('20201118151002');
 UNLOCK TABLES;

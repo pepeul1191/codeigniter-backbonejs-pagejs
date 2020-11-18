@@ -74,6 +74,54 @@ class AdminStudent extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp);
   }
+
+  public function specialism()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    $resp = '';
+    $status = 200;
+    try {
+      $pdo = \ORM::get_db('classroom');
+      $query = '
+        SELECT T.id AS id, T.name AS name, (CASE WHEN (P.exist = 1) THEN 1 ELSE 0 END) AS exist FROM
+        (
+          SELECT id, name, 0 AS exist FROM specialisms
+        ) T 
+        LEFT JOIN 
+        (
+          SELECT C.id, C.name, 1 AS exist FROM 
+          specialisms C INNER JOIN specialisms_students TC ON
+          C.id = TC.specialism_id
+          WHERE TC.student_id = %d
+        ) P 
+        ON P.id = T.id
+      ';
+      $rs = array();
+      foreach($pdo->query(sprintf($query, $this->input->get('id'))) as $row) {
+        array_push($rs, array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'exist' => $row['exist'],
+        ));
+      }
+      if($rs == false){
+        $resp = 'Parcipante no tiene especialidades asociadas';
+        $status = 404;
+      }else{
+        $resp = json_encode($rs);
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      $resp = $e->getMessage();
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
 }
 
 ?>

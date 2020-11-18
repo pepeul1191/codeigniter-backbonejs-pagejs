@@ -1,0 +1,127 @@
+<h5><%= title %></h5>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert <%= messageClass %>" id="message" role="alert" id="formTitle"><%= message %></div>
+  </div>
+  <div class="col-md-12">
+    <h6 style="margin-bottom:15px">Detalles del Odontólogo</h6>
+  </div>
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtCode">Código</label>
+          <input type="text" class="form-control" id="txtCode" aria-describedby="txtCodeHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese código" value="<%= model.get('code') %>">
+          <small id="txtCodeHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtDNI">DNI</label>
+          <input type="text" class="form-control" id="txtDNI" aria-describedby="txtDNIHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese código" value="<%= model.get('dni') %>">
+          <small id="txtDNIHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="txtNames">Nombres</label>
+          <input type="text" class="form-control" id="txtNames" aria-describedby="txtNamesHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese nombres" value="<%= model.get('names') %>">
+          <small id="txtNamesHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="txtLastNames">Apellidos</label>
+          <input type="text" class="form-control" id="txtLastNames" aria-describedby="txtLastNamesHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese apellidos" value="<%= model.get('last_names') %>">
+          <small id="txtLastNamesHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtTuition">Colegiatura</label>
+          <input type="text" class="form-control" id="txtTuition" aria-describedby="txtTuitionHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese código" value="<%= model.get('tuition') %>">
+          <small id="txtTuitionHelp" class="form-text"></small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="txtEmail">Correo</label>
+          <input type="text" class="form-control" id="txtEmail" aria-describedby="txtEmailHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese email" value="<%= model.get('email') %>">
+          <small id="txtEmailHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="txtPhone">Teléfono</label>
+          <input type="text" class="form-control" id="txtPhone" aria-describedby="txtPhoneHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese teléfono" value="<%= model.get('phone') %>">
+          <small id="txtPhoneHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="txtPhone">Distrito</label>
+          <input type="text" class="form-control" id="txtPhone" aria-describedby="txtPhoneHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese teléfono" value="<%= model.get('phone') %>">
+          <small id="txtPhoneHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 20px;">
+        <div class="form-group">
+          <button id="btnSave" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-top: 12px; margin-left: 20px;" >
+            <i class="fa fa-check" style="margin-right:5px"></i>
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    imgaen
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <h6>Especialidades</h6>
+    <br>
+    <table class="table table-striped" styles="" id="specialimsTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 150px;">Nombre</th>
+          <th style="width: 80px; padding-left: 17px !important;">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1000" style="text-align:right">
+            <button <% if(disabled) { %> disabled <% } %> class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+            <input type="file" class="custom-file-input d-none" id="fileImage">
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h6>Cursos Inscritos</h6>
+    <br>
+    <table class="table table-striped" styles="" id="imageTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 150px;">Nombre</th>
+          <th style="width: 80px; padding-left: 17px !important;">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1000" style="text-align:right">
+            <button <% if(disabled) { %> disabled <% } %> class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
+            <button <% if(disabled) { %> disabled <% } %> class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+            <input type="file" class="custom-file-input d-none" id="fileImage">
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
