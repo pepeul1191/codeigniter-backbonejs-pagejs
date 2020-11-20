@@ -4,9 +4,9 @@
     <div class="alert <%= messageClass %>" id="message" role="alert" id="formTitle"><%= message %></div>
   </div>
   <div class="col-md-12">
-    <h6 style="margin-bottom:15px">Detalles del Alumno</h6>
+    <h6 style="margin-bottom:15px">Detalles del Ponente</h6>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-8">
     <div class="row">
       <div class="col-md-2">
         <div class="form-group">
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="form-group">
           <label for="txtEmail">Correo</label>
           <input type="text" class="form-control" id="txtEmail" aria-describedby="txtEmailHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese email" value="<%= model.get('email') %>">
@@ -59,25 +59,53 @@
           <small id="txtPhoneHelp" class="form-text"></small>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-2">
         <div class="form-group">
-          <label for="txtPhone">Distrito</label>
-          <input type="text" class="form-control" id="txtPhone" aria-describedby="txtPhoneHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese teléfono" value="<%= model.get('phone') %>">
-          <small id="txtPhoneHelp" class="form-text"></small>
+          <label for="txtGender">Género</label>
+          <select class="form-control" id="slcGender">
+            <option value="E"></option>
+            <option value="1">Masculino</option>
+            <option value="2">Femenino</option>
+            <option value="3">Otro</option>
+          </select>
+          <small id="slcGenderHelp" class="form-text"></small>
         </div>
       </div>
-      <div class="col-md-12" style="margin-bottom: 20px;">
+      <div class="col-md-4" id="uploadForm">
         <div class="form-group">
-          <button id="btnSave" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-top: 12px; margin-left: 20px;" >
-            <i class="fa fa-check" style="margin-right:5px"></i>
-            Guardar Cambios
+          <label for="txtPicture">Imagen Principal</label><br>
+          <button id="btnSelectPicture" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary" style="margin-top: 3px;" >  
+            <i class="fa fa-search btn-icon" aria-hidden="true"></i>
+            Archivo
           </button>
+          <input type="file" class="custom-file-input d-none" id="filePicture">
+          <button id="btnUploadPicture" <% if(disabled) { %> disabled <% } %> class="btn btn-primary" style="margin-top: 3px; margin-left: 10px;">  
+            <i class="fa fa-upload btn-icon" aria-hidden="true"></i>
+            Subir
+          </button>
+          <button id="btnViewPicture" <% if(disabled) { %> disabled <% } %> class="btn btn-success" style="margin-top: 3px; margin-left: 10px;">  
+            <i class="fa fa-picture-o btn-icon" aria-hidden="true"></i>
+            Ver
+          </button><br>
+          <small id="txtPictureHelp" class="form-text"></small>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    imgaen
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="txtResume">Resumen</label>
+      <textarea class="form-control" id="txtResume" rows="5"></textarea>
+      <small id="txtResumeHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="form-group">
+      <button id="btnSave" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-top: 12px; margin-left: 20px;" >
+        <i class="fa fa-check" style="margin-right:5px"></i>
+        Guardar Cambios
+      </button>
+    </div>
   </div>
 </div>
 <div class="row">

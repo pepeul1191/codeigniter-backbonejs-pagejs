@@ -1,37 +1,40 @@
-import Student from '../../models/student';
+import Speaker from '../../models/speaker';
 import Table from '../../libs/table';
 import ValidationForm from '../../libs/validation_form';
+import Upload from '../../libs/upload';
 import SpecialismCollection from '../../collections/specialism_collection';
+import SpeakerService from '../../services/admin/speaker_service';
 import Specialism from '../../models/specialism';
 
-var StudentDetailView = Backbone.View.extend({
+var SpeakerDetailView = Backbone.View.extend({
   el: '#workspace',
-  student: null,
+  speaker: null,
   specialismTable: null,
 	initialize: function(){
-    this.student = new Student({id:'E'});
+    this.speaker = new Speaker({id:'E'});
 	},
 	events: {
     // form
     'click #btnSave': 'save',
+    'click #btnViewPicture': 'viewPicture',
     // specialism table
     'click #specialimsTable > tfoot > tr > td > button.save-table': 'saveSpecialimsTable',
     'change #specialimsTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpecialimsTable',
   },
   render: function(data, type){
-    // this.student.unSet();???
+    // this.speaker.unSet();???
     var templateCompiled = null;
     if(type == 'new'){
-      data.model = this.student;
+      data.model = this.speaker;
       data.disabled = false;
       data.message = '';
       data.messageClass = '';
     }else{ // is edit, set model from server
       
     }
-    data.model = this.student;
+    data.model = this.speaker;
 		$.ajax({
-		  url: STATIC_URL + 'templates/admin/student_detail.html',
+		  url: STATIC_URL + 'templates/admin/speaker_detail.html',
 		  type: 'GET',
 		  async: false,
 		  success: function(resource) {
@@ -55,8 +58,8 @@ var StudentDetailView = Backbone.View.extend({
       model: Specialism, // String
       collection: new SpecialismCollection(), // Backbone collection
       services: {
-        list: BASE_URL + 'admin/student/specialism/list?student_id=' + _this.student.get('id'), // String
-        save: BASE_URL + 'admin/student/specialism/save', // String
+        list: BASE_URL + 'admin/speaker/specialism/list?speaker_id=' + _this.speaker.get('id'), // String
+        save: BASE_URL + 'admin/speaker/specialism/save', // String
       },
       extraData: null,
       observer: { // not initialize
@@ -105,34 +108,12 @@ var StudentDetailView = Backbone.View.extend({
     });
     this.specialimsTable.list();
     this.specialimsTable.extraData = {
-      student_id: _this.student_id
+      student_id: _this.speaker_id
     };
     // form
     this.form = new ValidationForm({
       el: '#form',
       entries: [
-        // code
-        {
-          id: 'txtCode',
-          help: 'txtCodeHelp',
-          validations: [
-            {
-              type: 'notEmpty',
-              message: 'Debe de ingresar el código',
-            }, 
-          ],
-        },
-        // dni
-        {
-          id: 'txtDNI',
-          help: 'txtDNIHelp',
-          validations: [
-            {
-              type: 'notEmpty',
-              message: 'Debe de ingresar el DNI',
-            }, 
-          ],
-        },
         // names
         {
           id: 'txtNames',
@@ -166,6 +147,28 @@ var StudentDetailView = Backbone.View.extend({
             }, 
           ],
         },
+        // resume
+        {
+          id: 'txtResume',
+          help: 'txtResumeHelp',
+          validations: [
+            {
+              type: 'notEmpty',
+              message: 'Debe de ingresar resumen de biografía',
+            }, 
+          ],
+        },
+         // gender
+         {
+          id: 'slcGender',
+          help: 'slcGenderHelp',
+          validations: [
+            {
+              type: 'isSelected',
+              message: 'Debe de ingresar colegiatura',
+            }, 
+          ],
+        },
         // picture
         {
           id: 'filePicture',
@@ -192,42 +195,94 @@ var StudentDetailView = Backbone.View.extend({
       },
       messageForm: 'message',
     });
+    // upload
+    this.upload = new Upload({
+      el: '#uploadForm',
+      inputFile: 'filePicture',
+      helpText: 'message',
+      buttonChoose: 'btnSelectPicture',
+      buttonUpload: 'btnUploadPicture',
+      img: 'imgPicture',
+      service: {
+        url: BASE_URL + 'upload/file',
+        formDataKey: 'file',
+        uploadMessage: 'Subiendo archivo...',
+        errorMessage: 'Ocurrió un error en subir el archivo',
+        successMessage: 'Carga completada'
+      },
+      statusClasses: { // bootstrap classes by default
+        success: 'alert-success',
+        warning: 'alert-warning',
+        danger: 'alert-danger',
+      },
+      extensions:{
+        allow: ['image/jpeg', 'image/png', 'image/jpg'],
+        message: 'Formato no válido',
+      },
+      size:{
+        allow: 600000,
+        message: 'Archivo supera el máximo permitido',
+      },
+    });
   },
   clickCheckBoxSpecialimsTable: function(event){
     this.specialimsTable.clickCheckBox(event);
   },
   saveSpecialimsTable: function(event){
-    if(this.student.get('id') != 'E'){
+    if(this.speaker.get('id') != 'E'){
       this.specialimsTable.extraData = {
-        student_id: parseInt(this.student.get('id')),
+        speaker_id: parseInt(this.speaker.get('id')),
       };
       this.specialimsTable.saveTable(event);
     }else{
       $('#message').removeClass('alert-success');
       $('#message').removeClass('alert-warning');
       $('#message').addClass('alert-danger');
-      $('#message').html('Debe registrar primero al participante');
+      $('#message').html('Debe registrar primero al ponente');
     }    
   },
   save: function(){
     this.form.check();
     if(this.form.isOk == true){
       var _this = this;
-      this.student.set('name', $('#txtName').val());
-      this.student.set('cop', $('#txtCop').val());
-      this.student.set('rne', $('#txtRne').val());
-      //var respData = DentistService.saveDetail(this.student, 'message');
+      this.speaker.set('dni', $('#txtDNI').val());
+      this.speaker.set('code', $('#txtCode').val());
+      this.speaker.set('tuition', $('#txtTuition').val());
+      this.speaker.set('names', $('#txtNames').val());
+      this.speaker.set('last_names', $('#txtLastNames').val());
+      this.speaker.set('email', $('#txtEmail').val());
+      this.speaker.set('phone', $('#txtPhone').val());
+      this.speaker.set('gender_id', $('#slcGender').val());
+      this.speaker.set('picture_url', this.upload.path);
+      this.speaker.set('resume', $('#txtResume').val());
+      var respData = SpeakerService.saveDetail(this.speaker, 'message');
       if(respData.status == 200){
         if(respData.message == ''){
           // is a edited
         }else{
           // is a created, change title and set modelId
-          this.student.set('id', respData.message);
+          this.speaker.set('id', respData.message);
           $('#formTitle').html('Editar participante');
         }
       }
     }
   },
+  viewPicture: function(e){
+    console.log(this.upload.path)
+    if(
+      (this.upload.path != '' && this.upload.url != '') && 
+      (this.upload.path !== 'undefined' && this.upload.url !== 'undefined') && 
+      (this.upload.path != null && this.upload.url != null)
+    ){
+      var win = window.open(this.upload.url + this.upload.path, '_blank');
+      win.focus();
+    }else{
+      $('#message').removeClass('alert-success');
+      $('#message').removeClass('alert-danger');
+      $('#message').addClass('alert-warning');
+      $('#message').html('Debe subir primero la imagen');
+    }
+  },
 });
 
-export default StudentDetailView;
+export default SpeakerDetailView;

@@ -2,7 +2,7 @@ import Table from '../../libs/table';
 import SpecialismCollection from '../../collections/specialism_collection';
 import Specialism from '../../models/specialism';
 
-var AdminSpecialismView = Backbone.View.extend({
+var SpecialismView = Backbone.View.extend({
   el: '#workspace',
   specialismTable: null,
 	initialize: function(){
@@ -99,4 +99,4 @@ var AdminSpecialismView = Backbone.View.extend({
   },
 });
 
-export default AdminSpecialismView;
+export default SpecialismView;

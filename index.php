@@ -305,6 +305,7 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 	define('DBPATH', getcwd() . DIRECTORY_SEPARATOR . 'db' . DIRECTORY_SEPARATOR);
+	define('UPLOAD_PATH', getcwd() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR);
 
 /*
  * --------------------------------------------------------------------
