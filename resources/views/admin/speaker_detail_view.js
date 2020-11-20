@@ -21,16 +21,40 @@ var SpeakerDetailView = Backbone.View.extend({
     'click #specialimsTable > tfoot > tr > td > button.save-table': 'saveSpecialimsTable',
     'change #specialimsTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpecialimsTable',
   },
-  render: function(data, type){
+  render: function(data, type, speaker_id){
     // this.speaker.unSet();???
     var templateCompiled = null;
+    var resp = null;
     if(type == 'new'){
       data.model = this.speaker;
       data.disabled = false;
       data.message = '';
       data.messageClass = '';
-    }else{ // is edit, set model from server
-      
+    }else{
+      resp = SpeakerService.getDetail(speaker_id);
+      if(resp.status == 200){
+        this.speaker.set('id', resp.message.id);
+        this.speaker.set('dni', resp.message.dni);
+        this.speaker.set('code', resp.message.code);
+        this.speaker.set('tuition', resp.message.tuition);
+        this.speaker.set('names', resp.message.names);
+        this.speaker.set('last_names', resp.message.last_names);
+        this.speaker.set('email', resp.message.email);
+        this.speaker.set('phone', resp.message.phone);
+        this.speaker.set('gender_id', resp.message.gender_id);
+        this.speaker.set('picture_url', resp.message.picture_url);
+        this.speaker.set('resume', resp.message.resume);
+        data.disabled = false;
+        data.message = '';
+        data.messageClass = '';
+      }else if(resp.status == 404){
+        data.message = 'Recurso que busca no encontrado';
+        data.messageClass = 'alert-warning';
+      }else if(resp.status == 501){
+        data.message = 'Ocurrió un error controlado al recuperar los datos del ponente a editar';
+      }else{
+        data.message = 'Ocurrió un error no controlado al recuperar los datos del ponente a editar';
+      }
     }
     data.model = this.speaker;
 		$.ajax({
@@ -39,7 +63,7 @@ var SpeakerDetailView = Backbone.View.extend({
 		  async: false,
 		  success: function(resource) {
         var template = _.template(resource);
-        // console.log(data)
+         // console.log(data)
         templateCompiled = template(data);
       },
       error: function(xhr, status, error){
@@ -47,7 +71,7 @@ var SpeakerDetailView = Backbone.View.extend({
 				console.log(JSON.parse(xhr.responseText));
       }
 		});
-		this.$el.html(templateCompiled);
+    this.$el.html(templateCompiled);
   },
   loadComponents: function(){
     var _this = this;
@@ -282,6 +306,24 @@ var SpeakerDetailView = Backbone.View.extend({
       $('#message').addClass('alert-warning');
       $('#message').html('Debe subir primero la imagen');
     }
+  },
+  setComponentsData: function(){
+    this.upload.path = this.speaker.get('picture_url');
+    this.upload.url = STATIC_URL;
+    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?id=' + this.speaker.get('id');
+    this.specialimsTable.list();
+    this.specialimsTable.extraData = {
+      speaker_id: this.speaker.get('id'),
+    };
+  },
+  unSetComponentsData: function(){
+    this.upload.path = null;
+    this.upload.url = STATIC_URL;
+    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?id=0';
+    this.specialimsTable.list();
+    this.specialimsTable.extraData = {
+      speaker_id: this.speaker.get('id'),
+    };
   },
 });
 

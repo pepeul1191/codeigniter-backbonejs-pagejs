@@ -65,7 +65,7 @@ var SpeakerService = {
     var resp = {};
     $.ajax({
       type: 'GET',
-      url: BASE_URL + 'admin/branch/get',
+      url: BASE_URL + 'admin/speaker/get',
       data: {
         id: id,
       },

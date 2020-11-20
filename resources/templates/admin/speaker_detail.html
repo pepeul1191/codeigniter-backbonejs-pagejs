@@ -62,11 +62,11 @@
       <div class="col-md-2">
         <div class="form-group">
           <label for="txtGender">Género</label>
-          <select class="form-control" id="slcGender">
+          <select class="form-control" id="slcGender" <% if(disabled) { %> disabled <% } %>>
             <option value="E"></option>
-            <option value="1">Masculino</option>
-            <option value="2">Femenino</option>
-            <option value="3">Otro</option>
+            <option value="1" <% if(model.get('gender_id') == 1) { %> selected <% } %> >Masculino</option>
+            <option value="2" <% if(model.get('gender_id') == 2) { %> selected <% } %>>Femenino</option>
+            <option value="3" <% if(model.get('gender_id') == 3) { %> selected <% } %>>Otro</option>
           </select>
           <small id="slcGenderHelp" class="form-text"></small>
         </div>
@@ -95,7 +95,7 @@
   <div class="col-md-4">
     <div class="form-group">
       <label for="txtResume">Resumen</label>
-      <textarea class="form-control" id="txtResume" rows="5"></textarea>
+      <textarea class="form-control" id="txtResume" rows="5"><%= model.get('resume') %></textarea>
       <small id="txtResumeHelp" class="form-text"></small>
     </div>
   </div>

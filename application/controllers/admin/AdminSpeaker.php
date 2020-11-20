@@ -208,7 +208,7 @@ class AdminSpeaker extends CI_Controller
 				foreach ($edits as &$edit) {
           $specialism_id = $edit->{'id'};
           $exist = $edit->{'exist'};
-          $e = \Model::factory('\Models\SpecialismSpeaker', 'classroom', 'coa')
+          $e = \Model::factory('\Models\SpecialismSpeaker', 'classroom')
             ->where('specialism_id', $specialism_id)
             ->where('speaker_id', $speaker_id)
             ->find_one();
@@ -218,7 +218,7 @@ class AdminSpeaker extends CI_Controller
             }
           }else{
             if($e == false){
-              $n = \Model::factory('\Models\SpecialismSpeaker', 'classroom', 'coa')->create();
+              $n = \Model::factory('\Models\SpecialismSpeaker', 'classroom')->create();
               $n->specialism_id = $specialism_id;
               $n->speaker_id = $speaker_id;
               $n->save();
@@ -238,6 +238,35 @@ class AdminSpeaker extends CI_Controller
     $this->output
       ->set_status_header($status)
       ->set_output($resp_data);
+  }
+
+  public function get()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    $rpta = '';
+    $status = 200;
+    try {
+      $rs = \Model::factory('\Models\Speaker', 'classroom')
+        ->where('id', $this->input->get('id'))
+        ->find_one();
+      if($rs == false){
+        $rpta = json_encode(['ups', 'Ponente no encontrado']);
+        $status = 404;
+      }else{
+        $rs = $rs->as_array();
+        $rpta = json_encode($rs);
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      $rpta = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($rpta);
   }
 }
 
