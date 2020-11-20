@@ -67,7 +67,7 @@ a > i {
 .row:nth-child(2) { 
   color: #999;
   padding-top: 20px;
-  background-color: var(--primary-color);
+  background-color: var(--bg-primary);
   color: var(--nav-primary-color);
 }
 
