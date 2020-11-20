@@ -1,24 +1,24 @@
 import Table from '../../libs/table';
-import SpeakerCollection from '../../collections/speaker_collection';
-import Speaker from '../../models/speaker';
+import EventCollection from '../../collections/event_collection';
+import Event from '../../models/event';
 
-var SpeakerView = Backbone.View.extend({
+var EventView = Backbone.View.extend({
   el: '#workspace',
-  speakerTable: null,
+  eventTable: null,
 	initialize: function(){
     console.log('teacher - initialize');
 	},
 	events: {
     // table departmentTable events
-    'click #speakerTable > tbody > tr > td > i.delete': 'deleteRowSpeaker',
-    'keyup #speakerTable > tbody > tr > td > input.text': 'inputTextSpeaker',
-    'click #speakerTable > tfoot > tr > td > button.add-row': 'addRowSpeaker',
-    'click #speakerTable > tfoot > tr > td > button.save-table': 'saveTableSpeaker',
+    'click #eventTable > tbody > tr > td > i.delete': 'deleteRowEvent',
+    'keyup #eventTable > tbody > tr > td > input.text': 'inputTextEvent',
+    'click #eventTable > tfoot > tr > td > button.add-row': 'addRowEvent',
+    'click #eventTable > tfoot > tr > td > button.save-table': 'saveTableEvent',
     // pagination departmentTable
-    'click #speakerTable > tfoot > tr > td > #btnGoBegin': 'goBegin',
-    'click #speakerTable > tfoot > tr > td > #btnGoPrevious': 'goPrevious',
-    'click #speakerTable > tfoot > tr > td > #btnGoNext': 'goNext',
-    'click #speakerTable > tfoot > tr > td > #btnGoLast': 'goLast',
+    'click #eventTable > tfoot > tr > td > #btnGoBegin': 'goBegin',
+    'click #eventTable > tfoot > tr > td > #btnGoPrevious': 'goPrevious',
+    'click #eventTable > tfoot > tr > td > #btnGoNext': 'goNext',
+    'click #eventTable > tfoot > tr > td > #btnGoLast': 'goLast',
     // search params
     'click #btnSearch': 'search',
     'click #btnClean': 'clean',
@@ -26,7 +26,7 @@ var SpeakerView = Backbone.View.extend({
   render: function(data, type){
 		var templateCompiled = null;
 		$.ajax({
-		  url: STATIC_URL + 'templates/admin/speaker.html',
+		  url: STATIC_URL + 'templates/admin/event.html',
 		  type: 'GET',
 		  async: false,
 		  success: function(resource) {
@@ -41,14 +41,14 @@ var SpeakerView = Backbone.View.extend({
 		this.$el.html(templateCompiled);
   },
   loadComponents: function(){
-    this.speakerTable = new Table({
-      el: 'speakerTable', // String
+    this.eventTable = new Table({
+      el: 'eventTable', // String
       messageLabelId: 'message', // String
-      model: Speaker, // String
-      collection: new SpeakerCollection(), // Backbone collection
+      model: Event, // String
+      collection: new EventCollection(), // Backbone collection
       services: {
-        list: BASE_URL + 'admin/speaker/list', // String
-        save: BASE_URL + 'admin/speaker/delete', // String
+        list: BASE_URL + 'admin/event/list', // String
+        save: BASE_URL + 'admin/event/delete', // String
       },
       extraData: null,
       observer: { // not initialize
@@ -57,17 +57,17 @@ var SpeakerView = Backbone.View.extend({
       delete: [],
       },
       messages: {
-        list500: 'Ocurrió un error no esperado en listar los ponentes',
-        list501: 'Ocurrió un error en listar los ponentes',
-        list404: 'Recurso no encontrado - listar ponentes',
+        list500: 'Ocurrió un error no esperado en listar los eventos',
+        list501: 'Ocurrió un error en listar los eventos',
+        list404: 'Recurso no encontrado - listar eventos',
         save500: 'Ocurrió un error no esperado en grabar los cambios',
         save501: 'Ocurrió un error en grabar los cambios',
-        save404: 'Recurso no encontrado - guardar ponentes',
+        save404: 'Recurso no encontrado - guardar eventos',
         save200: 'Participantes actualizadas',
       },
-      serverKeys: ['id', 'name', 'dni', 'code', 'tuition'],
+      serverKeys: ['id', 'name', 'code', ],
       row: {
-        table: ['id', 'name', 'dni', 'code', 'tuition'],
+        table: ['id', 'name', 'code', ],
         tds: [
           { // id
             type: 'tdId',
@@ -81,23 +81,11 @@ var SpeakerView = Backbone.View.extend({
             edit: true,
             key: 'name',
           },
-          { // dni
-            type: 'td',
-            styles: '', 
-            edit: true,
-            key: 'dni',
-          },
           { // code
             type: 'td',
             styles: '', 
             edit: true,
             key: 'code',
-          },
-          { // tuition
-            type: 'td',
-            styles: '', 
-            edit: true,
-            key: 'tuition',
           },
         ],
         buttons: [
@@ -106,7 +94,7 @@ var SpeakerView = Backbone.View.extend({
             operation: '',
             class: 'fa-pencil',
             styles: 'padding-left: 0px;',
-            url: '/admin/speaker/edit/{0}',
+            url: '/admin/event/edit/{0}',
             keysFormat: ['id', 'names', ],
           },
           {
@@ -136,33 +124,31 @@ var SpeakerView = Backbone.View.extend({
         pageNumber: null,
       },
     });
-    this.speakerTable.list();
+    this.eventTable.list();
   },
-  deleteRowSpeaker: function(event){
-    this.speakerTable.deleteRow(event);
+  deleteRowEvent: function(event){
+    this.eventTable.deleteRow(event);
   },
-  saveTableSpeaker: function(event){
-    this.speakerTable.saveTable(event);
+  saveTableEvent: function(event){
+    this.eventTable.saveTable(event);
   },
   // pagination
   goBegin: function(event){
-    this.speakerTable.goBegin();
+    this.eventTable.goBegin();
   },
   goPrevious: function(event){
-    this.speakerTable.goPrevious();
+    this.eventTable.goPrevious();
   },
   goNext: function(event){
-    this.speakerTable.goNext();
+    this.eventTable.goNext();
   },
   goLast: function(event){
-    this.speakerTable.goLast();
+    this.eventTable.goLast();
   },
   search: function(event){
     // data
     var name = $('#txtName').val();
     var code = $('#txtCode').val();
-    var dni = $('#txtDNI').val();
-    var tuition = $('#txtTuition').val();
     // build url
     var base = BASE_URL + 'admin/speaker/list?';
     if(name != ''){
@@ -171,26 +157,18 @@ var SpeakerView = Backbone.View.extend({
     if(code != ''){
       base = base + 'code=' + code + '&';
     }
-    if(dni != ''){
-      base = base + 'dni=' + dni + '&';
-    }
-    if(tuition != ''){
-      base = base + 'tuition=' + tuition + '&';
-    }
-    this.speakerTable.services.list = base;
-    this.speakerTable.list();
+    this.eventTable.services.list = base;
+    this.eventTable.list();
   },
   clean: function(event){
     // data
     $('#txtName').val('');
-    $('#txtDNI').val('');
-    $('#txtTuition').val('');
     $('#txtCode').val('');
     // build url
-    var base = BASE_URL + 'admin/speaker/list?';
-    this.speakerTable.services.list = base;
-    this.speakerTable.list();
+    var base = BASE_URL + 'admin/event/list?';
+    this.eventTable.services.list = base;
+    this.eventTable.list();
   },
 });
 
-export default SpeakerView;
+export default EventView;

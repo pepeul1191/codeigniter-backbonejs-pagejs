@@ -73,7 +73,7 @@
             <a class="nav-link" href="/admin/speaker">Ponentes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/technologies">Eventos</a>
+            <a class="nav-link" href="/admin/event">Eventos</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

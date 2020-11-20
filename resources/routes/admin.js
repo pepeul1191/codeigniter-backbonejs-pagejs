@@ -1,10 +1,11 @@
 import 'bootstrap/dist/js/bootstrap.min.js';
 import AdminStudentView from '../views/admin/student_view';
 import StudentDetailView from '../views/admin/student_detail_view';
-import SpeakerrView from '../views/admin/speaker_view';
+import SpeakerView from '../views/admin/speaker_view';
 import LocationView from '../views/admin/location_view';
 import SpecialismView from '../views/admin/specialism_view';
 import SpeakerDetailView from '../views/admin/speaker_detail_view';
+import EventView from '../views/admin/event_view';
 // views
 var specialismView = null;
 var locationView = null;
@@ -13,6 +14,8 @@ var studentView = null;
 var studentDetailView = null;
 var speakerView = null;
 var speakerDetailView = null;
+var eventView = null;
+var eventDetailView = null;
 // routes
 page.base('/admin');
 page('', loading, index);
@@ -23,6 +26,7 @@ page('/student/new', studentNew, closeToggle);
 page('/speaker', speaker, closeToggle);
 page('/speaker/new', speakerNew, closeToggle);
 page('/speaker/edit/:speaker_id', speakerEdit, closeToggle);
+page('/event', event, closeToggle);
 // page('*', notfound)
 page();
 
@@ -78,9 +82,11 @@ function studentNew(ctx, next) {
 }
 
 function speaker(ctx, next) {
-  var speakerrView = new SpeakerrView();
-  speakerrView.render();
-  speakerrView.loadComponents();
+  if(speakerView == null){
+    speakerView = new SpeakerView();
+  }
+  speakerView.render();
+  speakerView.loadComponents();
 }
 
 function speakerNew(ctx, next) {
@@ -118,6 +124,13 @@ function speakerEdit(ctx, next) {
   next();
 }
 
+function event(ctx, next) {
+  if(eventView == null){
+    eventView = new EventView();
+  }
+  eventView.render();
+  eventView.loadComponents();
+}
 function closeToggle(ctx, next){
   if($('#navbarSupportedContent').hasClass('show')){
     $('#burgerMenuButton').click();

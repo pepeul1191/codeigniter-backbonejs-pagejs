@@ -70,6 +70,8 @@ $route['admin/student/new']['GET'] = 'admin/adminIndex/index';
 $route['admin/speaker']['GET'] = 'admin/adminIndex/index';
 $route['admin/speaker/new']['GET'] = 'admin/adminIndex/index';
 $route['admin/speaker/edit/(:num)']['GET'] = 'admin/adminIndex/index';
+$route['admin/event']['GET'] = 'admin/adminIndex/index';
+$route['admin/event/new']['GET'] = 'admin/adminIndex/index';
   # admin loctions
 $route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';
 $route['admin/department/save']['POST'] = 'admin/AdminDepartment/save';

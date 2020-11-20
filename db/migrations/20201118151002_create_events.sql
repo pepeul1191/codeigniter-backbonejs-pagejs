@@ -10,6 +10,7 @@ CREATE TABLE events (
   gift VARCHAR(40),
   description	TEXT,
   event_type_id	INT,
+  code INT,
   FOREIGN KEY (event_type_id) REFERENCES event_types(id) ON DELETE CASCADE
 );
 
