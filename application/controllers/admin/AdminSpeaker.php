@@ -13,7 +13,7 @@ class AdminSpeaker extends CI_Controller
     $status = 200;
     try {
       $rs = array();
-      $stmt = \Model::factory('\Models\Student', 'classroom')
+      $stmt = \Model::factory('\Models\Speaker', 'classroom')
         ->select('id')
         ->select('names')
         ->select('last_names')

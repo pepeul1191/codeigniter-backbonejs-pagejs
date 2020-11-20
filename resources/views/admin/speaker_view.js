@@ -9,6 +9,19 @@ var SpeakerView = Backbone.View.extend({
     console.log('teacher - initialize');
 	},
 	events: {
+    // table departmentTable events
+    'click #speakerTable > tbody > tr > td > i.delete': 'deleteRowDentist',
+    'keyup #speakerTable > tbody > tr > td > input.text': 'inputTextDentist',
+    'click #speakerTable > tfoot > tr > td > button.add-row': 'addRowDentist',
+    'click #speakerTable > tfoot > tr > td > button.save-table': 'saveTableDentist',
+    // pagination departmentTable
+    'click #speakerTable > tfoot > tr > td > #btnGoBegin': 'goBegin',
+    'click #speakerTable > tfoot > tr > td > #btnGoPrevious': 'goPrevious',
+    'click #speakerTable > tfoot > tr > td > #btnGoNext': 'goNext',
+    'click #speakerTable > tfoot > tr > td > #btnGoLast': 'goLast',
+    // search params
+    'click #btnSearch': 'search',
+    'click #btnClean': 'clean',
   },
   render: function(data, type){
 		var templateCompiled = null;
