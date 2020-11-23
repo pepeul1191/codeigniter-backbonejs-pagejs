@@ -62,8 +62,8 @@ CREATE TABLE `events` (
   `name` varchar(50) NOT NULL,
   `hours` int(11) NOT NULL,
   `picture_url` varchar(100) DEFAULT NULL,
-  `init_date` datetime NOT NULL,
-  `init_hour` datetime NOT NULL,
+  `init_date` date NOT NULL,
+  `init_hour` time NOT NULL,
   `gift` varchar(40) DEFAULT NULL,
   `description` text,
   `event_type_id` int(11) DEFAULT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE `speakers` (
   PRIMARY KEY (`id`),
   KEY `gender_id` (`gender_id`),
   CONSTRAINT `speakers_ibfk_1` FOREIGN KEY (`gender_id`) REFERENCES `genders` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +167,7 @@ CREATE TABLE `specialisms_speakers` (
   KEY `specialism_id` (`specialism_id`),
   CONSTRAINT `specialisms_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `specialisms_speakers_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

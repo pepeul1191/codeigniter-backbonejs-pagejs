@@ -1,60 +1,49 @@
-import Speaker from '../../models/speaker';
 import Table from '../../libs/table';
 import ValidationForm from '../../libs/validation_form';
 import Upload from '../../libs/upload';
-import SpecialismCollection from '../../collections/specialism_collection';
-import SpeakerService from '../../services/admin/speaker_service';
-import Specialism from '../../models/specialism';
+import SpeakerCollection from '../../collections/speaker_collection';
+import EventService from '../../services/admin/event_service';
+import Speaker from '../../models/speaker';
+import Event from '../../models/event';
 
-var SpeakerDetailView = Backbone.View.extend({
+var EventDetailView = Backbone.View.extend({
   el: '#workspace',
-  speaker: null,
-  specialismTable: null,
+  event: null,
+  eventTable: null,
 	initialize: function(){
-    this.speaker = new Speaker({id:'E'});
+    this.event = new Event({id:'E'});
 	},
 	events: {
     // form
     'click #btnSave': 'save',
     'click #btnViewPicture': 'viewPicture',
     // specialism table
-    'click #specialimsTable > tfoot > tr > td > button.save-table': 'saveSpecialimsTable',
-    'change #specialimsTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpecialimsTable',
+    'click #speakerTable > tfoot > tr > td > button.save-table': 'saveSpeakersTable',
+    'change #speakerTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpeakersTable',
   },
   render: function(data, type, speaker_id){
-    // this.speaker.unSet();???
+    // this.event.unSet();???
     var templateCompiled = null;
     var resp = null;
     if(type == 'new'){
-      this.speaker.set('id', 'E');
-      this.speaker.set('dni', '');
-      this.speaker.set('code', '');
-      this.speaker.set('tuition', '');
-      this.speaker.set('names', '');
-      this.speaker.set('last_names', '');
-      this.speaker.set('email', '');
-      this.speaker.set('phone', '');
-      this.speaker.set('gender_id', '');
-      this.speaker.set('picture_url', '');
-      this.speaker.set('resume', '');
-      data.model = this.speaker;
+      data.model = this.event;
       data.disabled = false;
       data.message = '';
       data.messageClass = '';
     }else{
       resp = SpeakerService.getDetail(speaker_id);
       if(resp.status == 200){
-        this.speaker.set('id', resp.message.id);
-        this.speaker.set('dni', resp.message.dni);
-        this.speaker.set('code', resp.message.code);
-        this.speaker.set('tuition', resp.message.tuition);
-        this.speaker.set('names', resp.message.names);
-        this.speaker.set('last_names', resp.message.last_names);
-        this.speaker.set('email', resp.message.email);
-        this.speaker.set('phone', resp.message.phone);
-        this.speaker.set('gender_id', resp.message.gender_id);
-        this.speaker.set('picture_url', resp.message.picture_url);
-        this.speaker.set('resume', resp.message.resume);
+        this.event.set('id', resp.message.id);
+        this.event.set('hours', resp.message.hours);
+        this.event.set('name', resp.message.name);
+        this.event.set('picture_url', resp.message.picture_url);
+        this.event.set('init_date', resp.message.init_date);
+        this.event.set('init_hour', resp.message.init_hour);
+        this.event.set('email', resp.message.email);
+        this.event.set('git', resp.message.git);
+        this.event.set('event_type_id', resp.message.event_type_id);
+        this.event.set('description', resp.message.description);
+        this.event.set('code', resp.message.code);
         data.disabled = false;
         data.message = '';
         data.messageClass = '';
@@ -62,14 +51,14 @@ var SpeakerDetailView = Backbone.View.extend({
         data.message = 'Recurso que busca no encontrado';
         data.messageClass = 'alert-warning';
       }else if(resp.status == 501){
-        data.message = 'Ocurrió un error controlado al recuperar los datos del ponente a editar';
+        data.message = 'Ocurrió un error controlado al recuperar los datos del evento a editar';
       }else{
-        data.message = 'Ocurrió un error no controlado al recuperar los datos del ponente a editar';
+        data.message = 'Ocurrió un error no controlado al recuperar los datos del evento a editar';
       }
     }
-    data.model = this.speaker;
+    data.model = this.event;
 		$.ajax({
-		  url: STATIC_URL + 'templates/admin/speaker_detail.html',
+		  url: STATIC_URL + 'templates/admin/event_detail.html',
 		  type: 'GET',
 		  async: false,
 		  success: function(resource) {
@@ -86,15 +75,15 @@ var SpeakerDetailView = Backbone.View.extend({
   },
   loadComponents: function(){
     var _this = this;
-    // specialimsTable
-    this.specialimsTable = new Table({
-      el: 'specialimsTable', // String
+    // speakerTable
+    this.speakerTable = new Table({
+      el: 'speakerTable', // String
       messageLabelId: 'message', // String
-      model: Specialism, // String
-      collection: new SpecialismCollection(), // Backbone collection
+      model: Speaker, // String
+      collection: new SpeakerCollection(), // Backbone collection
       services: {
-        list: BASE_URL + 'admin/speaker/specialism/list?speaker_id=' + _this.speaker.get('id'), // String
-        save: BASE_URL + 'admin/speaker/specialism/save', // String
+        list: BASE_URL + 'admin/event/speaker/list?event_id=' + _this.event.get('id'), // String
+        save: BASE_URL + 'admin/event/speaker/save', // String
       },
       extraData: null,
       observer: { // not initialize
@@ -103,13 +92,13 @@ var SpeakerDetailView = Backbone.View.extend({
       delete: [],
       },
       messages: {
-        list500: 'Ocurrió un error no esperado en listar las especialidades',
-        list501: 'Ocurrió un error en listar las especialidades',
-        list404: 'Recurso no encontrado - listar especialidades',
+        list500: 'Ocurrió un error no esperado en listar las ponentes',
+        list501: 'Ocurrió un error en listar las ponentes',
+        list404: 'Recurso no encontrado - listar ponentes',
         save500: 'Ocurrió un error no esperado en grabar los cambios',
         save501: 'Ocurrió un error en grabar los cambios',
-        save404: 'Recurso no encontrado - guardar especialidades',
-        save200: 'Especialdiades del particpante actualizadas',
+        save404: 'Recurso no encontrado - guardar ponentes',
+        save200: 'Ponentes del evento actualizados',
       },
       serverKeys: ['id', 'name', 'exist'],
       row: {
@@ -141,66 +130,77 @@ var SpeakerDetailView = Backbone.View.extend({
         buttons: [],
       },
     });
-    this.specialimsTable.list();
-    this.specialimsTable.extraData = {
-      student_id: _this.speaker_id
+    this.speakerTable.list();
+    this.speakerTable.extraData = {
+      event_id: _this.event_id
     };
     // form
     this.form = new ValidationForm({
       el: '#form',
       entries: [
-        // names
+        // name
         {
-          id: 'txtNames',
-          help: 'txtNamesHelp',
+          id: 'txtName',
+          help: 'txtNameHelp',
           validations: [
             {
               type: 'notEmpty',
-              message: 'Debe de ingresar los nombres',
+              message: 'Debe de ingresar el nombre',
             }, 
           ],
         },
-        // last names
+        // hours
         {
-          id: 'txtLastNames',
-          help: 'txtLastNamesHelp',
+          id: 'txtHours',
+          help: 'txtHoursHelp',
           validations: [
             {
               type: 'notEmpty',
-              message: 'Debe de ingresar los apellidos',
+              message: 'Debe de ingresar las horas',
             }, 
           ],
         },
-        // tuition
+        // hours
         {
-          id: 'txtTuition',
-          help: 'txtTuitionHelp',
+          id: 'txtInitHour',
+          help: 'txtInitHourHelp',
           validations: [
             {
               type: 'notEmpty',
-              message: 'Debe de ingresar colegiatura',
+              message: 'Debe de ingresar hora de inicio',
             }, 
           ],
         },
-        // resume
+        // dates
         {
-          id: 'txtResume',
-          help: 'txtResumeHelp',
+          id: 'txtInitDate',
+          help: 'txtInitDateHelp',
           validations: [
             {
               type: 'notEmpty',
-              message: 'Debe de ingresar resumen de biografía',
+              message: 'Debe de ingresar fecha de inicio',
             }, 
           ],
         },
-         // gender
+         // event type
          {
-          id: 'slcGender',
-          help: 'slcGenderHelp',
+          id: 'slcEventType',
+          help: 'slcEventTypeHelp',
           validations: [
             {
               type: 'isSelected',
-              message: 'Debe de ingresar colegiatura',
+              message: 'Debe de seleccionar tipo de evento',
+            }, 
+          ],
+        },
+        // description
+        {
+          id: 'txtDescription',
+          help: 'txtDescriptionHelp',
+          validations: [
+            {
+              type: 'notEmpty',
+              message: 'Debe de ingresar descripción del evento',
             }, 
           ],
         },
@@ -260,43 +260,43 @@ var SpeakerDetailView = Backbone.View.extend({
       },
     });
   },
-  clickCheckBoxSpecialimsTable: function(event){
-    this.specialimsTable.clickCheckBox(event);
+  clickCheckBoxspeakerTable: function(event){
+    this.speakerTable.clickCheckBox(event);
   },
-  saveSpecialimsTable: function(event){
-    if(this.speaker.get('id') != 'E'){
-      this.specialimsTable.extraData = {
-        speaker_id: parseInt(this.speaker.get('id')),
+  savespeakerTable: function(event){
+    if(this.event.get('id') != 'E'){
+      this.speakerTable.extraData = {
+        speaker_id: parseInt(this.event.get('id')),
       };
-      this.specialimsTable.saveTable(event);
+      this.speakerTable.saveTable(event);
     }else{
       $('#message').removeClass('alert-success');
       $('#message').removeClass('alert-warning');
       $('#message').addClass('alert-danger');
-      $('#message').html('Debe registrar primero al ponente');
+      $('#message').html('Debe registrar primero al evento');
     }    
   },
   save: function(){
     this.form.check();
     if(this.form.isOk == true){
       var _this = this;
-      this.speaker.set('dni', $('#txtDNI').val());
-      this.speaker.set('code', $('#txtCode').val());
-      this.speaker.set('tuition', $('#txtTuition').val());
-      this.speaker.set('names', $('#txtNames').val());
-      this.speaker.set('last_names', $('#txtLastNames').val());
-      this.speaker.set('email', $('#txtEmail').val());
-      this.speaker.set('phone', $('#txtPhone').val());
-      this.speaker.set('gender_id', $('#slcGender').val());
-      this.speaker.set('picture_url', this.upload.path);
-      this.speaker.set('resume', $('#txtResume').val());
-      var respData = SpeakerService.saveDetail(this.speaker, 'message');
+      this.event.set('dni', $('#txtDNI').val());
+      this.event.set('code', $('#txtCode').val());
+      this.event.set('name', $('#txtName').val());
+      this.event.set('hours', $('#txtHours').val());
+      this.event.set('init_hour', $('#txtInitHour').val());
+      this.event.set('init_date', $('#txtInitDate').val());
+      this.event.set('gift', $('#txtGift').val());
+      this.event.set('event_type_id', $('#slcEventType').val());
+      this.event.set('picture_url', this.upload.path);
+      this.event.set('description', $('#txtDescription').val());
+      var respData = EventService.saveDetail(this.event, 'message');
       if(respData.status == 200){
         if(respData.message == ''){
           // is a edited
         }else{
           // is a created, change title and set modelId
-          //this.speaker.set('id', respData.message);
+          this.event.set('id', respData.message);
           $('#formTitle').html('Editar participante');
         }
       }
@@ -319,23 +319,23 @@ var SpeakerDetailView = Backbone.View.extend({
     }
   },
   setComponentsData: function(){
-    this.upload.path = this.speaker.get('picture_url');
+    this.upload.path = this.event.get('picture_url');
     this.upload.url = STATIC_URL;
-    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?id=' + this.speaker.get('id');
-    this.specialimsTable.list();
-    this.specialimsTable.extraData = {
-      speaker_id: this.speaker.get('id'),
+    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?id=' + this.event.get('id');
+    this.speakerTable.list();
+    this.speakerTable.extraData = {
+      event_id: this.event.get('id'),
     };
   },
   unSetComponentsData: function(){
     this.upload.path = null;
     this.upload.url = STATIC_URL;
-    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?id=0';
-    this.specialimsTable.list();
-    this.specialimsTable.extraData = {
-      speaker_id: this.speaker.get('id'),
+    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?id=0';
+    this.speakerTable.list();
+    this.speakerTable.extraData = {
+      event_id: this.event.get('id'),
     };
   },
 });
 
-export default SpeakerDetailView;
+export default EventDetailView;

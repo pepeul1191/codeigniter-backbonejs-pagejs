@@ -5,6 +5,7 @@ import SpeakerView from '../views/admin/speaker_view';
 import LocationView from '../views/admin/location_view';
 import SpecialismView from '../views/admin/specialism_view';
 import SpeakerDetailView from '../views/admin/speaker_detail_view';
+import EventDetailView from '../views/admin/event_detail_view';
 import EventView from '../views/admin/event_view';
 // views
 var specialismView = null;
@@ -27,6 +28,7 @@ page('/speaker', speaker, closeToggle);
 page('/speaker/new', speakerNew, closeToggle);
 page('/speaker/edit/:speaker_id', speakerEdit, closeToggle);
 page('/event', event, closeToggle);
+page('/event/new', eventNew, closeToggle);
 // page('*', notfound)
 page();
 
@@ -131,6 +133,24 @@ function event(ctx, next) {
   eventView.render();
   eventView.loadComponents();
 }
+
+function eventNew(ctx, next) {
+  var data = {
+    title: 'Agregar Ponente',
+    id: 'E',
+    messageClass: '',
+    disabled: false,
+  };
+  var type = 'new';
+  if(eventDetailView == null){
+    eventDetailView = new EventDetailView();
+  }
+  eventDetailView.render(data, type);
+  eventDetailView.loadComponents();
+  eventDetailView.unSetComponentsData();
+  next();
+}
+
 function closeToggle(ctx, next){
   if($('#navbarSupportedContent').hasClass('show')){
     $('#burgerMenuButton').click();

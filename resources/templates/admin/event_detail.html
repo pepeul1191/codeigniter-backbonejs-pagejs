@@ -1,0 +1,147 @@
+<h5><%= title %></h5>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert <%= messageClass %>" id="message" role="alert" id="formTitle"><%= message %></div>
+  </div>
+  <div class="col-md-12">
+    <h6 style="margin-bottom:15px">Detalles del Evento</h6>
+  </div>
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtCode">Código</label>
+          <input type="text" class="form-control" id="txtCode" aria-describedby="txtCodeHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese código" value="<%= model.get('code') %>">
+          <small id="txtCodeHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="txtName">Nombre</label>
+          <input type="text" class="form-control" id="txtName" aria-describedby="txtNameHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese nombres" value="<%= model.get('name') %>">
+          <small id="txtNameHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtHours">Duración</label>
+          <input type="number" class="form-control" id="txtHours" min="1" max="60" aria-describedby="txtHoursHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese Duración en Horas" value="<%= model.get('hours') %>">
+          <small id="txtHoursHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtInitHour">Hora Inicio (HH:mm)</label>
+          <input type="time" class="form-control" id="txtInitHour" aria-describedby="txtInitHourHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese Duración en Horas" value="<%= model.get('init_hour') %>">
+          <small id="txtInitHourHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtInitDate">Fecha de Inicio</label>
+          <input type="date" class="form-control" id="txtInitDate" aria-describedby="txtInitDateHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese fecha de inicio" value="<%= model.get('init_date') %>">
+          <small id="txtInitDateHelp" class="form-text"></small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="txtGift">Regalo</label>
+          <input type="text" class="form-control" id="txtGift" aria-describedby="txtGiftHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese regalo(opcional)" value="<%= model.get('gift') %>">
+          <small id="txtGiftHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="txtGender">Tipo de Evento</label>
+          <select class="form-control" id="slcEventType" <% if(disabled) { %> disabled <% } %>>
+            <option value="E"></option>
+            <option value="1" <% if(model.get('event_type_id') == 1) { %> selected <% } %> >Curso</option>
+            <option value="2" <% if(model.get('event_type_id') == 2) { %> selected <% } %>>Diplomado</option>
+          </select>
+          <small id="slcEventTypeHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-4" id="uploadForm">
+        <div class="form-group">
+          <label for="txtPicture">Imagen Principal</label><br>
+          <button id="btnSelectPicture" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary" style="margin-top: 3px;" >  
+            <i class="fa fa-search btn-icon" aria-hidden="true"></i>
+            Archivo
+          </button>
+          <input type="file" class="custom-file-input d-none" id="filePicture">
+          <button id="btnUploadPicture" <% if(disabled) { %> disabled <% } %> class="btn btn-primary" style="margin-top: 3px; margin-left: 10px;">  
+            <i class="fa fa-upload btn-icon" aria-hidden="true"></i>
+            Subir
+          </button>
+          <button id="btnViewPicture" <% if(disabled) { %> disabled <% } %> class="btn btn-success" style="margin-top: 3px; margin-left: 10px;">  
+            <i class="fa fa-picture-o btn-icon" aria-hidden="true"></i>
+            Ver
+          </button><br>
+          <small id="txtPictureHelp" class="form-text"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label for="txtResume">Descripción</label>
+      <textarea class="form-control" id="txtDescription" rows="5"><%= model.get('description') %></textarea>
+      <small id="txtDescriptionHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="form-group">
+      <button id="btnSave" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-top: 12px; margin-left: 20px;" >
+        <i class="fa fa-check" style="margin-right:5px"></i>
+        Guardar Cambios
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <h6>Especialidades</h6>
+    <br>
+    <table class="table table-striped" styles="" id="specialimsTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 150px;">Nombre</th>
+          <th style="width: 80px; padding-left: 17px !important;">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1000" style="text-align:right">
+            <button <% if(disabled) { %> disabled <% } %> class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+            <input type="file" class="custom-file-input d-none" id="fileImage">
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h6>Cursos Inscritos</h6>
+    <br>
+    <table class="table table-striped" styles="" id="imageTable">
+      <thead>
+        <tr>
+          <th style="width: 10px; display:none;">id</th>
+          <th style="width: 150px;">Nombre</th>
+          <th style="width: 80px; padding-left: 17px !important;">Botones</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="1000" style="text-align:right">
+            <button <% if(disabled) { %> disabled <% } %> class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
+            <button <% if(disabled) { %> disabled <% } %> class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+            <input type="file" class="custom-file-input d-none" id="fileImage">
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
