@@ -71,6 +71,24 @@ CREATE TABLE `events` (
   PRIMARY KEY (`id`),
   KEY `event_type_id` (`event_type_id`),
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `events_speakers`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `events_speakers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `speaker_id` int(11) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `speaker_id` (`speaker_id`),
+  KEY `event_id` (`event_id`),
+  CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,5 +298,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20201118145055'),
   ('20201118150654'),
   ('20201118150655'),
-  ('20201118151002');
+  ('20201118151002'),
+  ('20201123133044');
 UNLOCK TABLES;

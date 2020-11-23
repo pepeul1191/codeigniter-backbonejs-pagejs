@@ -93,5 +93,7 @@ $route['admin/speaker/specialism/list']['GET'] = 'admin/AdminSpeaker/specialism'
 $route['admin/speaker/specialism/save']['POST'] = 'admin/AdminSpeaker/specialismSave';
   # admin event
 $route['admin/event/save']['POST'] = 'admin/AdminEvent/save';
+$route['admin/event/speaker/list']['GET'] = 'admin/AdminEvent/speaker';
+$route['admin/event/speaker/save']['POST'] = 'admin/AdminEvent/speakerSave';
   # upload
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';

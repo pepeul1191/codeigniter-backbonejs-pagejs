@@ -336,6 +336,22 @@ var EventDetailView = Backbone.View.extend({
       event_id: this.event.get('id'),
     };
   },
+  clickCheckBoxSpeakersTable: function(event){
+    this.speakerTable.clickCheckBox(event);
+  },
+  saveSpeakersTable: function(event){
+    if(this.event.get('id') != 'E'){
+      this.speakerTable.extraData = {
+        event_id: parseInt(this.event.get('id')),
+      };
+      this.speakerTable.saveTable(event);
+    }else{
+      $('#message').removeClass('alert-success');
+      $('#message').removeClass('alert-warning');
+      $('#message').addClass('alert-danger');
+      $('#message').html('Debe registrar primero el evento');
+    }    
+  },
 });
 
 export default EventDetailView;

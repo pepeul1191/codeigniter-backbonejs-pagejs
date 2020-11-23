@@ -136,7 +136,7 @@ function event(ctx, next) {
 
 function eventNew(ctx, next) {
   var data = {
-    title: 'Agregar Ponente',
+    title: 'Agregar Evento',
     id: 'E',
     messageClass: '',
     disabled: false,
