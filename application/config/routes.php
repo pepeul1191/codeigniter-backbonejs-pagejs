@@ -72,6 +72,7 @@ $route['admin/speaker/new']['GET'] = 'admin/adminIndex/index';
 $route['admin/speaker/edit/(:num)']['GET'] = 'admin/adminIndex/index';
 $route['admin/event']['GET'] = 'admin/adminIndex/index';
 $route['admin/event/new']['GET'] = 'admin/adminIndex/index';
+$route['admin/event/edit/(:num)']['GET'] = 'admin/adminIndex/index';
   # admin loctions
 $route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';
 $route['admin/department/save']['POST'] = 'admin/AdminDepartment/save';
@@ -96,5 +97,6 @@ $route['admin/event/list']['GET'] = 'admin/AdminEvent/list';
 $route['admin/event/save']['POST'] = 'admin/AdminEvent/save';
 $route['admin/event/speaker/list']['GET'] = 'admin/AdminEvent/speaker';
 $route['admin/event/speaker/save']['POST'] = 'admin/AdminEvent/speakerSave';
+$route['admin/event/get']['GET'] = 'admin/AdminEvent/get';
   # upload
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';

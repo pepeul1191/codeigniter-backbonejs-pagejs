@@ -29,6 +29,7 @@ page('/speaker/new', speakerNew, closeToggle);
 page('/speaker/edit/:speaker_id', speakerEdit, closeToggle);
 page('/event', event, closeToggle);
 page('/event/new', eventNew, closeToggle);
+page('/event/edit/:event_id', eventEdit, closeToggle);
 // page('*', notfound)
 page();
 
@@ -148,6 +149,24 @@ function eventNew(ctx, next) {
   eventDetailView.render(data, type);
   eventDetailView.loadComponents();
   eventDetailView.unSetComponentsData();
+  next();
+}
+
+function eventEdit(ctx, next) {
+  var event_id = ctx.params.event_id;
+  var data = {
+    title: 'Editar Ponente',
+    id: event_id,
+    messageClass: '',
+    disabled: false,
+  };
+  var type = 'edit';
+  if(eventDetailView == null){
+    eventDetailView = new EventDetailView();
+  }
+  eventDetailView.render(data, type, event_id);
+  eventDetailView.loadComponents();
+  eventDetailView.setComponentsData();
   next();
 }
 

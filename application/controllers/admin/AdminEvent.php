@@ -143,7 +143,7 @@ class AdminEvent extends CI_Controller
           SELECT C.id, CONCAT(C.last_names, ", ", C.names) AS name, 1 AS exist FROM 
           speakers C INNER JOIN events_speakers TC ON
           C.id = TC.event_id
-          WHERE TC.speaker_id = %d
+          WHERE TC.event_id = %d
         ) P 
         ON P.id = T.id
       ';
@@ -219,6 +219,35 @@ class AdminEvent extends CI_Controller
     $this->output
       ->set_status_header($status)
       ->set_output($resp_data);
+  }
+
+  public function get()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    $rpta = '';
+    $status = 200;
+    try {
+      $rs = \Model::factory('\Models\Event', 'classroom')
+        ->where('id', $this->input->get('id'))
+        ->find_one();
+      if($rs == false){
+        $rpta = json_encode(['ups', 'Evento no encontrado']);
+        $status = 404;
+      }else{
+        $rs = $rs->as_array();
+        $rpta = json_encode($rs);
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      $rpta = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($rpta);
   }
 }
 

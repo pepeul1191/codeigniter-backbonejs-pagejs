@@ -141,7 +141,6 @@ var SpeakerDetailView = Backbone.View.extend({
         buttons: [],
       },
     });
-    this.specialimsTable.list();
     this.specialimsTable.extraData = {
       student_id: _this.speaker_id
     };
@@ -321,7 +320,7 @@ var SpeakerDetailView = Backbone.View.extend({
   setComponentsData: function(){
     this.upload.path = this.speaker.get('picture_url');
     this.upload.url = STATIC_URL;
-    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?id=' + this.speaker.get('id');
+    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?speaker_id=' + this.speaker.get('id');
     this.specialimsTable.list();
     this.specialimsTable.extraData = {
       speaker_id: this.speaker.get('id'),
@@ -330,7 +329,7 @@ var SpeakerDetailView = Backbone.View.extend({
   unSetComponentsData: function(){
     this.upload.path = null;
     this.upload.url = STATIC_URL;
-    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?id=0';
+    this.specialimsTable.services.list = BASE_URL + 'admin/speaker/specialism/list?speaker_id=0';
     this.specialimsTable.list();
     this.specialimsTable.extraData = {
       speaker_id: this.speaker.get('id'),

@@ -101,7 +101,7 @@ class AdminSpeaker extends CI_Controller
         ON P.id = T.id
       ';
       $rs = array();
-      foreach($pdo->query(sprintf($query, $this->input->get('id'))) as $row) {
+      foreach($pdo->query(sprintf($query, $this->input->get('speaker_id'))) as $row) {
         array_push($rs, array(
           'id' => $row['id'],
           'name' => $row['name'],

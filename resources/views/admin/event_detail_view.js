@@ -31,7 +31,7 @@ var EventDetailView = Backbone.View.extend({
       data.message = '';
       data.messageClass = '';
     }else{
-      resp = SpeakerService.getDetail(speaker_id);
+      resp = EventService.getDetail(speaker_id);
       if(resp.status == 200){
         this.event.set('id', resp.message.id);
         this.event.set('hours', resp.message.hours);
@@ -40,7 +40,7 @@ var EventDetailView = Backbone.View.extend({
         this.event.set('init_date', resp.message.init_date);
         this.event.set('init_hour', resp.message.init_hour);
         this.event.set('email', resp.message.email);
-        this.event.set('git', resp.message.git);
+        this.event.set('gift', resp.message.gift);
         this.event.set('event_type_id', resp.message.event_type_id);
         this.event.set('description', resp.message.description);
         this.event.set('code', resp.message.code);
@@ -130,7 +130,6 @@ var EventDetailView = Backbone.View.extend({
         buttons: [],
       },
     });
-    this.speakerTable.list();
     this.speakerTable.extraData = {
       event_id: _this.event_id
     };
@@ -321,7 +320,7 @@ var EventDetailView = Backbone.View.extend({
   setComponentsData: function(){
     this.upload.path = this.event.get('picture_url');
     this.upload.url = STATIC_URL;
-    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?id=' + this.event.get('id');
+    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?event_id=' + this.event.get('id');
     this.speakerTable.list();
     this.speakerTable.extraData = {
       event_id: this.event.get('id'),
@@ -330,8 +329,7 @@ var EventDetailView = Backbone.View.extend({
   unSetComponentsData: function(){
     this.upload.path = null;
     this.upload.url = STATIC_URL;
-    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?id=0';
-    this.speakerTable.list();
+    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?event_id=0';
     this.speakerTable.extraData = {
       event_id: this.event.get('id'),
     };
