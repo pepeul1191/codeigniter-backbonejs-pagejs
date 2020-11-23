@@ -65,9 +65,9 @@ var EventView = Backbone.View.extend({
         save404: 'Recurso no encontrado - guardar eventos',
         save200: 'Participantes actualizadas',
       },
-      serverKeys: ['id', 'name', 'code', ],
+      serverKeys: ['id', 'code', 'name', 'event_type_name', 'init_date'],
       row: {
-        table: ['id', 'name', 'code', ],
+        table: ['id', 'code', 'name', 'event_type_name', 'init_date'],
         tds: [
           { // id
             type: 'tdId',
@@ -86,6 +86,18 @@ var EventView = Backbone.View.extend({
             styles: '', 
             edit: true,
             key: 'code',
+          },
+          { // event_type_name
+            type: 'td',
+            styles: '', 
+            edit: true,
+            key: 'event_type_name',
+          },
+          { // init_date
+            type: 'td',
+            styles: '', 
+            edit: true,
+            key: 'init_date',
           },
         ],
         buttons: [
@@ -150,7 +162,7 @@ var EventView = Backbone.View.extend({
     var name = $('#txtName').val();
     var code = $('#txtCode').val();
     // build url
-    var base = BASE_URL + 'admin/speaker/list?';
+    var base = BASE_URL + 'admin/event/list?';
     if(name != ''){
       base = base + 'name=' + name + '&';
     }

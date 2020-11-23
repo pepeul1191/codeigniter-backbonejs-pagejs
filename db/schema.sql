@@ -71,7 +71,7 @@ CREATE TABLE `events` (
   PRIMARY KEY (`id`),
   KEY `event_type_id` (`event_type_id`),
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `events_speakers` (
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,6 +242,26 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `vw_events_types`
+--
+
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vw_events_types` AS SELECT
+ 1 AS `id`,
+ 1 AS `code`,
+ 1 AS `name`,
+ 1 AS `hours`,
+ 1 AS `picture_url`,
+ 1 AS `init_date`,
+ 1 AS `init_hour`,
+ 1 AS `gift`,
+ 1 AS `description`,
+ 1 AS `event_type_id`,
+ 1 AS `event_type_name`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Dumping routines for database 'classroom'
 --
 
@@ -259,6 +279,24 @@ SET character_set_client = @saved_cs_client;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_districts` AS select `DI`.`id` AS `id`,concat(`DI`.`name`,', ',`PR`.`name`,', ',`DE`.`name`) AS `name` from ((`districts` `DI` join `provinces` `PR` on((`DI`.`province_id` = `PR`.`id`))) join `departments` `DE` on((`PR`.`department_id` = `DE`.`id`))) limit 2000 */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_events_types`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_events_types`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_events_types` AS select `E`.`id` AS `id`,`E`.`code` AS `code`,`E`.`name` AS `name`,`E`.`hours` AS `hours`,`E`.`picture_url` AS `picture_url`,`E`.`init_date` AS `init_date`,`E`.`init_hour` AS `init_hour`,`E`.`gift` AS `gift`,`E`.`description` AS `description`,`E`.`event_type_id` AS `event_type_id`,`ET`.`name` AS `event_type_name` from (`events` `E` join `event_types` `ET` on((`ET`.`id` = `E`.`event_type_id`))) limit 2000 */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -299,5 +337,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20201118150654'),
   ('20201118150655'),
   ('20201118151002'),
-  ('20201123133044');
+  ('20201123133044'),
+  ('20201123145825');
 UNLOCK TABLES;

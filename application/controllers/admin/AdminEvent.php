@@ -2,6 +2,62 @@
 
 class AdminEvent extends CI_Controller
 {
+  public function list()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    $resp = '';
+    $status = 200;
+    try {
+      $rs = array();
+      $stmt = \Model::factory('\Models\VWEventType', 'classroom')
+        ->select('id')
+        ->select('code')
+        ->select('name')
+        ->select('event_type_name')
+        ->select('init_date');
+      // filter name
+      if(
+        $this->input->get('name') != null
+      ){
+        $stmt = $stmt->where_like('name', '%' . $this->input->get('name') . '%');
+      }
+      // filter code
+      if(
+        $this->input->get('code') != null
+      ){
+        $stmt = $stmt->where_like('code', '%' . $this->input->get('code'). '%');
+      }
+      // pages with final statement
+      $pages = ceil(
+        $stmt->count()
+        / $this->input->get('step')
+      );
+      // pagination
+      if(
+        $this->input->get('step') != null && 
+        $this->input->get('page') != null
+      ){
+        $offset = ($this->input->get('page') - 1) * $this->input->get('step');
+        $stmt = $stmt->offset($offset)->limit($this->input->get('step'));
+      }
+      $rs = $stmt->find_array();
+      $resp = json_encode(array(
+        'list' => $rs,
+        'pages' => $pages,
+      ));
+    }catch (Exception $e) {
+      $status = 500;
+      $resp =$e->getMessage();
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
+
   public function save()
   {
     // load session
