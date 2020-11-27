@@ -240,6 +240,46 @@ class AdminSpeaker extends CI_Controller
       ->set_output($resp_data);
   }
 
+  public function randomList()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    $this->load->library('ViewSessionTrue', array(
+      'config' => $this->config,
+      'session' => $this->session,
+    ));
+    //libraries as filters
+    $this->load->library('HttpAccess',
+      array(
+        'config' => $this->config,
+        'allow' => ['GET'],
+        'received' => $this->input->server('REQUEST_METHOD'),
+        'instance' => $this,
+      )
+    );
+    //controller function
+    $resp = '';
+    $status = 200;
+    try {
+      $rs = \Model::factory('\Models\Speaker', 'classroom')
+        ->select('picture_url')
+        ->select('resume')
+        ->select('names')
+        ->select('last_names')
+        ->order_by_expr('RAND()')
+        ->limit(4)
+        ->find_array();
+      $resp = json_encode($rs);
+    }catch (Exception $e) {
+      $status = 500;
+      $resp = $e->getMessage();
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
+
   public function get()
   {
     // load session
