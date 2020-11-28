@@ -80,11 +80,21 @@ class AdminEvent extends CI_Controller
     $resp = '';
     $status = 200;
     try {
-      $rs = \Model::factory('\Models\VWEventType', 'classroom')
+      $rs_event = \Model::factory('\Models\VWEventType', 'classroom')
         ->where_raw('init_date >= CURDATE()')
         ->order_by_asc('init_date')
         ->find_array();
-      $resp = json_encode($rs);
+      $speakers = array();
+      foreach ($rs_event as &$event) {
+        $speakers = \Model::factory('\Models\VWEventSpeaker', 'classroom')
+          ->select('names')
+          ->select('last_names')
+          ->select('picture_url')
+          ->where('event_id', $event['id'])
+          ->find_array();
+          $event['speakers'] = $speakers;
+      }
+      $resp = json_encode($rs_event);
     }catch (Exception $e) {
       $status = 500;
       $resp = $e->getMessage();

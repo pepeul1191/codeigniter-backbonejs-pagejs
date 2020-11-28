@@ -261,6 +261,10 @@ class AdminSpeaker extends CI_Controller
     //controller function
     $resp = '';
     $status = 200;
+    $number = $this->input->get('number');
+    if($number == null){
+      $number = 4;
+    }
     try {
       $rs = \Model::factory('\Models\Speaker', 'classroom')
         ->select('picture_url')
@@ -268,7 +272,7 @@ class AdminSpeaker extends CI_Controller
         ->select('names')
         ->select('last_names')
         ->order_by_expr('RAND()')
-        ->limit(4)
+        ->limit($number)
         ->find_array();
       $resp = json_encode($rs);
     }catch (Exception $e) {
