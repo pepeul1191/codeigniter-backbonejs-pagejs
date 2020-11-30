@@ -188,7 +188,7 @@ class AdminEvent extends CI_Controller
         (
           SELECT C.id, CONCAT(C.last_names, ", ", C.names) AS name, 1 AS exist FROM 
           speakers C INNER JOIN events_speakers TC ON
-          C.id = TC.event_id
+          C.id = TC.speaker_id
           WHERE TC.event_id = %d
         ) P 
         ON P.id = T.id

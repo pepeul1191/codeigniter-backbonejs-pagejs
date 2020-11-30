@@ -333,6 +333,7 @@ var EventDetailView = Backbone.View.extend({
     this.speakerTable.extraData = {
       event_id: this.event.get('id'),
     };
+    this.speakerTable.list();
   },
   clickCheckBoxSpeakersTable: function(event){
     this.speakerTable.clickCheckBox(event);
