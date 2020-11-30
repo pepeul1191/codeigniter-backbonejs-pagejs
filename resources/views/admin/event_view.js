@@ -63,7 +63,7 @@ var EventView = Backbone.View.extend({
         save500: 'Ocurrió un error no esperado en grabar los cambios',
         save501: 'Ocurrió un error en grabar los cambios',
         save404: 'Recurso no encontrado - guardar eventos',
-        save200: 'Participantes actualizadas',
+        save200: 'Lista de eventos actualizada',
       },
       serverKeys: ['id', 'code', 'name', 'event_type_name', 'init_date'],
       row: {

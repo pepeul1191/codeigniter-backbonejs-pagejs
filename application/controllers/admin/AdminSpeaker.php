@@ -312,6 +312,46 @@ class AdminSpeaker extends CI_Controller
       ->set_status_header($status)
       ->set_output($rpta);
   }
+
+  public function delete()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    \ORM::get_db('classroom')->beginTransaction();
+    $data = json_decode($this->input->post('data'));
+    $deletes = $data->{'delete'};
+    $created_ids = [];
+    $resp_data = '';
+    $status = 200;
+    try {
+      // deletes
+      if(count($deletes) > 0){
+				foreach ($deletes as &$delete) {
+          // delete specialism speakers
+          \Model::factory('\Models\SpecialismSpeaker', 'classroom')
+            ->where('speaker_id', $delete)
+            ->delete_many();
+          // delete event
+          $d = \Model::factory('\Models\Speaker', 'classroom')
+            ->find_one($delete);
+          $d->delete();
+				}
+      }
+      // commit
+      \ORM::get_db('classroom')->commit();
+      // response data
+      $resp_data = json_encode(array());;
+    }catch (Exception $e) {
+      $status = 500;
+      $resp_data = $e->getMessage();
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp_data);
+  }
 }
 
 ?>

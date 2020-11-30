@@ -326,7 +326,7 @@ class AdminEvent extends CI_Controller
       // commit
       \ORM::get_db('classroom')->commit();
       // response data
-      $resp_data = '';
+      $resp_data = json_encode(array());
     }catch (Exception $e) {
       $status = 500;
       $resp_data = $e->getMessage();

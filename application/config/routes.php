@@ -93,6 +93,7 @@ $route['admin/speaker/save']['POST'] = 'admin/AdminSpeaker/save';
 $route['admin/speaker/specialism/list']['GET'] = 'admin/AdminSpeaker/specialism';
 $route['admin/speaker/specialism/save']['POST'] = 'admin/AdminSpeaker/specialismSave';
 $route['admin/speaker/random-list']['GET'] = 'admin/AdminSpeaker/randomList';
+$route['admin/speaker/delete']['POST'] = 'admin/AdminSpeaker/delete';
   # admin event
 $route['admin/event/list']['GET'] = 'admin/AdminEvent/list';
 $route['admin/event/save']['POST'] = 'admin/AdminEvent/save';

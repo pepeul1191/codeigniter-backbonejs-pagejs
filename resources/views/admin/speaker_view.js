@@ -63,7 +63,7 @@ var SpeakerView = Backbone.View.extend({
         save500: 'Ocurrió un error no esperado en grabar los cambios',
         save501: 'Ocurrió un error en grabar los cambios',
         save404: 'Recurso no encontrado - guardar ponentes',
-        save200: 'Participantes actualizadas',
+        save200: 'Lista de ponentes actualizada',
       },
       serverKeys: ['id', 'name', 'dni', 'code', 'tuition'],
       row: {
