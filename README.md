@@ -30,6 +30,11 @@ Video:
 
 3. Añadir al path
 
+### Dump y Restore Mysql
+
+    $ mysqldump -u root -p classroom > db/classroom.sql
+    $ mysql -u root -p classroom < db/classroom.sql
+
 ---
 
 Fuentes:
