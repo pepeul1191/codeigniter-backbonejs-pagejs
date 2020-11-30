@@ -307,7 +307,7 @@ var EventDetailView = Backbone.View.extend({
         }else{
           // is a created, change title and set modelId
           this.event.set('id', respData.message);
-          $('#formTitle').html('Editar participante');
+          $('#formTitle').html('Editar Evento');
         }
       }
     }

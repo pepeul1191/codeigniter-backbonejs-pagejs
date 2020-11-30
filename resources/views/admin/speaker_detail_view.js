@@ -295,8 +295,8 @@ var SpeakerDetailView = Backbone.View.extend({
           // is a edited
         }else{
           // is a created, change title and set modelId
-          //this.speaker.set('id', respData.message);
-          $('#formTitle').html('Editar participante');
+          this.speaker.set('id', respData.message);
+          $('#formTitle').html('Editar Ponente');
         }
       }
     }
