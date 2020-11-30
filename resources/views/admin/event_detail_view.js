@@ -26,6 +26,17 @@ var EventDetailView = Backbone.View.extend({
     var templateCompiled = null;
     var resp = null;
     if(type == 'new'){
+      this.event.unset();
+      this.event.set('hours', '');
+      this.event.set('name', '');
+      this.event.set('picture_url', '');
+      this.event.set('init_date', '');
+      this.event.set('init_hour', '');
+      this.event.set('email', '');
+      this.event.set('gift', '');
+      this.event.set('event_type_id', '');
+      this.event.set('description', '');
+      this.event.set('code', '');
       data.model = this.event;
       data.disabled = false;
       data.message = '';
