@@ -3,6 +3,7 @@ import ValidationForm from '../../libs/validation_form';
 import Upload from '../../libs/upload';
 import SpeakerCollection from '../../collections/speaker_collection';
 import EventService from '../../services/admin/event_service';
+import SpecialismService from '../../services/admin/specialism_service';
 import Speaker from '../../models/speaker';
 import Event from '../../models/event';
 
@@ -12,6 +13,8 @@ var EventDetailView = Backbone.View.extend({
   eventTable: null,
 	initialize: function(){
     this.event = new Event({id:'E'});
+    // select especialidad
+    this.specialisms = SpecialismService.list().message;
 	},
 	events: {
     // form
@@ -26,6 +29,7 @@ var EventDetailView = Backbone.View.extend({
     var templateCompiled = null;
     var resp = null;
     if(type == 'new'){
+      var _this = this;
       this.event.unset();
       this.event.set('hours', '');
       this.event.set('name', '');
@@ -37,6 +41,7 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('event_type_id', '');
       this.event.set('description', '');
       this.event.set('code', '');
+      this.event.set('specialisms', _this.specialisms);
       data.model = this.event;
       data.disabled = false;
       data.message = '';
@@ -44,6 +49,7 @@ var EventDetailView = Backbone.View.extend({
     }else{
       resp = EventService.getDetail(speaker_id);
       if(resp.status == 200){
+        var _this = this;
         this.event.set('id', resp.message.id);
         this.event.set('hours', resp.message.hours);
         this.event.set('name', resp.message.name);
@@ -53,8 +59,10 @@ var EventDetailView = Backbone.View.extend({
         this.event.set('email', resp.message.email);
         this.event.set('gift', resp.message.gift);
         this.event.set('event_type_id', resp.message.event_type_id);
+        this.event.set('specialism_id', resp.message.specialism_id);
         this.event.set('description', resp.message.description);
         this.event.set('code', resp.message.code);
+        this.event.set('specialisms', _this.specialisms);
         data.disabled = false;
         data.message = '';
         data.messageClass = '';
@@ -202,6 +210,17 @@ var EventDetailView = Backbone.View.extend({
               message: 'Debe de seleccionar tipo de evento',
             }, 
           ],
+         },
+          // specialism
+         {
+          id: 'slcSpecialism',
+          help: 'slcSpecialismHelp',
+          validations: [
+            {
+              type: 'isSelected',
+              message: 'Debe de seleccionar especialidad de evento',
+            }, 
+          ],
         },
         // description
         {
@@ -298,6 +317,7 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('init_date', $('#txtInitDate').val());
       this.event.set('gift', $('#txtGift').val());
       this.event.set('event_type_id', $('#slcEventType').val());
+      this.event.set('specialism_id', $('#slcSpecialism').val());
       this.event.set('picture_url', this.upload.path);
       this.event.set('description', $('#txtDescription').val());
       var respData = EventService.saveDetail(this.event, 'message');

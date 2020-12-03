@@ -11,7 +11,9 @@ CREATE TABLE events (
   description	TEXT,
   event_type_id	INT,
   code INT,
-  FOREIGN KEY (event_type_id) REFERENCES event_types(id) ON DELETE CASCADE
+  specialism_id INT,
+  FOREIGN KEY (event_type_id) REFERENCES event_types(id) ON DELETE CASCADE,
+  FOREIGN KEY (specialism_id) REFERENCES specialisms(id) ON DELETE CASCADE
 );
 
 -- migrate:down

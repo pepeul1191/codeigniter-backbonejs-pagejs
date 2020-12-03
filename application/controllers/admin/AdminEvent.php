@@ -119,6 +119,7 @@ class AdminEvent extends CI_Controller
     $event_type_id = $this->input->post('event_type_id'); 
     $picture_url = $this->input->post('picture_url');
     $description = $this->input->post('description'); 
+    $specialism_id = $this->input->post('specialism_id'); 
     // init hour
     $init_hour =  date('h:i', strtotime($this->input->post('init_hour')));
     $init_date = date('Y-m-d', strtotime($this->input->post('init_date')));
@@ -143,6 +144,7 @@ class AdminEvent extends CI_Controller
         $n->description = $description;
         $n->init_hour = $init_hour;
         $n->init_date = $init_date;
+        $n->specialism_id = $specialism_id;
         $n->save();
         $resp_data = $n->id;
       }else{
@@ -157,6 +159,7 @@ class AdminEvent extends CI_Controller
         $e->description = $description;
         $e->init_hour = $init_hour;
         $e->init_date = $init_date;
+        $e->specialism_id = $specialism_id;
         $e->save();
       }
     }catch (Exception $e) {
