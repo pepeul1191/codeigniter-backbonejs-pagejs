@@ -85,6 +85,7 @@ $route['admin/student/list']['GET'] = 'admin/AdminStudent/list';
 $route['admin/student/specialism/list']['GET'] = 'admin/AdminStudent/specialism';
   # admin specialism
 $route['admin/specialism/list']['GET'] = 'admin/AdminSpecialism/list';
+$route['admin/specialism/list-only-in-events']['GET'] = 'admin/AdminSpecialism/listOnlyInEvents';
 $route['admin/specialism/save']['POST'] = 'admin/AdminSpecialism/save';
   # admin speaker
 $route['admin/speaker/list']['GET'] = 'admin/AdminSpeaker/list';
