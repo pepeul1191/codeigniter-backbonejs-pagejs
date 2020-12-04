@@ -338,6 +338,63 @@ class AdminEvent extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp_data);
   }
+
+  public function search()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    $rpta = '';
+    $status = 200;
+    try {
+      // query params
+      $query_date = $this->input->get('query_date'); # 'init_date >= CURDATE()'
+      $specialism_id = $this->input->get('specialism_id');
+      $page = $this->input->get('page');
+      $step = $this->input->get('step');  
+      // stmt
+      $rs = array();
+      $stmt = \Model::factory('\Models\VWEventType', 'classroom');
+      // filters
+      if($specialism_id != null && $specialism_id != 'E'){
+        $stmt = $stmt->where('specialism_id', $specialism_id); 
+      }
+      if($query_date != null){
+        $stmt = $stmt->where_raw($query_date); 
+      }
+      // pages with final statement
+      $pages = ceil($stmt->count() / $step);
+      // pagination
+      if($step != null && $page != null){
+        $offset = ($page - 1) * $step;
+        $stmt = $stmt->offset($offset)->limit($step)->order_by_asc('init_date');
+      }
+      // do query
+      $rs = $stmt->find_array();
+      $speakers = array();
+      foreach ($rs as &$event) {
+        $speakers = \Model::factory('\Models\VWEventSpeaker', 'classroom')
+          ->select('names')
+          ->select('last_names')
+          ->select('picture_url')
+          ->where('event_id', $event['id'])
+          ->find_array();
+        $event['speakers'] = $speakers;
+      }
+      $rpta = json_encode(array(
+        'list' => $rs,
+        'pages' => $pages,
+      ));
+    }catch (Exception $e) {
+      $status = 500;
+      $rpta = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($rpta);
+  }
 }
 
 ?>

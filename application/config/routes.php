@@ -102,5 +102,6 @@ $route['admin/event/speaker/save']['POST'] = 'admin/AdminEvent/speakerSave';
 $route['admin/event/get']['GET'] = 'admin/AdminEvent/get';
 $route['admin/event/delete']['POST'] = 'admin/AdminEvent/delete';
 $route['admin/event/recent-list']['GET'] = 'admin/AdminEvent/recentList';
+$route['admin/event/search']['GET'] = 'admin/AdminEvent/search';
   # upload
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';
