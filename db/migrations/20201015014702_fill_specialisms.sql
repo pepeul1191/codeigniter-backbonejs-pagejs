@@ -1,14 +1,16 @@
 -- migrate:up
 
 INSERT INTO specialisms (id, name) VALUES
-  (1, 'Derechos Humanos'),
-  (2, 'Derecho Internacional'),
-  (3, 'Derecho Corporativo o Empresarial'),
-  (4, 'Derecho Civil'),
-  (5, 'Derecho Penal'),
-  (6, 'Derecho Mercantil'),
-  (7, 'Derecho Tributario'),
-  (8, 'Derecho Laboral');
+  (1, 'DERECHOS HUMANOS'),
+  (2, 'DERECHO INTERNACIONAL'),
+  (3, 'DERECHO CORPORATIVO O EMPRESARIAL'),
+  (4, 'DERECHO CIVIL'),
+  (5, 'DERECHO PENAL'),
+  (6, 'DERECHO MERCANTIL'),
+  (7, 'DERECHO TRIBUTARIO'),
+  (8, 'DERECHO LABORAL'),
+  (9,'CRIMINOLOGIA'),
+  (10,'DERECHO ADMINISTRATIVO');
 
 -- migrate:down
 

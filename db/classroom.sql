@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `events`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(120) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `hours` int(11) NOT NULL,
   `picture_url` varchar(100) DEFAULT NULL,
   `init_date` date NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE `events` (
   KEY `specialism_id` (`specialism_id`),
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,6 @@ CREATE TABLE `events` (
 
 LOCK TABLES `events` WRITE;
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` VALUES (1,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(2,'LA URGENCIA DE LA TRANSFORMACIÓN DIGITAL',5,'uploads/hUzkJm2bT1oeNlvgR0Vu.jpg','2021-02-01','02:02:00','','La Carrera de Ingeniería de Sistemas de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima organizó el miércoles 28 de octubre, dentro del marco de los Miércoles de Ingeniería, la ponencia “Gestión del talento digital en la nueva normalidad”, a cargo del economista por nuestra Universidad Hugo Beltrán Alejos, consultor de Gobierno de Datos de la empresa Raken Data Group.\n\nBeltrán, máster en Ciencias en Computación por la Universidad de Chile, académico del Departamento de Ciencias de la Computación de la Facultad de Ciencias Físicas y Matemáticas de la Universidad de Chile y The Valley Digital Business School, explicó la coyuntura que nos toca vivir y cómo gestionar el talento digital en empresas que, como muchas, están incursionando en la transformación digital. El ponente dijo:',1,1,4),(3,'PREDIMENSIONAMIENTO DE ELEMENTOS ESTRUCTURALES DE CONCRETO ARMADO',2,'uploads/7WoaKEgJPeTq0jhn6dYz.jpg','2021-01-01','12:00:00','','El Miércoles de Ingeniería del 4 de noviembre se centró en el predimensionamiento y modelamiento de elementos estructurales de concreto armado. La exposición estuvo a cargo de José Alberto Acero, ingeniero civil estructural con más de veinte años de experiencia en evaluaciones estructurales, diseño de edificaciones de concreto, acero y albañilería. La actividad fue organizada por la Carrera de Ingeniería Civil de la Universidad de Lima y el Capítulo Estudiantil del American Concrete Institute de nuestra Casa de Estudios.\n\nEl ponente señaló que el predimensionamiento es el proceso que estima las dimensiones iniciales de los elementos estructurales, lo que permite que estos puedan ser analizados y verificados. Añadió que es necesario conocer las dimensiones estándares que se utilizan para concebir un edificio en forma eficiente, ya sea de una losa, viga peraltada, viga chata, columna, muro de corte o una cimentación.',1,1,3),(4,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(5,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(6,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(7,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(8,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(9,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(10,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(11,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(12,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(13,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(14,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(15,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,1),(16,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,2),(17,'LA FORMA MÁS FÁCIL DE RESOLVER PROBLEMAS DIFÍCILES',1,'uploads/emAESI5bVlzj6Rsc7Qpf.jpg','2019-02-02','02:03:00','','El 4 de noviembre, Elmer Pisfil, CEO de TRIZ Perú y Asesume, fue el ponente invitado en el Miércoles de Ingeniería \"Innovación. Teoría para resolver problemas de forma inventiva (TRIZ)\", actividad organizada por la Carrera de Ingeniería Industrial de la Facultad de Ingeniería y Arquitectura de la Universidad de Lima. El expositor se encargó de dar a conocer una metodología rusa para abordar, de manera lógica y sistemática, el proceso inventivo.\n\nPisfil, quien posee más de 25 años de experiencia profesional en consultoría de gestión de la innovación, sistemas de gestión de calidad, seguridad y salud ocupacional, y medio ambiente y gestión por procesos, explicó que TRIZ corresponde a las siglas del concepto ruso teorija rezhenija izobretatelskih zadach (TRIZ), que significa \'teoría para la resolución de problemas de forma inventiva\', por lo que se le conoce también en español como Trepi.',1,1,2);
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,9 +140,9 @@ CREATE TABLE `events_speakers` (
   PRIMARY KEY (`id`),
   KEY `speaker_id` (`speaker_id`),
   KEY `event_id` (`event_id`),
-  CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`),
+  CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +151,6 @@ CREATE TABLE `events_speakers` (
 
 LOCK TABLES `events_speakers` WRITE;
 /*!40000 ALTER TABLE `events_speakers` DISABLE KEYS */;
-INSERT INTO `events_speakers` VALUES (1,1,1),(2,2,1),(3,7,2),(4,6,2),(5,7,3),(6,1,4),(7,6,4),(8,5,4);
 /*!40000 ALTER TABLE `events_speakers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +224,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20180716031559'),('20180716032053'),('20180716033310'),('20180716033439'),('20180716033614'),('20180716033710'),('20180716035126'),('20201015014657'),('20201015014702'),('20201016163807'),('20201016170903'),('20201017020259'),('20201118144041'),('20201118144047'),('20201118145050'),('20201118145055'),('20201118150654'),('20201118150655'),('20201118151002'),('20201123133044'),('20201123145825'),('20201127212848');
+INSERT INTO `schema_migrations` VALUES ('20180716031559'),('20180716032053'),('20180716033310'),('20180716033439'),('20180716033614'),('20180716033710'),('20180716035126'),('20201015014657'),('20201015014702'),('20201016163807'),('20201016170903'),('20201017020259'),('20201118144041'),('20201118144047'),('20201118145050'),('20201118145055'),('20201118150654'),('20201118150655'),('20201118151002'),('20201123133044'),('20201123145825'),('20201127212848'),('20201204165803'),('20201217020336');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +250,7 @@ CREATE TABLE `speakers` (
   PRIMARY KEY (`id`),
   KEY `gender_id` (`gender_id`),
   CONSTRAINT `speakers_ibfk_1` FOREIGN KEY (`gender_id`) REFERENCES `genders` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +259,7 @@ CREATE TABLE `speakers` (
 
 LOCK TABLES `speakers` WRITE;
 /*!40000 ALTER TABLE `speakers` DISABLE KEYS */;
-INSERT INTO `speakers` VALUES (1,1,123123,'','Alexandre','Almeida del Savio','','','uploads/z8PWNKnUwRYlZScDbgiq.jpg','Doctor en Ingeniería Civil por la Pontificia Universidad Católica de Río de Janeiro y del Imperial College London, con especialidad en Ingeniería Estructural. Investigador de proyectos de desarrollo tecnológico, con publicaciones de más de 12 trabajos técnicos en revistas internacionales. ',1),(2,1,123123,'','Rosa Altamirano','Medina de Zuloaga','','','uploads/nHLgGzYdt3Il0uAweiUB.jpg','Ingeniera química por la Universidad Nacional Mayor de San Marcos. Magíster en Gestión Tecnológica Empresarial por la Universidad Nacional de Ingeniería (UNI). Título de Especialista en Gestión y Protección Medio Ambiental en Recursos Minerales del Programa Internacional de Post Grado de la Universidad Politécnica de Madrid.',2),(3,1,819023,'','Martín Adrián','Altuna González','','','uploads/mt6Qs4FfJkdlXiPONeCp.jpg','Ingeniero mecánico por la Pontificia Universidad Católica del Perú (PUCP). Magíster en Docencia Universitaria por la Universidad César Vallejo. Estudios culminados de maestría en Enseñanza de la Matemática en la PUCP. ',1),(4,1,5234234,'','Ludy Margarita','Cáceres Montero','','','uploads/oKQ75lhwJ48sFytPeCLf.jpg','Doctora en Ingeniería de Materiales, Procesos Químicos y Metalúrgicos por la Pontificia Universida de Católica do Rio de Janeiro, con área de concentración en Ingeniería de Procesos y Medio ambiente. Egresada del programa de Ingeniería Química de la Universidad Industrial de Santander',2),(5,1,31237978,'','Meryelem Tania','Churampi Arellano','','','uploads/6mhy5GE2flsTicgBuDCn.jpg','Doctora en Ingeniería de Materiales, Procesos Químicos y Metalúrgicos por la Pontificia Universidad Católica de Rio de Janeiro, con Postgrado en Ingeniería de Procesos Químicos y Metalúrgicos con mención en Medio Ambiente por la PUC-Rio de Janeiro- Brasil, titulado y colegiado como Ingeniero Químico.',2),(6,1,19038,'','Daniel Gustavo','Espinoza González','','','uploads/jm01loZvFs5Bu2cUt6hd.jpg','Ingeniero civil por la Universidad Ricardo Palma, Magíster en Administración de Negocios por la Universidad de Lima, Project Management Professional por el Project Management Institute, con especializaciones en Gerencia de Proyectos por ESAN y en mantenimiento y rehabilitación de pavimentos por la American Society of Civil Engineers.',1),(7,1,918237,'','Jaime Heman','Espinoza Sandoval','','','uploads/jlziTWNVhGbPSsncC9X1.jpg','Ingeniero civil por la Universidad Nacional de Ingeniería (UNI). Maestro en Ciencias de la Educación con mención en Docencia Universitaria por la Universidad Nacional Enrique Guzmán y Valle - La Cantuta. ',1);
+INSERT INTO `speakers` VALUES (1,NULL,NULL,'123','ALONSO RAÚL','PEÑA CABRERA FREYRE',NULL,NULL,'assets/img/default-user.png','FISCAL PROVINCIAL TITULAR DEL DISTRITO FISCAL DE LIMA, EX FISCAL SUPERIOR DE LIMA - JEFE DE LA UNIDAD DE  COOPERACIÓN JUDUCIAL INTERNACIONAL - FISCALIA DE LA NACIÓN. EGRESADO Y TITULADO CON MENCIÓN ESPECIAL POR LA UNIVERSIDAD PARTICULAR SAN MARTÍN DE PORRES. EX ASESOR DEL DESPACHO DE LA FISCALÍA DE LA NACIÓN.',1),(2,NULL,NULL,'123','JOSÉ LUIS ','PACHECO DE LA CRUZ',NULL,NULL,'assets/img/default-user.png','MÉDICO ESPECIALISTA EN MEDICINA LEGAL, PERITAJES FORENCES, CRIMINALÍSTICA, DOCTOR EN DERECHO. DOCENTE DE MAESTRIAS Y DOCTORADOS EN LA SESIÓN DE POSTGRADO.',1),(3,NULL,NULL,'123','SERGIO EMERSON','CHÁVEZ PANDURO',NULL,NULL,'assets/img/default-user.png','ABOGADO DE LA FISCALÍA CORPORATIVA ESPECIALIZADA EN DELITOS DE CORRUPCIÓN DE FUNCIONARIOS DE LIMA. MAESTRÍA EN CIENCIAS PENALES POR LA UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS. MAESTRÍA EN DERECHO CONSTITUCIONAL Y DERECHOS HUMANOS POR LA UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS. INVESTIGADOR ACADÉMICO DE DIVERSAS RAMAS DEL DERECHO',1),(4,NULL,NULL,'123','LUIS ALBERTO','PACHECO MANDUJANO',NULL,NULL,'assets/img/default-user.png','PROFESOR DE DERECHO PENAL E INTERCULTURALIDAD Y DERECHO PENAL Y CONSTITUCIÓN EN LA MAESTRÍA DE DERECHO PENAL DE LA UNIVERSIDAD SAN MARTÍN DE PORRES. MAGISTER EN DERECHO CONSTITUCIONAL POR LA UNIVERSIDAD DE CASTILLA - LA MANCHA, ESPAÑA, DOCTOR HONORIS CAUSA POR LA FACULTAD INTERAMERICANA DE LITIGACIÓN ORAL DE MÉXICO. ',1),(5,NULL,NULL,'123','LETICIA MERCY ','SILVA CHÁVEZ',NULL,NULL,'assets/img/default-user.png','FISCAL PROVINCIAL TITULAR DE LA NOVENA FISCALÍA PROVINCIAL DE FAMILIA DE LIMA. DOCENTE DE PRE Y POSGRADO UNIVERSITARIO Y DE LA ACADEMIA DE LA MAGISTRATURA. EGRESADA DE LA UNIVERSIDAD MAYOR DE SAN MARCOS, MAGÍSTER EN DERECHO CIVIL Y COMERCIAL.',2),(6,NULL,NULL,'123','ALCIDES ','CHINCHAY CASTILLO',NULL,NULL,'assets/img/default-user.png','FISCAL ADJUNTO SUPREMO TITULAR, SEGUNDA FISCALÍA SUPREMA TRANSITORIA ESPECIALIZADA EN DELITOS COMETIDOS POR FUNCIONARIOS PÚBLICOS, ABOGADO POR LA PONTIFICIA UNIVERSIDAD CATÓLICA DEL PERÚ. MAESTRIA EN DERECHO PENAL POR LA UNIVERSIDAD MAYOR DE SAN MARCOS.',1),(7,NULL,NULL,'123','CHRISTIAN','SALAS BETETA',NULL,NULL,'assets/img/default-user.png','ABOGADO PENALISTA. EXPERTO EN DERECHO PENAL Y PROCESAL PENAL. CON EXPERIENCIA EN LA DIRECCIÓN DE EQUIPOS DE LITIGIO DE CASOS DE CORRUPCIÓN Y LAVADO DE ACTIVOS EN CONTEXTO DE CRIMEN ORGANIZADO. FUNDADOR DE LA FIRMA SALAS BETETA ABOGADOS',1),(8,NULL,NULL,'123','FERNANDO JOSE','CORNEJO MALMA',NULL,NULL,'assets/img/default-user.png','ABOGADO ESPECIALISTA Y CAPACITADOR EN DERECHO PENAL Y PROCESAL PENAL, CATEDRÁTICO CON MÁS DE 15 AÑOS DE TRAYECTORIA EN DOCENCIA Y EN LAS CIENCIAS JURÍDICAS',1),(9,NULL,NULL,'123','FRANK','ALMANZA ALTAMIRANO',NULL,NULL,'assets/img/default-user.png','FISCAL SUPERIOR PENAL DE LIMA. MAESTRÍA EN CIENCIAS PENALES DE LA UNIVERSIDAD  MAYOR DE SAN MARCOS Y LA UNIVERSIDAD INCA GARCILASO DE LA VEGA. DIPLOMADO EN DERECHOS HUMANOS Y PROCESAL CONSTITUCIONAL EN LA APECC',1),(10,1,123,'123','FERNANDO','COSTA MOSCOL','','','assets/img/default-user.png','MAGISTER EN DERECHO EMPRESARIAL POR LA PUCP. ESPECIALISTA LEGAL SENIOR EN OSINERGMIN. ABOGADO POR LA UNIVERSIDAD DE PIURA.',1),(11,1,123,'123','ROLANDO','UBILLÚS BRACAMONTE','','','assets/img/default-user.png','DOCTOR Y MAGISTER EN DERECHO DEL TRABAJO Y DE LA SEGURIDAD SOCIAL',1),(12,1,123,'123','FRANCISCO LUIS','VILLANUEVA ORIHUELA','','','assets/img/default-user.png','ABOGADO CIVILISTA, ESPECIALISTA EN DERECHO DE FAMILIA Y DERECHO AMBIENTAL. CATEDRÁTICO',1),(13,1,123,'','ROBERT GONZALO','COZ RODRIGUEZ','','','assets/img/default-user.png','ABOGADO ESPECIALISTA Y CAPACITADOR EN DERECHO CIVIL, PROCESAL CIVIL Y DERECHO COMERCIAL, CATEDRÁTICO CON MÁS DE 20 AÑOS DE TRAYECTORIA EN DOCENCIA Y EN LAS CIENCIAS JURÍDICAS',1);
 /*!40000 ALTER TABLE `speakers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +274,7 @@ CREATE TABLE `specialisms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +283,7 @@ CREATE TABLE `specialisms` (
 
 LOCK TABLES `specialisms` WRITE;
 /*!40000 ALTER TABLE `specialisms` DISABLE KEYS */;
-INSERT INTO `specialisms` VALUES (1,'Derechos Humanos'),(2,'Derecho Internacional'),(3,'Derecho Corporativo o Empresarial'),(4,'Derecho Civil'),(5,'Derecho Penal'),(6,'Derecho Mercantil'),(7,'Derecho Tributario'),(8,'Derecho Laboral');
+INSERT INTO `specialisms` VALUES (1,'DERECHOS HUMANOS'),(2,'DERECHO INTERNACIONAL'),(3,'DERECHO CORPORATIVO O EMPRESARIAL'),(4,'DERECHO CIVIL'),(5,'DERECHO PENAL'),(6,'DERECHO MERCANTIL'),(7,'DERECHO TRIBUTARIO'),(8,'DERECHO LABORAL'),(9,'CRIMINOLOGIA'),(10,'DERECHO ADMINISTRATIVO');
 /*!40000 ALTER TABLE `specialisms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,9 +301,9 @@ CREATE TABLE `specialisms_speakers` (
   PRIMARY KEY (`id`),
   KEY `speaker_id` (`speaker_id`),
   KEY `specialism_id` (`specialism_id`),
-  CONSTRAINT `specialisms_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `specialisms_speakers_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  CONSTRAINT `specialisms_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`),
+  CONSTRAINT `specialisms_speakers_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +312,7 @@ CREATE TABLE `specialisms_speakers` (
 
 LOCK TABLES `specialisms_speakers` WRITE;
 /*!40000 ALTER TABLE `specialisms_speakers` DISABLE KEYS */;
-INSERT INTO `specialisms_speakers` VALUES (1,1,2),(2,1,3),(3,2,8),(4,2,7),(5,3,5),(6,4,1),(7,6,5);
+INSERT INTO `specialisms_speakers` VALUES (1,1,5),(2,2,5),(3,3,5),(4,4,5),(5,5,5),(6,6,5),(7,7,5),(8,8,5),(9,9,5),(10,10,10),(11,11,8),(12,12,4),(13,13,4);
 /*!40000 ALTER TABLE `specialisms_speakers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,6 +410,20 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `vw_events_specialisms`
+--
+
+DROP TABLE IF EXISTS `vw_events_specialisms`;
+/*!50001 DROP VIEW IF EXISTS `vw_events_specialisms`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vw_events_specialisms` AS SELECT 
+ 1 AS `id`,
+ 1 AS `init_date`,
+ 1 AS `name`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `vw_events_types`
 --
 
@@ -471,6 +483,24 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `vw_events_specialisms`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_events_specialisms`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_events_specialisms` AS select `E`.`specialism_id` AS `id`,`E`.`init_date` AS `init_date`,`S`.`name` AS `name` from (`events` `E` join `specialisms` `S` on((`S`.`id` = `E`.`specialism_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `vw_events_types`
 --
 
@@ -497,4 +527,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-04 11:37:47
+-- Dump completed on 2020-12-16 22:09:34
