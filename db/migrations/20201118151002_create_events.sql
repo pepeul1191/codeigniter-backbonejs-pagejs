@@ -2,11 +2,11 @@
 
 CREATE TABLE events (
 	id	INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name	VARCHAR(50) NOT NULL,
-  hours	INT NOT NULL,
+  name	VARCHAR(250) NOT NULL,
+  hours	INT,
   picture_url	VARCHAR(100),
   init_date	DATE NOT NULL,
-  init_hour	TIME NOT NULL,
+  init_hour	TIME,
   gift VARCHAR(40),
   description	TEXT,
   event_type_id	INT,
