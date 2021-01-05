@@ -27,6 +27,7 @@ class CustomError extends CI_Controller
     $status = 404;
     $numero = $error + '';
     $error = [];
+    $home = $this->config->item('base_url');
     switch ($numero) {
       case '404':
         $error = [
@@ -35,6 +36,7 @@ class CustomError extends CI_Controller
           'descripcion' => 'La página que busca no se encuentra en el servidor',
           'icono' => 'fa fa-exclamation-triangle'
         ];
+        $home = $home . 'admin';
         $status = 404;
         break;
       case '501':
@@ -45,6 +47,7 @@ class CustomError extends CI_Controller
           'icono' => 'fa fa-code-fork'
         ];
         $status = 500;
+        $home = $home . 'admin/login';
         break;
       case '5050':
         $error = [
@@ -53,6 +56,7 @@ class CustomError extends CI_Controller
           'descripcion' => 'No cuenta con los privilegios necesarios.',
           'icono' => 'fa fa-ban'
         ];
+        $home = $home . 'admin/login';
         $status = 500;
         break;
       case '505':
@@ -62,6 +66,7 @@ class CustomError extends CI_Controller
           'descripcion' => 'Necesita estar logueado.',
           'icono' => 'fa fa-ban'
         ];
+        $home = $home . 'admin/login';
         $status = 500;
         break;
       case '8080':
@@ -80,14 +85,17 @@ class CustomError extends CI_Controller
           'descripcion' => 'La página que busca no se encuentra en el servidor',
           'icono' => 'fa fa-exclamation-triangle'
         ];
+        $home = $home . 'admin';
         $status = 404;
     }
+    /*
     $home = $this->config->item('base_url');
     if($this->session->has_userdata('state')){
       if($this->session->userdata('state') == true){
         $home = $this->config->item('base_url') . 'admin';
       }
     }
+    */
     // response
     $data_top = array(
       'title' => 'Error',

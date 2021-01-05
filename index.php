@@ -321,4 +321,6 @@ header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Content-type: text/html; charset=UTF-8');
 
+define('ENV', 'localhost');
+
 require_once BASEPATH.'core/CodeIgniter.php';

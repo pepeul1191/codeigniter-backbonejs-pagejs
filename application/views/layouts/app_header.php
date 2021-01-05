@@ -27,7 +27,7 @@
     <header>
       <a href="<?php echo $this->config->item('base_url'); ?>admin">Inicio</a>
       <a href="<?php echo $this->config->item('base_url'); ?>admin/help">Ayuda</a>
-      <a href="<?php echo $this->config->item('base_url'); ?>session" class="pull-right">Pepe Valdivia</a>
+      <a href="<?php echo $this->config->item('base_url'); ?>session" class="pull-right">Legis Juristas</a>
       <a href="<?php echo $this->config->item('base_url'); ?>close" class="pull-right">Cerrar Sesión</a>
     </header>
     <nav>

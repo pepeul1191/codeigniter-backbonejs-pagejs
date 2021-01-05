@@ -56,7 +56,7 @@ function location(ctx, next) {
 }
 
 function index(ctx, next) {
-
+  page('/speaker')
 }
 
 function student(ctx, next) {

@@ -528,15 +528,36 @@ $config['proxy_ips'] = '';
 |--------------------------------------------------------------------------
 */
 
-$config['env_static'] = 'dev';
-$config['env_session'] = false;
-$config['base_url'] = 'http://localhost:8080/';
-$config['static_url'] = 'http://localhost:8080/public/';
 $config['csrf'] = array(
   'key' => 'csrf_key',
   'value' => 'PKBcauXg6sTXz7Ddlty0nejVgoUodXL89KNxcrfwkEme0Huqtj6jjt4fP7v2uF4L', 
 );
-$config['login'] = array(
-  'user' => 'admin',
-  'password' => 'sistema123', 
-);
+
+if(ENV == 'localhost'){
+  $config['base_url'] = 'http://localhost:8080/';
+  $config['static_url'] = 'http://localhost:8080/public/';
+  $config['admin_path'] = 'admin';
+  $config['site_path'] = '';
+  $config['env_static'] = 'dev';
+  $config['env_session'] = true;
+  $config['login'] = array(
+    'user' => 'admin',
+    'password' => 'sistema123', 
+  ); 
+}else if(ENV == '000webhost'){
+  $config['base_url'] = 'https://coa-avance.000webhostapp.com/';
+  $config['static_url'] = 'https://coa-avance.000webhostapp.com/public/';
+  $config['admin_path'] = 'admin';
+  $config['site_path'] = '';
+}else if(ENV == 'prod'){
+  $config['base_url'] = 'http://legisjuristas.com/';
+  $config['static_url'] = 'http://legisjuristas.com/public/';
+  $config['admin_path'] = 'admin';
+  $config['site_path'] = '';
+  $config['env_static'] = 'prod';
+  $config['env_session'] = true;
+  $config['login'] = array(
+    'user' => 'admin',
+    'password' => 'sistema123', 
+  ); 
+}

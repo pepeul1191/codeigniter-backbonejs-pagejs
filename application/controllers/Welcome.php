@@ -20,6 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		header('Location: ' . $this->config->item('base_url') . 'admin/speaker');
+    exit();
 		$data = array(
       'title' => 'Home',
     );

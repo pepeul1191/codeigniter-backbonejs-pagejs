@@ -31,7 +31,7 @@
       </ul>
       <ul class="pull-right" style="float: right !important;">
         <li class="">
-          <a class="" href="/session">Pepe Valdivia</a>
+          <a class="" href="/session">Legis Juristas</a>
         </li>
         <li class="">
           <a class="" href="/logout">Salir</a>
