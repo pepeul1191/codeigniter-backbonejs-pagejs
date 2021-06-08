@@ -122,6 +122,85 @@ class AdminStudent extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp);
   }
+
+  public function save()
+  {
+    // load session
+    $this->load->library('session');
+    //libraries as filters
+    /// TODO
+    //controller function
+    /*
+          this.student.set('dni', $('#txtDNI').val());
+      this.student.set('code', $('#txtCode').val());
+      this.student.set('tuition', $('#txtTuition').val());
+      this.student.set('names', $('#txtNames').val());
+      this.student.set('last_names', $('#txtLastNames').val());
+      this.student.set('email', $('#txtEmail').val());
+      this.student.set('phone', $('#txtPhone').val());
+      //this.student.set('gender_id', $('#slcGender').val());
+      this.student.set('district_id', this.districtAutocomplete.id);
+      this.student.set('picture_url', this.upload.path);
+      this.student.set('address', $('#txtAddress').val());
+    */
+    $id = $this->input->post('id');
+    $dni = $this->input->post('dni');
+    $code = $this->input->post('code');
+    $tuition = $this->input->post('tuition');
+    $names = $this->input->post('names');
+    $last_names = $this->input->post('last_names');
+    $email = $this->input->post('email');
+    $phone = $this->input->post('phone');
+    $picture_url = $this->input->post('picture_url');
+    $address = $this->input->post('address');
+    $district_id = $this->input->post('district_id');
+    if($picture_url == ''){
+      $picture_url = 'assets/img/default-user.png';
+    }
+    if($code == ''){
+      $code = 1;
+    }
+    $resp_data = '';
+    $status = 200;
+    try {
+      if($id == 'E'){
+        // new
+        $n = \Model::factory('\Models\Student', 'classroom')->create();
+        $n->dni = $dni;
+        $n->code = $code;
+        $n->tuition = $tuition;
+        $n->names = $names;
+        $n->last_names = $last_names;
+        $n->email = $email;
+        $n->phone = $phone;
+        $n->picture_url = $picture_url;
+        $n->address = $address;
+        $n->district_id = $district_id;
+        $n->save();
+        $resp_data = $n->id;
+      }else{
+        // edit
+        $e = \Model::factory('\Models\Student', 'classroom')->find_one($id);
+        $e->dni = $dni;
+        $e->code = $code;
+        $e->tuition = $tuition;
+        $e->names = $names;
+        $e->last_names = $last_names;
+        $e->email = $email;
+        $e->phone = $phone;
+        $e->picture_url = $picture_url;
+        $e->address = $address;
+        $e->district_id = $district_id;
+        $e->save();
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      $resp_data = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp_data);
+  }
 }
 
 ?>

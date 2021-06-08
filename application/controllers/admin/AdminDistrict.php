@@ -40,6 +40,46 @@ class AdminDistrict extends CI_Controller
       ->set_output($resp);
   }
 
+  public function search()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    $this->load->library('ViewSessionTrue', array(
+      'config' => $this->config,
+      'session' => $this->session,
+    ));
+    //libraries as filters
+    $this->load->library('HttpAccess',
+      array(
+        'config' => $this->config,
+        'allow' => ['GET'],
+        'received' => $this->input->server('REQUEST_METHOD'),
+        'instance' => $this,
+      )
+    );
+    //controller function
+    $resp = '';
+    $status = 200;
+    $province_id = $this->input->get('province_id');
+    try {
+      $name = $this->input->get('name');
+      $rs = \Model::factory('\Models\VWDistrict', 'classroom')
+        ->select('id')
+        ->select('name')
+        ->where_like('name', $name . '%')
+        ->limit(10)
+        ->find_array();
+      $resp = json_encode($rs);
+    }catch (Exception $e) {
+      $status = 500;
+      $resp = $e->getMessage();
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
+
   public function save()
   {
     // load session

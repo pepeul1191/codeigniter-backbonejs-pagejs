@@ -79,10 +79,12 @@ $route['admin/department/save']['POST'] = 'admin/AdminDepartment/save';
 $route['admin/province/list']['GET'] = 'admin/AdminProvince/list';
 $route['admin/province/save']['POST'] = 'admin/AdminProvince/save';
 $route['admin/district/list']['GET'] = 'admin/AdminDistrict/list';
+$route['admin/district/search']['GET'] = 'admin/AdminDistrict/search';
 $route['admin/district/save']['POST'] = 'admin/AdminDistrict/save';
   # admin student
 $route['admin/student/list']['GET'] = 'admin/AdminStudent/list';
 $route['admin/student/specialism/list']['GET'] = 'admin/AdminStudent/specialism';
+$route['admin/student/save']['POST'] = 'admin/AdminStudent/save';
   # admin specialism
 $route['admin/specialism/list']['GET'] = 'admin/AdminSpecialism/list';
 $route['admin/specialism/save']['POST'] = 'admin/AdminSpecialism/save';

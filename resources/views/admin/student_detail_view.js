@@ -1,7 +1,12 @@
 import Student from '../../models/student';
+import District from '../../models/district';
+import DistrictCollection from '../../collections/district_collection';
 import Table from '../../libs/table';
 import ValidationForm from '../../libs/validation_form';
+import Upload from '../../libs/upload';
+import Autocomplete from '../../libs/autocomplete';
 import SpecialismCollection from '../../collections/specialism_collection';
+import StudentService from '../../services/admin/student_service';
 import Specialism from '../../models/specialism';
 
 var StudentDetailView = Backbone.View.extend({
@@ -14,6 +19,8 @@ var StudentDetailView = Backbone.View.extend({
 	events: {
     // form
     'click #btnSave': 'save',
+    //upload
+    'click #btnViewPicture': 'viewPicture',
     // specialism table
     'click #specialimsTable > tfoot > tr > td > button.save-table': 'saveSpecialimsTable',
     'change #specialimsTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpecialimsTable',
@@ -22,6 +29,17 @@ var StudentDetailView = Backbone.View.extend({
     // this.student.unSet();???
     var templateCompiled = null;
     if(type == 'new'){
+      this.student.set('id', 'E');
+      this.student.set('dni', '');
+      this.student.set('code', '');
+      this.student.set('tuition', '');
+      this.student.set('names', '');
+      this.student.set('last_names', '');
+      this.student.set('email', '');
+      this.student.set('phone', '');
+      this.student.set('district_id', '');
+      this.student.set('picture_url', '');
+      this.student.set('address', '');
       data.model = this.student;
       data.disabled = false;
       data.message = '';
@@ -155,33 +173,22 @@ var StudentDetailView = Backbone.View.extend({
             }, 
           ],
         },
-        // tuition
+        // google mail
         {
-          id: 'txtTuition',
-          help: 'txtTuitionHelp',
+          id: 'txtEmail',
+          help: 'txtEmailHelp',
           validations: [
             {
               type: 'notEmpty',
-              message: 'Debe de ingresar colegiatura',
+              message: 'Debe de ingresar un correo',
             }, 
-          ],
-        },
-        // picture
-        {
-          id: 'filePicture',
-          help: 'txtPictureHelp',
-          validations: [
             {
               type: 'customFunction',
-              message: 'Carrera repetida',
+              message: 'Debe de ingresar un correo de GMail',
               customFunction: function(){
-                var resp = true;
-                if(_this.upload.image == ''){
-                  resp = false;
-                }
-                return resp;
+                return $('#txtEmail').val().toUpperCase().includes("@GMAIL.COM");
               },
-            },
+            }, 
           ],
         },
       ],
@@ -191,6 +198,56 @@ var StudentDetailView = Backbone.View.extend({
         textSuccess: 'text-success',
       },
       messageForm: 'message',
+    });
+     // upload
+    this.upload = new Upload({
+      el: '#uploadForm',
+      inputFile: 'filePicture',
+      helpText: 'message',
+      buttonChoose: 'btnSelectPicture',
+      buttonUpload: 'btnUploadPicture',
+      img: 'imgPicture',
+      service: {
+        url: BASE_URL + 'upload/file',
+        formDataKey: 'file',
+        uploadMessage: 'Subiendo archivo...',
+        errorMessage: 'Ocurrió un error en subir el archivo',
+        successMessage: 'Carga completada'
+      },
+      statusClasses: { // bootstrap classes by default
+        success: 'alert-success',
+        warning: 'alert-warning',
+        danger: 'alert-danger',
+      },
+      extensions:{
+        allow: ['image/jpeg', 'image/png', 'image/jpg'],
+        message: 'Formato no válido',
+      },
+      size:{
+        allow: 600000,
+        message: 'Archivo supera el máximo permitido',
+      },
+    });
+    // district autocomplete
+    this.districtAutocomplete = new Autocomplete({
+      el: '#districtForm',
+      inputText: 'txtDistrict',
+      inputHelp: 'txtDistrictHelp',
+      hintList: 'districtList',
+      service: {
+        url: BASE_URL + 'admin/district/search',
+        param: 'name',
+      },
+      model: District,
+      collection: new DistrictCollection(),
+      formatResponseData: {
+        id: 'id',
+        name: 'name',
+      },
+      formatModelData: {
+        id: 'id',
+        name: 'name',
+      },
     });
   },
   clickCheckBoxSpecialimsTable: function(event){
@@ -209,14 +266,47 @@ var StudentDetailView = Backbone.View.extend({
       $('#message').html('Debe registrar primero al participante');
     }    
   },
+  viewPicture: function(e){
+    console.log(this.upload.path)
+    if(
+      (this.upload.path != '' && this.upload.url != '') && 
+      (this.upload.path !== 'undefined' && this.upload.url !== 'undefined') && 
+      (this.upload.path != null && this.upload.url != null)
+    ){
+      var win = window.open(this.upload.url + this.upload.path, '_blank');
+      win.focus();
+    }else{
+      $('#message').removeClass('alert-success');
+      $('#message').removeClass('alert-danger');
+      $('#message').addClass('alert-warning');
+      $('#message').html('Debe subir primero la imagen');
+    }
+  },
   save: function(){
     this.form.check();
     if(this.form.isOk == true){
       var _this = this;
-      this.student.set('name', $('#txtName').val());
-      this.student.set('cop', $('#txtCop').val());
-      this.student.set('rne', $('#txtRne').val());
-      //var respData = DentistService.saveDetail(this.student, 'message');
+      this.student.set('dni', $('#txtDNI').val());
+      this.student.set('code', $('#txtCode').val());
+      this.student.set('tuition', $('#txtTuition').val());
+      this.student.set('names', $('#txtNames').val());
+      this.student.set('last_names', $('#txtLastNames').val());
+      this.student.set('email', $('#txtEmail').val());
+      this.student.set('phone', $('#txtPhone').val());
+      //this.student.set('gender_id', $('#slcGender').val());
+      this.student.set('district_id', this.districtAutocomplete.id);
+      this.student.set('picture_url', this.upload.path);
+      this.student.set('address', $('#txtAddress').val());
+      var respData = StudentService.saveDetail(this.student, 'message');
+      if(respData.status == 200){
+        if(respData.message == ''){
+          // is a edited
+        }else{
+          // is a created, change title and set modelId
+          this.student.set('id', respData.message);
+          $('#formTitle').html('Editar participante');
+        }
+      }
       if(respData.status == 200){
         if(respData.message == ''){
           // is a edited
