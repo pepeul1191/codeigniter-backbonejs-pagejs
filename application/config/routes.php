@@ -85,6 +85,7 @@ $route['admin/district/save']['POST'] = 'admin/AdminDistrict/save';
 $route['admin/student/list']['GET'] = 'admin/AdminStudent/list';
 $route['admin/student/specialism/list']['GET'] = 'admin/AdminStudent/specialism';
 $route['admin/student/save']['POST'] = 'admin/AdminStudent/save';
+$route['admin/student/specialism/save']['POST'] = 'admin/AdminStudent/specialismSave';
   # admin specialism
 $route['admin/specialism/list']['GET'] = 'admin/AdminSpecialism/list';
 $route['admin/specialism/save']['POST'] = 'admin/AdminSpecialism/save';

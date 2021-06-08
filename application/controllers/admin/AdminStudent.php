@@ -130,19 +130,6 @@ class AdminStudent extends CI_Controller
     //libraries as filters
     /// TODO
     //controller function
-    /*
-          this.student.set('dni', $('#txtDNI').val());
-      this.student.set('code', $('#txtCode').val());
-      this.student.set('tuition', $('#txtTuition').val());
-      this.student.set('names', $('#txtNames').val());
-      this.student.set('last_names', $('#txtLastNames').val());
-      this.student.set('email', $('#txtEmail').val());
-      this.student.set('phone', $('#txtPhone').val());
-      //this.student.set('gender_id', $('#slcGender').val());
-      this.student.set('district_id', this.districtAutocomplete.id);
-      this.student.set('picture_url', this.upload.path);
-      this.student.set('address', $('#txtAddress').val());
-    */
     $id = $this->input->post('id');
     $dni = $this->input->post('dni');
     $code = $this->input->post('code');
@@ -195,6 +182,57 @@ class AdminStudent extends CI_Controller
       }
     }catch (Exception $e) {
       $status = 500;
+      $resp_data = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp_data);
+  }
+
+  public function specialismSave()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    \ORM::get_db('classroom')->beginTransaction();
+    $data = json_decode($this->input->post('data'));
+		$edits = $data->{'edit'};
+    $student_id = $data->{'extra'}->{'student_id'};
+    $resp_data = '';
+    $status = 200;
+    try {
+      // edits
+      if(count($edits) > 0){
+				foreach ($edits as &$edit) {
+          $specialism_id = $edit->{'id'};
+          $exist = $edit->{'exist'};
+          $e = \Model::factory('\Models\SpecialismStudent', 'classroom')
+            ->where('specialism_id', $specialism_id)
+            ->where('student_id', $student_id)
+            ->find_one();
+          if($exist == 0){
+            if($e != false){
+              $e->delete();
+            }
+          }else{
+            if($e == false){
+              $n = \Model::factory('\Models\SpecialismStudent', 'classroom')->create();
+              $n->specialism_id = $specialism_id;
+              $n->student_id = $student_id;
+              $n->save();
+            }
+          }
+        }
+      }
+      // commit
+      \ORM::get_db('classroom')->commit();
+      // response data
+      $resp_data = json_encode(array());
+    }catch (Exception $e) {
+      $status = 500;
+      var_dump($e->getTrace());
       $resp_data = json_encode($e->getMessage());
     }
     $this->output
