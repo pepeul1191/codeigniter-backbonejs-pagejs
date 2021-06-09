@@ -16,6 +16,7 @@ var StudentService = {
         picture_url: model.get('picture_url'),
         address: model.get('address'),
         district_id: model.get('district_id'),
+        district_name: model.get('district_name'),
       },
       headers: {
         [CSRF_KEY]: CSRF,

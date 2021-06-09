@@ -25,8 +25,9 @@ var StudentDetailView = Backbone.View.extend({
     'click #specialimsTable > tfoot > tr > td > button.save-table': 'saveSpecialimsTable',
     'change #specialimsTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpecialimsTable',
   },
-  render: function(data, type){
+  render: function(data, type, student_id){
     // this.student.unSet();???
+    var resp = null;
     var templateCompiled = null;
     if(type == 'new'){
       this.student.set('id', 'E');
@@ -45,7 +46,31 @@ var StudentDetailView = Backbone.View.extend({
       data.message = '';
       data.messageClass = '';
     }else{ // is edit, set model from server
-      
+      resp = StudentService.getDetail(student_id);
+      if(resp.status == 200){
+        this.student.set('id', resp.message.id);
+        this.student.set('dni', resp.message.dni);
+        this.student.set('code', resp.message.code);
+        this.student.set('tuition', resp.message.tuition);
+        this.student.set('names', resp.message.names);
+        this.student.set('last_names', resp.message.last_names);
+        this.student.set('email', resp.message.email);
+        this.student.set('phone', resp.message.phone);
+        this.student.set('district_id', resp.message.district_id);
+        this.student.set('picture_url', resp.message.picture_url);
+        this.student.set('address', resp.message.address);
+        this.student.set('district_name', resp.message.district_name);
+        data.disabled = false;
+        data.message = '';
+        data.messageClass = '';
+      }else if(resp.status == 404){
+        data.message = 'Recurso que busca no encontrado';
+        data.messageClass = 'alert-warning';
+      }else if(resp.status == 501){
+        data.message = 'Ocurrió un error controlado al recuperar los datos del ponente a editar';
+      }else{
+        data.message = 'Ocurrió un error no controlado al recuperar los datos del ponente a editar';
+      }
     }
     data.model = this.student;
 		$.ajax({
@@ -317,6 +342,24 @@ var StudentDetailView = Backbone.View.extend({
         }
       }
     }
+  },
+  setComponentsData: function(){
+    this.upload.path = this.student.get('picture_url');
+    this.upload.url = STATIC_URL;
+    this.specialimsTable.extraData = {
+      student_id: this.student.get('id'),
+    };
+    this.districtAutocomplete.id = this.student.get('id');
+    $('#txtDistrict').val(this.student.get('district_name'));
+  },
+  unSetComponentsData: function(){
+    this.upload.path = null;
+    this.upload.url = STATIC_URL;
+    this.specialimsTable.services.list = BASE_URL + 'admin/student/specialism/list?student_id=0';
+    this.specialimsTable.list();
+    this.specialimsTable.extraData = {
+      student_id: this.student.get('id'),
+    };
   },
 });
 

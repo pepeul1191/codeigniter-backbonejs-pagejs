@@ -101,7 +101,7 @@ class AdminStudent extends CI_Controller
         ON P.id = T.id
       ';
       $rs = array();
-      foreach($pdo->query(sprintf($query, $this->input->get('id'))) as $row) {
+      foreach($pdo->query(sprintf($query, $this->input->get('student_id'))) as $row) {
         array_push($rs, array(
           'id' => $row['id'],
           'name' => $row['name'],
@@ -238,6 +238,39 @@ class AdminStudent extends CI_Controller
     $this->output
       ->set_status_header($status)
       ->set_output($resp_data);
+  }
+
+  public function get()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    $rpta = '';
+    $status = 200;
+    try {
+      $rs = \Model::factory('\Models\Student', 'classroom')
+        ->where('id', $this->input->get('id'))
+        ->find_one();
+      if($rs == false){
+        $rpta = json_encode(['ups', 'Ponente no encontrado']);
+        $status = 404;
+      }else{
+        $rs = $rs->as_array();
+        $district = \Model::factory('\Models\VWDistrict', 'classroom')
+          ->where('id', $rs['district_id'])
+          ->find_one();
+        $rs['district_name'] = $district->name;
+        $rpta = json_encode($rs);
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      $rpta = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($rpta);
   }
 }
 

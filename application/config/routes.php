@@ -67,6 +67,7 @@ $route['admin/specialism']['GET'] = 'admin/adminIndex/index';
 $route['admin/location']['GET'] = 'admin/adminIndex/index';
 $route['admin/student']['GET'] = 'admin/adminIndex/index';
 $route['admin/student/new']['GET'] = 'admin/adminIndex/index';
+$route['admin/student/edit/(:num)']['GET'] = 'admin/adminIndex/index';
 $route['admin/speaker']['GET'] = 'admin/adminIndex/index';
 $route['admin/speaker/new']['GET'] = 'admin/adminIndex/index';
 $route['admin/speaker/edit/(:num)']['GET'] = 'admin/adminIndex/index';
@@ -86,6 +87,7 @@ $route['admin/student/list']['GET'] = 'admin/AdminStudent/list';
 $route['admin/student/specialism/list']['GET'] = 'admin/AdminStudent/specialism';
 $route['admin/student/save']['POST'] = 'admin/AdminStudent/save';
 $route['admin/student/specialism/save']['POST'] = 'admin/AdminStudent/specialismSave';
+$route['admin/student/get']['GET'] = 'admin/AdminStudent/get';
   # admin specialism
 $route['admin/specialism/list']['GET'] = 'admin/AdminSpecialism/list';
 $route['admin/specialism/save']['POST'] = 'admin/AdminSpecialism/save';

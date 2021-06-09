@@ -24,6 +24,7 @@ page('/specialism', specialism, closeToggle);
 page('/location', location, closeToggle);
 page('/student', student, closeToggle);
 page('/student/new', studentNew, closeToggle);
+page('/student/edit/:student_id', studentEdit, closeToggle);
 page('/speaker', speaker, closeToggle);
 page('/speaker/new', speakerNew, closeToggle);
 page('/speaker/edit/:speaker_id', speakerEdit, closeToggle);
@@ -124,6 +125,24 @@ function speakerEdit(ctx, next) {
   speakerDetailView.render(data, type, speaker_id);
   speakerDetailView.loadComponents();
   speakerDetailView.setComponentsData();
+  next();
+}
+
+function studentEdit(ctx, next) {
+  var student_id = ctx.params.student_id;
+  var data = {
+    title: 'Editar Ponente',
+    id: student_id,
+    messageClass: '',
+    disabled: false,
+  };
+  var type = 'edit';
+  if(studentDetailView == null){
+    studentDetailView = new StudentDetailView();
+  }
+  studentDetailView.render(data, type, student_id);
+  studentDetailView.loadComponents();
+  studentDetailView.setComponentsData();
   next();
 }
 
