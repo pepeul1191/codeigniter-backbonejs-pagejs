@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-4">
         <div class="form-group">
           <label for="txtGift">Regalo</label>
           <input type="text" class="form-control" id="txtGift" aria-describedby="txtGiftHelp" <% if(disabled) { %> disabled <% } %> placeholder="Ingrese regalo(opcional)" value="<%= model.get('gift') %>">
@@ -61,6 +61,22 @@
             <option value="2" <% if(model.get('event_type_id') == 2) { %> selected <% } %>>Diplomado</option>
           </select>
           <small id="slcEventTypeHelp" class="form-text"></small>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="slcSpecialism">Especialidad de Evento</label>
+          <select class="form-control" id="slcSpecialism" <% if(disabled) { %> disabled <% } %>>
+            <option value="E"></option>
+            <% model.get('specialisms').forEach(function(specialism) {%>
+              <% if(specialism.id == model.get('specialism_id')) { %>
+                <option selected value="<%= specialism.id %>"><%= specialism.name %></option>
+              <% }else{ %>
+                <option value="<%= specialism.id %>"><%= specialism.name %></option>
+              <% } %>
+            <% }); %>
+          </select>
+          <small id="slcSpecialismHelp" class="form-text"></small>
         </div>
       </div>
       <div class="col-md-4" id="uploadForm">

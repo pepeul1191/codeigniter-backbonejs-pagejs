@@ -14,6 +14,7 @@ var EventService = {
         init_date: model.get('init_date'),
         gift: model.get('gift'),
         event_type_id: model.get('event_type_id'),
+        specialism_id: model.get('specialism_id'),
         picture_url: model.get('picture_url'), 
         description: model.get('description'),
       },

@@ -131,7 +131,7 @@ function speakerEdit(ctx, next) {
 function studentEdit(ctx, next) {
   var student_id = ctx.params.student_id;
   var data = {
-    title: 'Editar Ponente',
+    title: 'Editar Participante',
     id: student_id,
     messageClass: '',
     disabled: false,
@@ -174,7 +174,7 @@ function eventNew(ctx, next) {
 function eventEdit(ctx, next) {
   var event_id = ctx.params.event_id;
   var data = {
-    title: 'Editar Ponente',
+    title: 'Editar Evento',
     id: event_id,
     messageClass: '',
     disabled: false,

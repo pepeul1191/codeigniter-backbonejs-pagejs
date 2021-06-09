@@ -2,6 +2,7 @@ import Table from '../../libs/table';
 import ValidationForm from '../../libs/validation_form';
 import Upload from '../../libs/upload';
 import SpeakerCollection from '../../collections/speaker_collection';
+import SpecialismService from '../../services/admin/specialism_service';
 import EventService from '../../services/admin/event_service';
 import Speaker from '../../models/speaker';
 import Event from '../../models/event';
@@ -12,6 +13,7 @@ var EventDetailView = Backbone.View.extend({
   eventTable: null,
 	initialize: function(){
     this.event = new Event({id:'E'});
+    this.specialisms = SpecialismService.list().message;
 	},
 	events: {
     // form
@@ -36,13 +38,16 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('gift', '');
       this.event.set('event_type_id', '');
       this.event.set('description', '');
+      this.event.set('specialism_id', '');
       this.event.set('code', '');
+      this.event.set('specialisms', _this.specialisms);
       data.model = this.event;
       data.disabled = false;
       data.message = '';
       data.messageClass = '';
     }else{
       resp = EventService.getDetail(speaker_id);
+      var _this = this;
       if(resp.status == 200){
         this.event.set('id', resp.message.id);
         this.event.set('hours', resp.message.hours);
@@ -53,8 +58,10 @@ var EventDetailView = Backbone.View.extend({
         this.event.set('email', resp.message.email);
         this.event.set('gift', resp.message.gift);
         this.event.set('event_type_id', resp.message.event_type_id);
+        this.event.set('specialism_id', resp.message.specialism_id);
         this.event.set('description', resp.message.description);
         this.event.set('code', resp.message.code);
+        this.event.set('specialisms', _this.specialisms);
         data.disabled = false;
         data.message = '';
         data.messageClass = '';
@@ -298,6 +305,7 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('init_date', $('#txtInitDate').val());
       this.event.set('gift', $('#txtGift').val());
       this.event.set('event_type_id', $('#slcEventType').val());
+      this.event.set('specialism_id', $('#slcSpecialism').val());
       this.event.set('picture_url', this.upload.path);
       this.event.set('description', $('#txtDescription').val());
       var respData = EventService.saveDetail(this.event, 'message');
