@@ -6,6 +6,9 @@ import SpecialismService from '../../services/admin/specialism_service';
 import EventService from '../../services/admin/event_service';
 import Speaker from '../../models/speaker';
 import Event from '../../models/event';
+import ModalEventDocumentView from './modal_event_document_view';
+import ModalEventVideoView from './modal_event_video_view';
+import ModalEventStudentView from './modal_event_student_view';
 
 var EventDetailView = Backbone.View.extend({
   el: '#workspace',
@@ -14,11 +17,20 @@ var EventDetailView = Backbone.View.extend({
 	initialize: function(){
     this.event = new Event({id:'E'});
     this.specialisms = SpecialismService.list().message;
+    this.modalEventDocumentView = null;
+    var _this = this;
+    $('#modal').on('hidden.bs.modal', function () {
+      //_this.speakerTable.list();
+    });
 	},
 	events: {
     // form
     'click #btnSave': 'save',
     'click #btnViewPicture': 'viewPicture',
+    // documents and videos
+    'click #btnDocuments': 'showDocuments',
+    'click #btnVideos': 'showVideos',
+    'click #btnAddStudent': 'addStudent',
     // specialism table
     'click #speakerTable > tfoot > tr > td > button.save-table': 'saveSpeakersTable',
     'change #speakerTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpeakersTable',
@@ -346,6 +358,7 @@ var EventDetailView = Backbone.View.extend({
     };
   },
   unSetComponentsData: function(){
+    this.modalEventDocumentView = null;
     this.upload.path = null;
     this.upload.url = STATIC_URL;
     this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?event_id=0';
@@ -353,6 +366,21 @@ var EventDetailView = Backbone.View.extend({
       event_id: this.event.get('id'),
     };
     this.speakerTable.list();
+  },
+  showDocuments: function(){
+    this.modalEventDocumentView = new ModalEventDocumentView();
+    this.modalEventDocumentView.render();
+    this.modalEventDocumentView.loadComponents();
+  },
+  showVideos: function(){
+    this.modalEventVideoView = new ModalEventVideoView();
+    this.modalEventVideoView.render();
+    this.modalEventVideoView.loadComponents();
+  },
+  addStudent: function(){
+    this.modalEventStudentView = new ModalEventStudentView();
+    this.modalEventStudentView.render();
+    this.modalEventStudentView.loadComponents();
   },
   clickCheckBoxSpeakersTable: function(event){
     this.speakerTable.clickCheckBox(event);

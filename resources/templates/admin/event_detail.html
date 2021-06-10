@@ -107,17 +107,29 @@
       <small id="txtDescriptionHelp" class="form-text"></small>
     </div>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-12" style="margin-bottom:20px; margin-top: -20px;">
     <div class="form-group">
-      <button id="btnSave" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-top: 12px; margin-left: 20px;" >
+      <button id="btnSave" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-left: 20px;" >
         <i class="fa fa-check" style="margin-right:5px"></i>
         Guardar Cambios
+      </button>
+    </div>
+    <div class="form-group">
+      <button id="btnDocuments" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary pull-right" style="margin-top: 12px; margin-left: 20px;" >
+        <i class="fa fa-book" style="margin-right:5px"></i>
+        Gestionar Documentos
+      </button>
+    </div>
+    <div class="form-group">
+      <button id="btnVideos" <% if(disabled) { %> disabled <% } %> class="btn btn-info pull-right" style="margin-top: 12px; margin-left: 20px;" >
+        <i class="fa fa-video-camera" style="margin-right:5px"></i>
+        Gestionar Videos
       </button>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <h6>Ponentes</h6>
     <br>
     <table class="table table-striped" styles="" id="speakerTable">
@@ -138,7 +150,7 @@
       </tfoot>
     </table>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-8">
     <h6>Alumnos Inscritos</h6>
     <br>
     <table class="table table-striped" styles="" id="imageTable">
@@ -152,7 +164,7 @@
       <tfoot>
         <tr>
           <td colspan="1000" style="text-align:right">
-            <button <% if(disabled) { %> disabled <% } %> class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
+            <button id="btnAddStudent" <% if(disabled) { %> disabled <% } %> class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
             <button <% if(disabled) { %> disabled <% } %> class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
             <input type="file" class="custom-file-input d-none" id="fileImage">
           </td>
