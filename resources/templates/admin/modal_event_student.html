@@ -9,12 +9,7 @@
     <div class="modal-body">
       <h5>Gestión de Participantes</h5>
       <div class="row">
-        <div class="col-md-12">
-            <div class="alert" id="message" role="alert"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
           <div class="form-group">
             <label for="txtName">Nombre</label>
             <input type="text" class="form-control" id="txtName" aria-describedby="txtNameHelp" placeholder="Ingrese nombre" value="">
@@ -42,17 +37,27 @@
             <small id="txtTuitionHelp" class="form-text"></small>
           </div>
         </div>
-        <div class="col-md-1">
-          <div class="form-group">
-            <button id="btnSearch" class="btn btn-primary" style="margin-top: 25px;" >
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="chkRegister" name="chkState" class="custom-control-input" vulue="X" checked>
+            <label class="custom-control-label" for="chkRegister">Alumnos Matriculados</label>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="chkNoRegister" name="chkState" class="custom-control-input" vulue="D">
+            <label class="custom-control-label" for="chkNoRegister">Alumnos No Matriculados</label>
+          </div>
+        </div>
+        <div class="col-md-3 offset-md-3">
+          <div class="form-group pull right">
+            <button id="btnSearch" class="btn btn-primary" style="margin-top: 0px;" >
               <i class="fa fa-search" style="margin-right:5px"></i>
               Buscar
             </button>
-          </div>
-        </div>
-        <div class="col-md-1">
-          <div class="form-group">
-            <button id="btnClean" class="btn btn-warning" style="margin-top: 25px;" >
+            <button id="btnClean" class="btn btn-warning" style="margin-top: 0px;" >
               <i class="fa fa-repeat" style="margin-right:5px"></i>
               Limpiar
             </button>
@@ -60,14 +65,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-7">
-            <hr>
-            <br>
+        <div class="col-md-3">
+          <h6 style="margin-top:10px">Lista de Participantes</h6>
         </div>
-      </div>
-      <div class="row">
+        <div class="col-md-9">
+          <div class="alert" id="messageModal" role="alert"></div>
+        </div>
         <div class="col-md-12" id="formTableStudent">
-          <h6 style="margin-bottom:15px">Lista de Participantes</h6>
           <table class="table table-striped" styles="" id="studentTable">
             <thead>
               <tr>
@@ -88,19 +92,11 @@
                   <i id="btnGoNext" class="fa fa-angle-right footer-icon pagination-btn" aria-hidden="true"></i>
                   <i id="btnGoLast" class="fa fa-angle-double-right footer-icon pagination-btn" aria-hidden="true"></i>
                 </td>
-                <td colspan="4" style="text-align:right">
-                  <a class="btn btn-primary" href="/admin/student/new"> <i class="fa fa-plus" style="margin-right:5px; color: #fff !important;"></i>Agregar Registro</a>
-                  <button class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
-                </td>
               </tr>
             </tfoot>
           </table>
         </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Save changes</button>
     </div>
   </div>
 </div>

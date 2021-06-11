@@ -76,3 +76,8 @@ footer > .container > .row > .col-md-3 > ul > li > a, .footer-copyright > b > a{
 .form-group > label{
   width: 100%;
 }
+
+.form-check-label{
+  margin-top: 2px;
+  margin-left: 10px;
+}

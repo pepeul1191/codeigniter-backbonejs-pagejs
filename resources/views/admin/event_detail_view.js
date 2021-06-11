@@ -14,6 +14,7 @@ var EventDetailView = Backbone.View.extend({
   el: '#workspace',
   event: null,
   eventTable: null,
+  modalEventStudentView: null,
 	initialize: function(){
     this.event = new Event({id:'E'});
     this.specialisms = SpecialismService.list().message;
@@ -21,6 +22,8 @@ var EventDetailView = Backbone.View.extend({
     var _this = this;
     $('#modal').on('hidden.bs.modal', function () {
       //_this.speakerTable.list();
+      _this.modalEventStudentView.undelegateEvents();
+      _this.modalEventStudentView = null;
     });
 	},
 	events: {
@@ -30,7 +33,7 @@ var EventDetailView = Backbone.View.extend({
     // documents and videos
     'click #btnDocuments': 'showDocuments',
     'click #btnVideos': 'showVideos',
-    'click #btnAddStudent': 'addStudent',
+    'click #btnManStudent': 'manStudent',
     // specialism table
     'click #speakerTable > tfoot > tr > td > button.save-table': 'saveSpeakersTable',
     'change #speakerTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpeakersTable',
@@ -377,8 +380,11 @@ var EventDetailView = Backbone.View.extend({
     this.modalEventVideoView.render();
     this.modalEventVideoView.loadComponents();
   },
-  addStudent: function(){
-    this.modalEventStudentView = new ModalEventStudentView();
+  manStudent: function(){
+    var event_id = this.event.get('id');
+    this.modalEventStudentView = new ModalEventStudentView({
+      event_id: event_id,
+    });
     this.modalEventStudentView.render();
     this.modalEventStudentView.loadComponents();
   },
