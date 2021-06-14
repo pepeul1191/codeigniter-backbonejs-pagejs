@@ -35,6 +35,12 @@ Video:
     $ mysqldump -u root -p classroom > db/classroom.sql
     $ mysql -u root -p classroom < db/classroom.sql
 
+## Habilitar GROUP BY MySQL
+
+    $ SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+En el hosting ya está habilitada está función.
+
 ---
 
 Fuentes:

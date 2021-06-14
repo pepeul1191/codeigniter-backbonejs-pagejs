@@ -108,5 +108,7 @@ $route['admin/event/student/save']['POST'] = 'admin/AdminEvent/studentSave';
 $route['admin/event/get']['GET'] = 'admin/AdminEvent/get';
 $route['admin/event/delete']['POST'] = 'admin/AdminEvent/delete';
 $route['admin/event/recent-list']['GET'] = 'admin/AdminEvent/recentList';
-  # upload
+  # admin event student
+$route['admin/event/student/list']['GET'] = 'admin/AdminEventStudent/list';
+# upload
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';
