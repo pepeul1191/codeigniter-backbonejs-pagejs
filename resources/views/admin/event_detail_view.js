@@ -312,7 +312,10 @@ var EventDetailView = Backbone.View.extend({
     this.modalEventDocumentView.loadComponents();
   },
   showVideos: function(){
-    this.modalEventVideoView = new ModalEventVideoView();
+    var event_id = this.event.get('id');
+    this.modalEventVideoView = new ModalEventVideoView({
+      event_id: event_id,
+    });
     this.modalEventVideoView.render();
     this.modalEventVideoView.loadComponents();
   },

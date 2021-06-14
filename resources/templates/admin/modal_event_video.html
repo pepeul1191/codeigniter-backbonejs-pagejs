@@ -7,11 +7,32 @@
       </button>
     </div>
     <div class="modal-body">
-      ...
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert" id="messageModal" role="alert"></div>
+        </div>
+        <div class="col-md-12" id="formTableVideo">
+          <table class="table table-striped" styles="" id="videoTable">
+            <thead>
+              <tr>
+                <th style="width: 10px; display:none;">id</th>
+                <th style="width: 200px;">Nombre</th>
+                <th style="width: 400px;">Descripción</th>
+                <th style="width: 250px;">URL</th>
+                <th style="width: 80px; padding-left: 17px !important;">Botones</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="1000" style="text-align:right">
+                  <button class="btn btn-primary add-row"> <i class="fa fa-plus" style="margin-right:5px"></i>Agregar Registro</button>
+                  <button class="btn btn-success save-table"> <i class="fa fa-check" style="margin-right:5px"></i>Guardar Cambios</button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
