@@ -10,6 +10,7 @@ var Event = Backbone.Model.extend({
     this.event_type_id = null;
     this.description = null;
     this.code = null;
+    this.video_path = null;
   }
 });
 

@@ -23,13 +23,21 @@ class AdminUpload extends CI_Controller
     try {
       $extension = explode('.', $_FILES['file']['name']); $extension = end($extension);
       $status = 200;
+      $path = UPLOAD_PATH. $rand . '.' . $extension;
+      $response_path = 'uploads/' . $rand . '.' . $extension;
+      if(
+        $this->input->post('path') != null
+      ){
+        $path = UPLOAD_PATH. $this->input->post('path') . DIRECTORY_SEPARATOR . $rand . '.' . $extension;
+        $response_path = 'uploads/' . $this->input->post('path') . '/' . $rand . '.' . $extension;
+      }
       move_uploaded_file(
         $_FILES['file']['tmp_name'], 
-        UPLOAD_PATH. $rand . '.' . $extension
+        $path
       );
       $resp_data = json_encode(array(
         'url' => $this->config->item('static_url'),
-        'path' => 'uploads/' . $rand . '.' . $extension,
+        'path' => $response_path,
       ));
     }catch (Exception $e) {
       $status = 500;

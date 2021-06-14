@@ -46,6 +46,7 @@ var EventDetailView = Backbone.View.extend({
     // this.event.unSet();???
     var templateCompiled = null;
     var resp = null;
+    var _this = this;
     if(type == 'new'){
       this.event.unset();
       this.event.set('hours', '');
@@ -60,6 +61,7 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('specialism_id', '');
       this.event.set('code', '');
       this.event.set('specialisms', _this.specialisms);
+      this.event.set('upload_path', '');
       data.model = this.event;
       data.disabled = false;
       data.message = '';
@@ -81,6 +83,7 @@ var EventDetailView = Backbone.View.extend({
         this.event.set('description', resp.message.description);
         this.event.set('code', resp.message.code);
         this.event.set('specialisms', _this.specialisms);
+        this.event.set('upload_path',  resp.message.upload_path);
         data.disabled = false;
         data.message = '';
         data.messageClass = '';
@@ -275,7 +278,8 @@ var EventDetailView = Backbone.View.extend({
           // is a edited
         }else{
           // is a created, change title and set modelId
-          this.event.set('id', respData.message);
+          this.event.set('id', respData.message.id);
+          this.event.set('upload_path', respData.message.upload_path);
           $('#formTitle').html('Editar Evento');
         }
       }
@@ -307,7 +311,12 @@ var EventDetailView = Backbone.View.extend({
     this.upload.url = STATIC_URL;
   },
   showDocuments: function(){
-    this.modalEventDocumentView = new ModalEventDocumentView();
+    var event_id = this.event.get('id');
+    var upload_path = this.event.get('upload_path');
+    this.modalEventDocumentView = new ModalEventDocumentView({
+      event_id: event_id,
+      upload_path: upload_path,
+    });
     this.modalEventDocumentView.render();
     this.modalEventDocumentView.loadComponents();
   },

@@ -628,6 +628,9 @@ var Table = Backbone.View.extend({
       }else{
         var formData = new FormData();
         formData.append(this.upload.service.formDataKey, file);
+        if(this.upload.path != null){
+          formData.append('path', this.upload.path);
+        }
         var _this = this;
         $.ajax({
           url: _this.upload.service.url,
@@ -671,9 +674,9 @@ var Table = Backbone.View.extend({
   imageFileView: function(event){
     var rowId = event.target.parentElement.parentElement.firstChild.innerHTML;
     var model = this.collection.get(rowId);
-    //console.log(this.upload.keyModel + '_url');
+    console.log(this.upload.keyModel + '_url');
     var win = null;
-    if(typeof model.get(this.upload.keyModel + '_url') === 'undefined'){
+    /*if(typeof model.get(this.upload.keyModel + '_url') === 'undefined'){
       win = window.open(
         model.get(this.upload.keyModel)
         , '_blank');
@@ -681,6 +684,10 @@ var Table = Backbone.View.extend({
       win = window.open(
         model.get(this.upload.keyModel + '_url') + model.get(this.upload.keyModel)
         , '_blank');
+    }*/
+    if(typeof model.get(this.upload.keyModel) !== 'undefined'){
+      var base_url = this.upload.base_url;
+      win = window.open(base_url + model.get(this.upload.keyModel), '_blank');
     }
     win.focus();
   },

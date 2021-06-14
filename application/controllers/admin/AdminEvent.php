@@ -133,6 +133,7 @@ class AdminEvent extends CI_Controller
     $status = 200;
     try {
       if($id == 'E'){
+        $this->load->helper('random');
         // new
         $n = \Model::factory('\Models\Event', 'classroom')->create();
         $n->code = $code;
@@ -145,8 +146,13 @@ class AdminEvent extends CI_Controller
         $n->init_hour = $init_hour;
         $n->init_date = $init_date;
         $n->specialism_id = $specialism_id;
+        $n->upload_path = random(20);
         $n->save();
-        $resp_data = $n->id;
+        $resp_data = array(
+          'id' => $n->id,
+          'upload_path' => $n->upload_path,
+          'action' => 'create',
+        );
       }else{
         // edit
         $e = \Model::factory('\Models\Event', 'classroom')->find_one($id);
@@ -161,14 +167,17 @@ class AdminEvent extends CI_Controller
         $e->specialism_id = $specialism_id;
         $e->init_date = $init_date;
         $e->save();
+        $resp_data = array(
+          'action' => 'edit',
+        );
       }
     }catch (Exception $e) {
       $status = 500;
-      $resp_data = json_encode($e->getMessage());
+      $resp_data = $e->getMessage();
     }
     $this->output
       ->set_status_header($status)
-      ->set_output($resp_data);
+      ->set_output(json_encode($resp_data));
   }
 
   public function speaker()

@@ -48,7 +48,7 @@ CREATE TABLE `documents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` text,
-  `url` varchar(50) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
@@ -87,12 +87,13 @@ CREATE TABLE `events` (
   `event_type_id` int(11) DEFAULT NULL,
   `specialism_id` int(11) DEFAULT NULL,
   `code` int(11) DEFAULT NULL,
+  `upload_path` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_type_id` (`event_type_id`),
   KEY `fk_specialims_events_1` (`specialism_id`),
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_specialims_events_1` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +285,7 @@ CREATE TABLE `videos` (
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -468,5 +469,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20210610152010'),
   ('20210610152258'),
   ('20210611202005'),
-  ('20210612001252');
+  ('20210612001252'),
+  ('20210614132736'),
+  ('20210614152143');
 UNLOCK TABLES;

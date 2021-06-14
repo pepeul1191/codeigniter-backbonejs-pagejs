@@ -30,7 +30,7 @@ var EventService = {
         $('#' + messageLabelId).html('Detalle de evento guardado con éxito');
         // $('html, body').animate({ scrollTop: $("#" + messageLabelId).offset().top }, 1000);
         // return data
-        resp.message = data;
+        resp.message = JSON.parse(data);
         resp.status = 200;
       },
       error: function(xhr, status, error){
