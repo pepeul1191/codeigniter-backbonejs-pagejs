@@ -1,20 +1,20 @@
 import Table from '../../libs/table';
 import ValidationForm from '../../libs/validation_form';
 import Upload from '../../libs/upload';
-import SpeakerCollection from '../../collections/speaker_collection';
 import SpecialismService from '../../services/admin/specialism_service';
 import EventService from '../../services/admin/event_service';
-import Speaker from '../../models/speaker';
 import Event from '../../models/event';
 import ModalEventDocumentView from './modal_event_document_view';
 import ModalEventVideoView from './modal_event_video_view';
 import ModalEventStudentView from './modal_event_student_view';
+import ModalEventSpeakerView from './modal_event_speaker_view';
 
 var EventDetailView = Backbone.View.extend({
   el: '#workspace',
   event: null,
   eventTable: null,
   modalEventStudentView: null,
+  modalEventSpeakerView: null,
 	initialize: function(){
     this.event = new Event({id:'E'});
     this.specialisms = SpecialismService.list().message;
@@ -22,8 +22,14 @@ var EventDetailView = Backbone.View.extend({
     var _this = this;
     $('#modal').on('hidden.bs.modal', function () {
       //_this.speakerTable.list();
-      _this.modalEventStudentView.undelegateEvents();
-      _this.modalEventStudentView = null;
+      if(_this.modalEventStudentView != null){
+        _this.modalEventStudentView.undelegateEvents();
+        _this.modalEventStudentView = null;
+      }
+      if(_this.modalEventSpeakerView != null){
+        _this.modalEventSpeakerView.undelegateEvents();
+        _this.modalEventSpeakerView = null;
+      }
     });
 	},
 	events: {
@@ -34,9 +40,7 @@ var EventDetailView = Backbone.View.extend({
     'click #btnDocuments': 'showDocuments',
     'click #btnVideos': 'showVideos',
     'click #btnManStudent': 'manStudent',
-    // specialism table
-    'click #speakerTable > tfoot > tr > td > button.save-table': 'saveSpeakersTable',
-    'change #speakerTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpeakersTable',
+    'click #btnManSpeaker': 'manSpeaker',
   },
   render: function(data, type, speaker_id){
     // this.event.unSet();???
@@ -108,64 +112,6 @@ var EventDetailView = Backbone.View.extend({
   },
   loadComponents: function(){
     var _this = this;
-    // speakerTable
-    this.speakerTable = new Table({
-      el: 'speakerTable', // String
-      messageLabelId: 'message', // String
-      model: Speaker, // String
-      collection: new SpeakerCollection(), // Backbone collection
-      services: {
-        list: BASE_URL + 'admin/event/speaker/list?event_id=' + _this.event.get('id'), // String
-        save: BASE_URL + 'admin/event/speaker/save', // String
-      },
-      extraData: null,
-      observer: { // not initialize
-      new: [],
-      edit: [],
-      delete: [],
-      },
-      messages: {
-        list500: 'Ocurrió un error no esperado en listar las ponentes',
-        list501: 'Ocurrió un error en listar las ponentes',
-        list404: 'Recurso no encontrado - listar ponentes',
-        save500: 'Ocurrió un error no esperado en grabar los cambios',
-        save501: 'Ocurrió un error en grabar los cambios',
-        save404: 'Recurso no encontrado - guardar ponentes',
-        save200: 'Ponentes del evento actualizados',
-      },
-      serverKeys: ['id', 'name', 'exist'],
-      row: {
-        table: ['id', 'name', 'exist'],
-        tds: [
-          { // id
-            type: 'tdId',
-            styles: 'display: none; ', 
-            edit: false,
-            key: 'id',
-          },
-          { // namne
-            type: 'td',
-            styles: '', 
-            edit: true,
-            key: 'name',
-          },
-          { // exist
-            type: 'check',
-            styles: 'margin-left: 30px;', 
-            edit: true,
-            key: 'exist',
-            values: {
-              yes: 1,
-              no: 0,
-            },
-          },
-        ],
-        buttons: [],
-      },
-    });
-    this.speakerTable.extraData = {
-      event_id: _this.event_id
-    };
     // form
     this.form = new ValidationForm({
       el: '#form',
@@ -354,21 +300,11 @@ var EventDetailView = Backbone.View.extend({
   setComponentsData: function(){
     this.upload.path = this.event.get('picture_url');
     this.upload.url = STATIC_URL;
-    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?event_id=' + this.event.get('id');
-    this.speakerTable.list();
-    this.speakerTable.extraData = {
-      event_id: this.event.get('id'),
-    };
   },
   unSetComponentsData: function(){
     this.modalEventDocumentView = null;
     this.upload.path = null;
     this.upload.url = STATIC_URL;
-    this.speakerTable.services.list = BASE_URL + 'admin/event/speaker/list?event_id=0';
-    this.speakerTable.extraData = {
-      event_id: this.event.get('id'),
-    };
-    this.speakerTable.list();
   },
   showDocuments: function(){
     this.modalEventDocumentView = new ModalEventDocumentView();
@@ -388,21 +324,13 @@ var EventDetailView = Backbone.View.extend({
     this.modalEventStudentView.render();
     this.modalEventStudentView.loadComponents();
   },
-  clickCheckBoxSpeakersTable: function(event){
-    this.speakerTable.clickCheckBox(event);
-  },
-  saveSpeakersTable: function(event){
-    if(this.event.get('id') != 'E'){
-      this.speakerTable.extraData = {
-        event_id: parseInt(this.event.get('id')),
-      };
-      this.speakerTable.saveTable(event);
-    }else{
-      $('#message').removeClass('alert-success');
-      $('#message').removeClass('alert-warning');
-      $('#message').addClass('alert-danger');
-      $('#message').html('Debe registrar primero el evento');
-    }    
+  manSpeaker: function(){
+    var event_id = this.event.get('id');
+    this.modalEventSpeakerView = new ModalEventSpeakerView({
+      event_id: event_id,
+    });
+    this.modalEventSpeakerView.render();
+    this.modalEventSpeakerView.loadComponents();
   },
 });
 
