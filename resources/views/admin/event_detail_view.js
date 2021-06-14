@@ -1,4 +1,3 @@
-import Table from '../../libs/table';
 import ValidationForm from '../../libs/validation_form';
 import Upload from '../../libs/upload';
 import SpecialismService from '../../services/admin/specialism_service';
@@ -29,6 +28,14 @@ var EventDetailView = Backbone.View.extend({
       if(_this.modalEventSpeakerView != null){
         _this.modalEventSpeakerView.undelegateEvents();
         _this.modalEventSpeakerView = null;
+      }
+      if(_this.modalEventDocumentView != null){
+        _this.modalEventDocumentView.undelegateEvents();
+        _this.modalEventDocumentView = null;
+      }
+      if(_this.modalEventVideoView != null){
+        _this.modalEventVideoView.undelegateEvents();
+        _this.modalEventVideoView = null;
       }
     });
 	},
