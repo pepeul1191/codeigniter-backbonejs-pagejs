@@ -338,43 +338,6 @@ class AdminEvent extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp_data);
   }
-
-  public function studentSave()
-  {
-    // load session
-    $this->load->library('session');
-    // libraries as filters
-    // ???
-    //controller function
-    \ORM::get_db('classroom')->beginTransaction();
-    $event_id = $this->input->post('event_id');
-		$student_id = $this->input->post('student_id');
-    $resp_data = '';
-    $status = 200;
-    try {
-      $e = \Model::factory('\Models\EventStudent', 'classroom')
-        ->where('student_id', $student_id)
-        ->where('event_id', $event_id)
-        ->count();
-      if($e == 0){
-        $n = \Model::factory('\Models\EventStudent', 'classroom')->create();
-        $n->student_id = $student_id;
-        $n->event_id = $event_id;
-        $n->save();
-        \ORM::get_db('classroom')->commit();
-        $resp_data = $n->id;
-      }else{
-        $resp_data = 0;
-      }
-    }catch (Exception $e) {
-      $status = 500;
-      var_dump($e->getTrace());
-      $resp_data = json_encode($e->getMessage());
-    }
-    $this->output
-      ->set_status_header($status)
-      ->set_output($resp_data);
-  }
 }
 
 ?>

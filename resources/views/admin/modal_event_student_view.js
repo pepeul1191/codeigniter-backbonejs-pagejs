@@ -74,7 +74,7 @@ var ModalEventStudentView = StudentView.extend({
         {
           type: 'i',
           operation: 'none',
-          class: 'fa-plus',
+          class: 'fa-times',
           styles: 'padding-left: 14px;',
         },
       ],
@@ -102,6 +102,7 @@ var ModalEventStudentView = StudentView.extend({
     // PARENT
     // table departmentTable events
     'click #studentTable > tbody > tr > td > i.fa-plus': 'addStudent',
+    'click #studentTable > tbody > tr > td > i.fa-times': 'deleteStudent',
     // pagination departmentTable
     'click #studentTable > tfoot > tr > td > #btnGoBegin': 'goBegin',
     'click #studentTable > tfoot > tr > td > #btnGoPrevious': 'goPrevious',
@@ -161,6 +162,28 @@ var ModalEventStudentView = StudentView.extend({
     var registered = $("input[name='chkState']:checked").val();
     base = base + 'registered=' + registered + '&';
     base = base + 'event_id=' + this.event_id ;
+    // table button row
+    if(registered == 'true'){
+      // delete
+      this.studentTable.row.buttons = [
+        {
+          type: 'i',
+          operation: 'none',
+          class: 'fa-times',
+          styles: 'padding-left: 14px;',
+        },
+      ];
+    }else{
+      // add
+      this.studentTable.row.buttons = [
+        {
+          type: 'i',
+          operation: 'none',
+          class: 'fa-plus',
+          styles: 'padding-left: 14px;',
+        },
+      ];
+    }
     this.studentTable.services.list = base;
     this.studentTable.list();
   },
@@ -180,9 +203,29 @@ var ModalEventStudentView = StudentView.extend({
         $('#messageModal').addClass('alert-success');
         $('#messageModal').html('Se ha agregado un alumno');
       }
-    }else{
-
     }
+  },
+  deleteStudent: function(event){
+    // remove from db
+    var student_id = event.target.parentElement.parentElement.firstChild.innerHTML;
+    var resp = EventStudentService.removeDetail(student_id, this.event_id, 'messageModal');
+    if(resp.status == 200){
+      if(resp.message == '0'){
+        $('#messageModal').removeClass('alert-danger');
+        $('#messageModal').removeClass('alert-success');
+        $('#messageModal').addClass('alert-warning');
+        $('#messageModal').html('El alumno no se encuentra registrado');
+      }else{
+        $('#messageModal').removeClass('alert-danger');
+        $('#messageModal').removeClass('alert-warning');
+        $('#messageModal').addClass('alert-success');
+        $('#messageModal').html('Se ha retirado un alumno');
+      }
+    }
+    // remove from DOM
+    var tbody = event.target.parentElement.parentElement.parentElement;
+    var tr = event.target.parentElement.parentElement;
+    tbody.removeChild(tr);
   },
 });
 

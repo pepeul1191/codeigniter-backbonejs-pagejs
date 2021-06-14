@@ -48,10 +48,9 @@ class AdminEventStudent extends CI_Controller
       ){
         $stmt = $stmt->where_like('dni', '%' . $this->input->get('dni'). '%');
       }
-      //var_dump($event_id);
-      //var_dump($stmt->count());
-      // event and registered
+      // group by id
       $stmt = $stmt->group_by('id');
+      // event and registered
       if($registered == 'true'){
         //var_dump('true');
         $stmt = $stmt->where('event_id', $event_id);
@@ -59,11 +58,6 @@ class AdminEventStudent extends CI_Controller
         //var_dump('false');
         $stmt = $stmt->where_not_equal('event_id', $event_id);
       }
-      // group by id
-      //
-      //var_dump($stmt->count());
-      //var_dump($rs);
-      //exit();
       // pages with final statement
       $rs = $stmt->find_array();
       $pages = ceil(
@@ -93,6 +87,78 @@ class AdminEventStudent extends CI_Controller
     $this->output
       ->set_status_header($status)
       ->set_output($resp);
+  }
+
+
+  public function studentSave()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    \ORM::get_db('classroom')->beginTransaction();
+    $event_id = $this->input->post('event_id');
+		$student_id = $this->input->post('student_id');
+    $resp_data = '';
+    $status = 200;
+    try {
+      $e = \Model::factory('\Models\EventStudent', 'classroom')
+        ->where('student_id', $student_id)
+        ->where('event_id', $event_id)
+        ->count();
+      if($e == 0){
+        $n = \Model::factory('\Models\EventStudent', 'classroom')->create();
+        $n->student_id = $student_id;
+        $n->event_id = $event_id;
+        $n->save();
+        \ORM::get_db('classroom')->commit();
+        $resp_data = $n->id;
+      }else{
+        $resp_data = 0;
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      var_dump($e->getTrace());
+      $resp_data = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp_data);
+  }
+
+
+  public function removeSave()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    \ORM::get_db('classroom')->beginTransaction();
+    $event_id = $this->input->post('event_id');
+		$student_id = $this->input->post('student_id');
+    $resp_data = '';
+    $status = 200;
+    try {
+      $d = \Model::factory('\Models\EventStudent', 'classroom')
+        ->where('student_id', $student_id)
+        ->where('event_id', $event_id);
+      if($d->count() == 1){
+        $d->find_one()->delete();
+        \ORM::get_db('classroom')->commit();
+        $resp_data = 1;
+      }else{
+        $resp_data = 0;
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      var_dump($e->getTrace());
+      $resp_data = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp_data);
   }
 }
 

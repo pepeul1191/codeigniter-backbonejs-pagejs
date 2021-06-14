@@ -104,11 +104,12 @@ $route['admin/event/list']['GET'] = 'admin/AdminEvent/list';
 $route['admin/event/save']['POST'] = 'admin/AdminEvent/save';
 $route['admin/event/speaker/list']['GET'] = 'admin/AdminEvent/speaker';
 $route['admin/event/speaker/save']['POST'] = 'admin/AdminEvent/speakerSave';
-$route['admin/event/student/save']['POST'] = 'admin/AdminEvent/studentSave';
 $route['admin/event/get']['GET'] = 'admin/AdminEvent/get';
 $route['admin/event/delete']['POST'] = 'admin/AdminEvent/delete';
 $route['admin/event/recent-list']['GET'] = 'admin/AdminEvent/recentList';
   # admin event student
 $route['admin/event/student/list']['GET'] = 'admin/AdminEventStudent/list';
+$route['admin/event/student/save']['POST'] = 'admin/AdminEventStudent/studentSave';
+$route['admin/event/student/remove']['POST'] = 'admin/AdminEventStudent/removeSave';
 # upload
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';
