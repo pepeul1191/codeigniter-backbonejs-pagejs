@@ -318,6 +318,7 @@ var EventDetailView = Backbone.View.extend({
     this.upload.url = STATIC_URL;
   },
   showDocuments: function(){
+    console.log(this.event);
     var event_id = this.event.get('id');
     var upload_path = this.event.get('upload_path');
     this.modalEventDocumentView = new ModalEventDocumentView({

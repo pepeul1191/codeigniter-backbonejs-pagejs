@@ -135,6 +135,7 @@ class AdminEvent extends CI_Controller
       if($id == 'E'){
         $this->load->helper('random');
         // new
+        $path = random(20);
         $n = \Model::factory('\Models\Event', 'classroom')->create();
         $n->code = $code;
         $n->name = $name;
@@ -146,8 +147,11 @@ class AdminEvent extends CI_Controller
         $n->init_hour = $init_hour;
         $n->init_date = $init_date;
         $n->specialism_id = $specialism_id;
-        $n->upload_path = random(20);
+        $n->upload_path = $path;
         $n->save();
+        // create folder
+        mkdir(UPLOAD_PATH . $path, 0700);
+        // resp
         $resp_data = array(
           'id' => $n->id,
           'upload_path' => $n->upload_path,

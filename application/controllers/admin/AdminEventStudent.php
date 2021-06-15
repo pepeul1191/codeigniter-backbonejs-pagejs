@@ -29,6 +29,14 @@ class AdminEventStudent extends CI_Controller
       ){
         $stmt = $stmt->where_like('names', '%' . $this->input->get('name') . '%');
         $stmt = $stmt->where_like('last_names', '%' . $this->input->get('name') . '%');
+        /*
+        $stmt = $stmt->where_like(
+          array(
+            'names' => '%' . $this->input->get('name') . '%',
+            'last_names' => '%' . $this->input->get('name') . '%',
+          )
+        );
+        */
       }
       // filter code
       if(

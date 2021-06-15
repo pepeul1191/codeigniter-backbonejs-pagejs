@@ -104,8 +104,6 @@ class AdminEventDocument extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp);
   }
-
-  // TODO UPLOAD DOCUMENT
 }
 
 ?>
