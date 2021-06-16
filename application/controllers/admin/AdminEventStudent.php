@@ -68,12 +68,31 @@ class AdminEventStudent extends CI_Controller
           $where = true;
         }
       }else{
+        $base_query = $query;
+        $query = '
+          SELECT 
+            T.event_id, T.id, T.name, T.dni, T.code, T.tuition 
+            FROM 
+          ( ' . $base_query;
         if($where){
           $query = $query . ' AND (event_id !=' . $event_id . ')';
         }else{
           $query = $query . ' WHERE (event_id !=' . $event_id . ')';
+        }
+        $query = $query . '
+          ) T
+          LEFT JOIN 
+          (' . $base_query;
+        if($where){
+          $query = $query . ' AND (event_id =' . $event_id . ')';
+        }else{
+          $query = $query . ' WHERE (event_id =' . $event_id . ')';
           $where = true;
         }
+        $query = $query . '
+          ) E
+          ON T.id = E.id  
+          WHERE E.id IS NULL';
       }
       // group by
       $query = $query . ' GROUP BY id ';

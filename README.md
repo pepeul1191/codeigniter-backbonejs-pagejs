@@ -41,8 +41,54 @@ Video:
 
 En el hosting ya está habilitada está función.
 
+## Querys de alumnos matriculados y no matriculados
+
+No matriculados
+
+```SQL
+SELECT 
+  T.event_id, T.id, T.name, T.dni, T.code, T.tuition 
+FROM 
+(
+  SELECT 
+    event_id, id, CONCAT(last_names, ", ", names) AS name, dni, code, tuition 
+  FROM vw_events_students WHERE 
+    (names LIKE "%a%" OR last_names LIKE "%a%") AND 
+    (dni LIKE "%4%") AND 
+    (tuition LIKE "%6%") AND 
+    (event_id != 2)
+) T
+LEFT JOIN 
+(
+  SELECT 
+    event_id, id, CONCAT(last_names, ", ", names) AS name, dni, code, tuition 
+  FROM vw_events_students WHERE 
+    (names LIKE "%a%" OR last_names LIKE "%a%") AND 
+    (dni LIKE "%4%") AND 
+    (tuition LIKE "%6%") AND 
+    (event_id = 2)
+) E
+ON T.id = E.id  
+WHERE E.id IS NULL
+GROUP BY id ORDER BY name LIMIT 10 OFFSET 0;
+```
+
+Matriculados
+
+```SQL
+SELECT 
+  event_id, id, CONCAT(last_names, ", ", names) AS name, dni, code, tuition 
+FROM vw_events_students WHERE 
+  (names LIKE "%a%" OR last_names LIKE "%a%") AND 
+  (dni LIKE "%4%") AND 
+  (tuition LIKE "%6%") AND 
+  (event_id = 2) 
+GROUP BY id ORDER BY name LIMIT 10 OFFSET 0;
+```
+
 ---
 
 Fuentes:
 
 + https://github.com/pepeul1191/codeigniter-boilerplate
++ https://stackoverflow.com/questions/4560471/how-to-exclude-rows-that-dont-join-with-another-table/4560613
