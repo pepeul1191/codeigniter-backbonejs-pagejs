@@ -11,81 +11,95 @@ class AdminEventStudent extends CI_Controller
     //controller function
     $resp = '';
     $status = 200;
+    // data
     $event_id = intval($this->input->get('event_id'));
     $registered = $this->input->get('registered');
+    $name = $this->input->get('name');
+    $dni = $this->input->get('dni');
+    $code = $this->input->get('code');
+    $tuition = $this->input->get('tuition');
+    $registered = $this->input->get('registered');
+    $page = intval($this->input->get('page'));
+    $step = intval($this->input->get('step'));
+    // db
     try {
-      $rs = array();
-      $stmt = \Model::factory('\Models\VWEventStudent', 'classroom')
-        ->select('event_id')
-        ->select('id')
-        ->select('names')
-        ->select('last_names')
-        ->select('code')
-        ->select('tuition')
-        ->select('dni');
-      // filter name
-      if(
-        $this->input->get('name') != null
-      ){
-        $stmt = $stmt->where_like('names', '%' . $this->input->get('name') . '%');
-        $stmt = $stmt->where_like('last_names', '%' . $this->input->get('name') . '%');
-        /*
-        $stmt = $stmt->where_like(
-          array(
-            'names' => '%' . $this->input->get('name') . '%',
-            'last_names' => '%' . $this->input->get('name') . '%',
-          )
-        );
-        */
+      $pdo = \ORM::get_db('classroom');
+      $query = 'SELECT event_id, id, CONCAT(last_names, ", ", names) AS name, dni, code, tuition FROM vw_events_students';
+      $where = false;
+      // names and last names
+      if($name != null){
+        $name = $this->input->get('name');
+        $query = $query . ' WHERE (names LIKE "%' . $name . '%" OR last_names LIKE  "%' . $name . '%" )';
+        $where = true;
       }
-      // filter code
-      if(
-        $this->input->get('code') != null
-      ){
-        $stmt = $stmt->where_like('code', '%' . $this->input->get('code'). '%');
+      // dni
+      if($dni != null){
+        if($where){
+          $query = $query . ' AND (dni LIKE "%' . $dni . '%" )';
+        }else{
+          $query = $query . ' WHERE (dni LIKE "%' . $dni . '%" )';
+          $where = true;
+        }
       }
-      // filter tuition
-      if(
-        $this->input->get('tuition') != null
-      ){
-        $stmt = $stmt->where_like('tuition', '%' . $this->input->get('tuition'). '%');
+      // code
+      if($code != null){
+        if($where){
+          $query = $query . ' AND (code LIKE "%' . $code . '%" )';
+        }else{
+          $query = $query . ' WHERE (code LIKE "%' . $code . '%" )';
+          $where = true;
+        }
       }
-      // filter dni
-      if(
-        $this->input->get('dni') != null
-      ){
-        $stmt = $stmt->where_like('dni', '%' . $this->input->get('dni'). '%');
+      // tuition
+      if($tuition != null){
+        if($where){
+          $query = $query . ' AND (tuition LIKE "%' . $tuition . '%" )';
+        }else{
+          $query = $query . ' WHERE (tuition LIKE "%' . $tuition . '%" )';
+          $where = true;
+        }
       }
-      // group by id
-      $stmt = $stmt->group_by('id');
       // event and registered
       if($registered == 'true'){
-        //var_dump('true');
-        $stmt = $stmt->where('event_id', $event_id);
+        if($where){
+          $query = $query . ' AND (event_id =' . $event_id . ')';
+        }else{
+          $query = $query . ' WHERE (event_id =' . $event_id . ')';
+          $where = true;
+        }
       }else{
-        //var_dump('false');
-        $stmt = $stmt->where_not_equal('event_id', $event_id);
+        if($where){
+          $query = $query . ' AND (event_id !=' . $event_id . ')';
+        }else{
+          $query = $query . ' WHERE (event_id !=' . $event_id . ')';
+          $where = true;
+        }
       }
+      // group by
+      $query = $query . ' GROUP BY id ';
       // pages with final statement
-      $rs = $stmt->find_array();
+      $stmt = $pdo->prepare($query);
+      $stmt->execute();
+      $count = $stmt->rowCount();
       $pages = ceil(
-        count($rs)
+        $count
         / $this->input->get('step')
       );
+      // count
+      $stmt = $pdo->prepare($query);
+      $stmt->execute();
+      $count = $stmt->rowCount();
       // pagination
-      if(
-        $this->input->get('step') != null && 
-        $this->input->get('page') != null
-      ){
-        $offset = ($this->input->get('page') - 1) * $this->input->get('step');
-        $stmt = $stmt->offset($offset)->limit($this->input->get('step'));
+      if($step != null && $page != null){
+        $offset = ($page - 1) * $step;
+        // $stmt = $stmt->offset($offset)->limit($this->input->get('step'));
+        $query = $query . ' ORDER BY name LIMIT ' . $step . ' OFFSET ' . $offset;
       }
-      $rs = $stmt->find_array();
-      for($i = 0; $i < count($rs); $i++){
-        $rs[$i]['name'] = $rs[$i]['names'] . ' ' . $rs[$i]['last_names'];
-      }
+      // reesult set and resp
+      $stmt = $pdo->prepare($query);
+      $stmt->execute();
       $resp = json_encode(array(
-        'list' => $rs,
+        'list' => $stmt->fetchAll(),
         'pages' => $pages,
       ));
     }catch (Exception $e) {
@@ -96,7 +110,6 @@ class AdminEventStudent extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp);
   }
-
 
   public function studentSave()
   {

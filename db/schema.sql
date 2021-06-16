@@ -53,7 +53,7 @@ CREATE TABLE `documents` (
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `events` (
   KEY `fk_specialims_events_1` (`specialism_id`),
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_specialims_events_1` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `events_speakers` (
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `events_students` (
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_students_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +285,7 @@ CREATE TABLE `videos` (
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -403,7 +403,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from (`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) */;
+/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from (`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) order by `S`.`last_names` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -471,5 +471,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20210611202005'),
   ('20210612001252'),
   ('20210614132736'),
-  ('20210614152143');
+  ('20210614152143'),
+  ('20210616125716');
 UNLOCK TABLES;
