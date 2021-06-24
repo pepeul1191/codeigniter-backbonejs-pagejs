@@ -58,10 +58,8 @@ a > i {
 }
 
 .row:nth-child(1) { 
-  /*
   background-color: var(--primary-color);
   color: var(--nav-primary-color);
-  */
 }
 
 .row:nth-child(2) { 
