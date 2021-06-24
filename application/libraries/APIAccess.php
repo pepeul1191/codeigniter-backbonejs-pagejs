@@ -23,8 +23,6 @@ class APIAccess
           ->set_status_header(501)
           ->set_output('No puede acceder a este recurso');
         exit();
-      }else{
-        echo ':)';
       }
     }
   }
