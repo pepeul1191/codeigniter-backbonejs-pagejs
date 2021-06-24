@@ -37,6 +37,77 @@ class APIStudent extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp);
   }
+
+  public function events()
+  {
+    // libraries as filters
+    $this->load->library('APIAccess',
+      array(
+        'config' => $this->config,
+        'instance' => $this,
+      )
+    );
+    //controller function
+    $resp = '';
+    $status = 200;
+    try {
+      $student_id = $this->input->get('student_id');
+    }catch (Exception $e) {
+      $status = 500;
+      $resp = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
+
+  public function eventVideos()
+  {
+    // libraries as filters
+    $this->load->library('APIAccess',
+      array(
+        'config' => $this->config,
+        'instance' => $this,
+      )
+    );
+    //controller function
+    $resp = '';
+    $status = 200;
+    try {
+      $student_id = $this->input->get('student_id');
+      $event_id = $this->input->get('event_id');
+    }catch (Exception $e) {
+      $status = 500;
+      $resp = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
+
+  public function eventDocuments()
+  {
+    // libraries as filters
+    $this->load->library('APIAccess',
+      array(
+        'config' => $this->config,
+        'instance' => $this,
+      )
+    );
+    //controller function
+    $resp = '';
+    $status = 200;
+    try {
+      $student_id = $this->input->get('student_id');
+      $event_id = $this->input->get('event_id');
+    }catch (Exception $e) {
+      $status = 500;
+      $resp = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
 }
 
 ?>
