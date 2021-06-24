@@ -4,19 +4,23 @@ class APIStudent extends CI_Controller
 {
   public function check()
   {
-    // load session
-    $this->load->library('session');
     // libraries as filters
-    // ???
+    $this->load->library('APIAccess',
+      array(
+        'config' => $this->config,
+        'instance' => $this,
+      )
+    );
     //controller function
     $resp = '';
     $status = 200;
     try {
+      $email = $this->input->get('email');
       $rs = \Model::factory('\Models\Student', 'classroom')
         ->select('id')
         ->select('names')
         ->select('last_names')
-        ->where('email', $this->input->get('email'))
+        ->where('email', $email)
         ->find_one();
       if($rs == false){
         $resp = json_encode(['ups', 'Alumno no encontrado']);

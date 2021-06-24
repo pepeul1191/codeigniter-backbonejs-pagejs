@@ -315,6 +315,8 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 
+define('ENV', 'localhost');
+
 header('x-powered-by: PHP');
 header('Server: Ubuntu');
 header("Access-Control-Allow-Origin: *");
