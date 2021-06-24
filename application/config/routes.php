@@ -122,3 +122,6 @@ $route['admin/event/document/save']['POST'] = 'admin/AdminEventDocument/save';
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';
 # api
 $route['api/student/check']['GET'] = 'api/APIStudent/check';
+$route['api/event/student']['GET'] = 'api/APIEvent/eventsStudent';
+$route['api/event/document/student']['GET'] = 'api/APIEvent/studentDocuments';
+$route['api/event/video/student']['GET'] = 'api/APIEvent/studentVideos';

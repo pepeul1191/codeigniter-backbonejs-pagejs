@@ -285,7 +285,7 @@ CREATE TABLE `videos` (
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,6 +337,9 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE VIEW `vw_events_students` AS SELECT
  1 AS `event_id`,
+ 1 AS `event_name`,
+ 1 AS `event_description`,
+ 1 AS `picture_url`,
  1 AS `id`,
  1 AS `names`,
  1 AS `last_names`,
@@ -451,7 +454,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from (`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) order by `S`.`last_names` */;
+/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`E`.`name` AS `event_name`,`E`.`description` AS `event_description`,`E`.`picture_url` AS `picture_url`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from ((`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) join `events` `E` on((`E`.`id` = `ES`.`event_id`))) order by `S`.`last_names` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -540,5 +543,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20210614152143'),
   ('20210616125716'),
   ('20210624031713'),
-  ('20210624032321');
+  ('20210624032321'),
+  ('20210624154008');
 UNLOCK TABLES;

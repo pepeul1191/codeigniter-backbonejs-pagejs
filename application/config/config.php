@@ -534,7 +534,7 @@ if(ENV == 'localhost'){
   $config['admin_path'] = 'admin';
   $config['site_path'] = '';
   $config['env_static'] = 'dev';
-  $config['access_api'] = true;
+  $config['access_api'] = false;
   $config['env_session'] = true;
   $config['login'] = array(
     'user' => 'admin',
