@@ -53,7 +53,7 @@ CREATE TABLE `documents` (
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `events_speakers` (
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,7 +254,7 @@ CREATE TABLE `specialisms_students` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `students` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` int(11) NOT NULL,
+  `code` int(11) DEFAULT NULL,
   `tuition` int(11) DEFAULT NULL,
   `dni` varchar(8) NOT NULL,
   `names` varchar(50) NOT NULL,
@@ -280,12 +280,12 @@ CREATE TABLE `videos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` text,
-  `url` varchar(50) DEFAULT NULL,
+  `url` varchar(250) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -544,5 +544,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20210616125716'),
   ('20210624031713'),
   ('20210624032321'),
-  ('20210624154008');
+  ('20210624154008'),
+  ('20210630130603');
 UNLOCK TABLES;

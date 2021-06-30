@@ -154,17 +154,6 @@ var StudentDetailView = Backbone.View.extend({
     this.form = new ValidationForm({
       el: '#form',
       entries: [
-        // code
-        {
-          id: 'txtCode',
-          help: 'txtCodeHelp',
-          validations: [
-            {
-              type: 'notEmpty',
-              message: 'Debe de ingresar el código',
-            }, 
-          ],
-        },
         // dni
         {
           id: 'txtDNI',

@@ -154,8 +154,8 @@ class AdminStudent extends CI_Controller
         // new
         $n = \Model::factory('\Models\Student', 'classroom')->create();
         $n->dni = $dni;
-        $n->code = $code;
-        $n->tuition = $tuition;
+        //$n->code = $code;
+        //$n->tuition = $tuition;
         $n->names = $names;
         $n->last_names = $last_names;
         $n->email = $email;
@@ -169,8 +169,8 @@ class AdminStudent extends CI_Controller
         // edit
         $e = \Model::factory('\Models\Student', 'classroom')->find_one($id);
         $e->dni = $dni;
-        $e->code = $code;
-        $e->tuition = $tuition;
+        //$e->code = $code;
+        //$e->tuition = $tuition;
         $e->names = $names;
         $e->last_names = $last_names;
         $e->email = $email;
@@ -272,6 +272,7 @@ class AdminStudent extends CI_Controller
       ->set_status_header($status)
       ->set_output($rpta);
   }
+
 }
 
 ?>

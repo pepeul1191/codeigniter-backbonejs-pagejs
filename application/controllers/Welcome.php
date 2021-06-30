@@ -20,9 +20,13 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		/*
 		$data = array(
       'title' => 'Home',
     );
 		$this->load->view('welcome_message', $data);
+		*/
+		header('Location: http://legisjuristas.com');
+    exit();
 	}
 }
