@@ -273,6 +273,40 @@ class AdminStudent extends CI_Controller
       ->set_output($rpta);
   }
 
+  public function checkDNI()
+  {
+    // load session
+    $this->load->library('session');
+    // libraries as filters
+    // ???
+    //controller function
+    $resp = 1;
+    $dni = $this->input->get('dni');
+    $id = $this->input->get('student_id');
+    // 0 -> no duplicated
+    // 1 -> duplicated
+    $status = 200;
+    try {
+      $rs = \Model::factory('\Models\Student', 'classroom')
+        ->select('id')
+        ->where('dni', $dni)
+        ->find_one();
+      if($rs == false){
+        $resp = 0;
+      }else{
+        // check if dni assined to id
+        if($rs->id == $id){
+          $resp = 0;
+        }
+      }
+    }catch (Exception $e) {
+      $status = 500;
+      $rpta = json_encode($e->getMessage());
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
 }
 
 ?>

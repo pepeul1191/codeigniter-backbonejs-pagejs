@@ -163,6 +163,25 @@ var StudentDetailView = Backbone.View.extend({
               type: 'notEmpty',
               message: 'Debe de ingresar el DNI',
             }, 
+            {
+              type: 'customFunction',
+              message: 'DNI ya se encuentra asignado',
+              customFunction: function(){
+                var dni = $('#txtDNI').val();
+                var student_id = _this.student.id;
+                var resp = StudentService.checkDNI(student_id, dni);
+                if(resp.status == 200){
+                  if(resp.message == '1'){
+                    return false;
+                  }else{
+                    return true;
+                  }
+                }else{
+                  alert('ha ocurrido un error en verificar el DNI');
+                  return false;
+                }
+              },
+            }
           ],
         },
         // names

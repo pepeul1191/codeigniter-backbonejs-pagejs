@@ -86,6 +86,34 @@ var StudentService = {
     });
     return resp;
   },
+  checkDNI: function(student_id, dni){
+    console.log(student_id)
+    var resp = {};
+    $.ajax({
+      type: 'GET',
+      url: BASE_URL + 'admin/student/check_dni',
+      data: {
+        dni: dni,
+        student_id: student_id,
+      },
+      headers: {
+        [CSRF_KEY]: CSRF,
+      },
+      async: false,
+      success: function(data){
+        // 0 -> no duplicated
+        // 1 -> duplicated
+        resp.message = data;
+        resp.status = 200;
+      },
+      error: function(xhr, status, error){
+        console.error(error);
+				resp.message = JSON.parse(xhr.responseText);
+        resp.status = xhr.status;
+      }
+    });
+    return resp;
+  },
 };
 
 export default StudentService;
