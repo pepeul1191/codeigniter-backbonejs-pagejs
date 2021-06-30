@@ -92,7 +92,13 @@ var ModalEventDocumentView = Backbone.View.extend({
       },
       keyModel: 'url',
       extensions: {
-        allow: ['application/pdf', 'image/jpeg', 'image/png'],
+        allow: [
+          'application/pdf', 
+          'application/msword', 
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'application/vnd.ms-powerpoint',
+          'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        ],
         message: 'Archivo no es de la extensión permitida',
       },
       base_url: STATIC_URL,
