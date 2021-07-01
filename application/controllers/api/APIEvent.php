@@ -139,6 +139,53 @@ class APIEvent extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp);
   }
+
+  public function recentList()
+  {
+    // load session
+    $this->load->library('session');
+    $this->load->library('APIAccess',
+      array(
+        'config' => $this->config,
+        'instance' => $this,
+      )
+    );
+    //libraries as filters
+    $this->load->library('HttpAccess',
+      array(
+        'config' => $this->config,
+        'allow' => ['GET'],
+        'received' => $this->input->server('REQUEST_METHOD'),
+        'instance' => $this,
+      )
+    );
+    //controller function
+    $resp = '';
+    $status = 200;
+    try {
+      $rs_event = \Model::factory('\Models\VWEventType', 'classroom')
+        ->where_raw('init_date >= CURDATE()')
+        ->order_by_asc('init_date')
+        ->find_array();
+      $speakers = array();
+      foreach ($rs_event as &$event) {
+        $speakers = \Model::factory('\Models\VWEventSpeaker', 'classroom')
+          ->select('names')
+          ->select('last_names')
+          ->select('picture_url')
+          ->where('event_id', $event['id'])
+          ->find_array();
+          $event['speakers'] = $speakers;
+      }
+      $resp = json_encode($rs_event);
+    }catch (Exception $e) {
+      $status = 500;
+      $resp = $e->getMessage();
+    }
+    $this->output
+      ->set_status_header($status)
+      ->set_output($resp);
+  }
 }
 
 ?>

@@ -127,3 +127,4 @@ $route['api/event/student']['GET'] = 'api/APIEvent/eventsStudent';
 $route['api/event/document/student']['GET'] = 'api/APIEvent/studentDocuments';
 $route['api/event/video/student']['GET'] = 'api/APIEvent/studentVideos';
 $route['api/event/document/get']['GET'] = 'api/APIEvent/getDocumentURL';
+$route['api/event/recent']['GET'] = 'api/APIEvent/recentList';
