@@ -27,6 +27,7 @@ class APIEvent extends CI_Controller
       $resp = json_encode($events);
     }catch (Exception $e) {
       $status = 500;
+      var_dump($e->getMessage());exit();
       $resp = json_encode($e->getMessage());
     }
     $this->output

@@ -66,9 +66,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/admin/student">Alumnos</a>
           </li>
+          <!--
           <li class="nav-item">
             <a class="nav-link" href="/specialisms" onclick="return false;">Asesores</a>
           </li>
+          -->
           <li class="nav-item">
             <a class="nav-link" href="/admin/speaker">Ponentes</a>
           </li>

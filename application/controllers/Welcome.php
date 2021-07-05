@@ -26,7 +26,24 @@ class Welcome extends CI_Controller {
     );
 		$this->load->view('welcome_message', $data);
 		*/
-		header('Location: http://legisjuristas.com');
+		$this->load->library('session');
+		$continue = true;
+		if($this->config->item('env_session') == true){
+      if ($this->session->has_userdata('state')) {
+        if($this->session->has_userdata('state') != true){
+          $continue = false;
+        }
+      }else{
+        $continue = false;
+      }
+      if($continue == false){
+        header('Location: http://legisjuristas.com');
+        exit();
+      }else{
+				header('Location: ' . $this->config->item('base_url') . 'admin/student');
+				exit();
+			}
+    }
     exit();
 	}
 }
