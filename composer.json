@@ -19,6 +19,12 @@
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
+	"config": {
+		"process-timeout" : 0,
+		"platform": {
+			"php": "7.1.3"
+		}
+	},
 	"require-dev": {
 		"mikey179/vfsStream": "1.6.8",
 		"phpunit/phpunit": "4.* || 5.*"

@@ -86,6 +86,10 @@ FROM vw_events_students WHERE
 GROUP BY id ORDER BY name LIMIT 10 OFFSET 0;
 ```
 
+## Git
+
+    $ git push origin master:legisjuristas
+
 ---
 
 Fuentes:
