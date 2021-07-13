@@ -41,8 +41,8 @@ var EventDetailView = Backbone.View.extend({
 	},
 	events: {
     // form
-    'click #btnSave': 'save',
-    'click #btnViewPicture': 'viewPicture',
+    'click #btnSaveEventDetail': 'save',
+    'click #btnViewPictureEvent': 'viewPicture',
     // documents and videos
     'click #btnDocuments': 'showDocuments',
     'click #btnVideos': 'showVideos',
@@ -69,6 +69,7 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('code', '');
       this.event.set('specialisms', _this.specialisms);
       this.event.set('upload_path', '');
+      this.event.set('id', 'E');
       data.model = this.event;
       data.disabled = false;
       data.message = '';
@@ -293,7 +294,7 @@ var EventDetailView = Backbone.View.extend({
     }
   },
   viewPicture: function(e){
-    console.log(this.upload.path)
+    //console.log(this.upload.path)
     if(
       (this.upload.path != '' && this.upload.url != '') && 
       (this.upload.path !== 'undefined' && this.upload.url !== 'undefined') && 

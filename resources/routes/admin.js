@@ -19,18 +19,18 @@ var eventView = null;
 var eventDetailView = null;
 // routes
 page.base('/admin');
-page('', loading, index);
+page('', loading, student);
 page('/specialism', specialism, closeToggle);
 page('/location', location, closeToggle);
 page('/student', student, closeToggle);
-page('/student/new', studentNew, closeToggle);
-page('/student/edit/:student_id', studentEdit, closeToggle);
+page('/student/new', off, studentNew, closeToggle); // *
+page('/student/edit/:student_id', off, studentEdit, closeToggle);// *
 page('/speaker', speaker, closeToggle);
-page('/speaker/new', speakerNew, closeToggle);
-page('/speaker/edit/:speaker_id', speakerEdit, closeToggle);
+page('/speaker/new', off, speakerNew, closeToggle); // *
+page('/speaker/edit/:speaker_id', off, speakerEdit, closeToggle); // *
 page('/event', event, closeToggle);
-page('/event/new', eventNew, closeToggle);
-page('/event/edit/:event_id', eventEdit, closeToggle);
+page('/event/new', off, eventNew, closeToggle); // *
+page('/event/edit/:event_id', off, eventEdit, closeToggle); // *
 // page('*', notfound)
 page();
 
@@ -56,8 +56,8 @@ function location(ctx, next) {
   next();
 }
 
-function index(ctx, next) {
-
+function off(ctx, next) {
+  next();
 }
 
 function student(ctx, next) {
@@ -80,7 +80,7 @@ function studentNew(ctx, next) {
   if(studentDetailView == null){
     studentDetailView = new StudentDetailView();
   }
-  studentDetailView.render(data, type);
+  studentDetailView.render(data, type, 'E');
   studentDetailView.loadComponents();
   next();
 }
@@ -104,7 +104,7 @@ function speakerNew(ctx, next) {
   if(speakerDetailView == null){
     speakerDetailView = new SpeakerDetailView();
   }
-  speakerDetailView.render(data, type);
+  speakerDetailView.render(data, type, 'E');
   speakerDetailView.loadComponents();
   speakerDetailView.unSetComponentsData();
   next();
@@ -165,7 +165,7 @@ function eventNew(ctx, next) {
   if(eventDetailView == null){
     eventDetailView = new EventDetailView();
   }
-  eventDetailView.render(data, type);
+  eventDetailView.render(data, type, 'E');
   eventDetailView.loadComponents();
   eventDetailView.unSetComponentsData();
   next();

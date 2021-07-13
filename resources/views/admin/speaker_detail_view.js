@@ -15,8 +15,8 @@ var SpeakerDetailView = Backbone.View.extend({
 	},
 	events: {
     // form
-    'click #btnSave': 'save',
-    'click #btnViewPicture': 'viewPicture',
+    'click #btnSaveSpeakerDetail': 'save',
+    'click #btnViewPictureSpeaker': 'viewPicture',
     // specialism table
     'click #specialimsTable > tfoot > tr > td > button.save-table': 'saveSpecialimsTable',
     'change #specialimsTable > tbody > tr > td > input.input-check': 'clickCheckBoxSpecialimsTable',

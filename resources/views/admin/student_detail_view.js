@@ -18,7 +18,7 @@ var StudentDetailView = Backbone.View.extend({
 	},
 	events: {
     // form
-    'click #btnSave': 'save',
+    'click #btnSaveStudentDetail': 'save',
     //upload
     'click #btnViewPicture': 'viewPicture',
     // specialism table

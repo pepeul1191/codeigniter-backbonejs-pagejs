@@ -554,14 +554,23 @@ if(ENV == 'localhost'){
   $config['admin_path'] = 'admin';
   $config['site_path'] = '';
 }else if(ENV == 'prod'){
-  $config['base_url'] = 'http://legisjuristas.com/';
-  $config['static_url'] = 'http://legisjuristas.com/public/';
+  $config['base_url'] = 'https://legisjuristas.com/';
+  $config['static_url'] = 'https://legisjuristas.com/public/';
   $config['admin_path'] = 'admin';
   $config['site_path'] = '';
-  $config['env_static'] = 'prod';
+  $config['env_static'] = 'dev';
+  $config['access_api'] = false;
   $config['env_session'] = true;
   $config['login'] = array(
     'user' => 'admin',
     'password' => 'sistema123', 
-  ); 
+  );
+  $config['csrf'] = array(
+    'key' => '0S4cLFUHUtS',
+    'value' => '5Dw30UhiHDI3lhxY29dMbNypS2THQnqpBfKr8Dau', 
+  );
+  $config['api_access_params'] = array(
+    'key' => 'api-key',
+    'value' => 'SJdTvhpVBTm9f6SwjUAs48ffnlmhZU',
+  );
 }
