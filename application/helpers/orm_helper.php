@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-ORM::configure('mysql:host=localhost;port=3306;dbname=classroom;charset=utf8;', null, 'classroom');
+ORM::configure('mysql:host=localhost;port=3306;dbname=classroom2;charset=utf8;', null, 'classroom');
 ORM::configure('username', 'root', 'classroom');
 ORM::configure('password', '123', 'classroom');
 ORM::configure('return_result_sets', true);

@@ -53,7 +53,7 @@ CREATE TABLE `documents` (
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,8 +77,8 @@ CREATE TABLE `event_types` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `hours` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `hours` int(11) DEFAULT NULL,
   `picture_url` varchar(100) DEFAULT NULL,
   `init_date` date NOT NULL,
   `init_hour` time NOT NULL,
@@ -92,8 +92,8 @@ CREATE TABLE `events` (
   KEY `event_type_id` (`event_type_id`),
   KEY `fk_specialims_events_1` (`specialism_id`),
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_specialims_events_1` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_specialims_events_1` FOREIGN KEY (`specialism_id`) REFERENCES `classroom`.`specialisms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `events_speakers` (
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `events_students` (
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_students_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `specialisms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +225,7 @@ CREATE TABLE `specialisms_speakers` (
   KEY `specialism_id` (`specialism_id`),
   CONSTRAINT `specialisms_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `specialisms_speakers_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +243,7 @@ CREATE TABLE `specialisms_students` (
   KEY `specialism_id` (`specialism_id`),
   CONSTRAINT `specialisms_students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   CONSTRAINT `specialisms_students_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,7 +267,7 @@ CREATE TABLE `students` (
   PRIMARY KEY (`id`),
   KEY `district_id` (`district_id`),
   CONSTRAINT `students_ibfk_1` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1014 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,12 +280,12 @@ CREATE TABLE `videos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` text,
-  `url` varchar(250) DEFAULT NULL,
+  `url` varchar(50) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,6 +327,18 @@ SET character_set_client = utf8;
  1 AS `names`,
  1 AS `last_names`,
  1 AS `picture_url`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vw_events_specialisms`
+--
+
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vw_events_specialisms` AS SELECT
+ 1 AS `id`,
+ 1 AS `init_date`,
+ 1 AS `name`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -384,7 +396,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping routines for database 'classroom'
+-- Dumping routines for database 'classroom2'
 --
 
 --
@@ -437,6 +449,24 @@ SET character_set_client = @saved_cs_client;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_events_speakers` AS select `ES`.`event_id` AS `event_id`,`E`.`name` AS `event_name`,`S`.`gender_id` AS `gender_id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`picture_url` AS `picture_url` from ((`events_speakers` `ES` join `speakers` `S` on((`ES`.`speaker_id` = `S`.`id`))) join `events` `E` on((`ES`.`event_id` = `E`.`id`))) limit 2000 */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vw_events_specialisms`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_events_specialisms`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_events_specialisms` AS select `E`.`specialism_id` AS `id`,`E`.`init_date` AS `init_date`,`S`.`name` AS `name` from (`events` `E` join `specialisms` `S` on((`S`.`id` = `E`.`specialism_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -546,5 +576,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20210624032321'),
   ('20210624154008'),
   ('20210630130603'),
-  ('20210701164647');
+  ('20210701164647'),
+  ('20210713174155');
 UNLOCK TABLES;
