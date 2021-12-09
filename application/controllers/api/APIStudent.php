@@ -61,7 +61,8 @@ class APIStudent extends CI_Controller
         $status = 404;
       }else{
         $rs = $rs->as_array();
-        // get district name
+        // get district 
+        //var_dump($rs);exit();
         $district = \Model::factory('\Models\VWDistrict', 'classroom')
           ->where('id', $rs['district_id'])
           ->find_one();

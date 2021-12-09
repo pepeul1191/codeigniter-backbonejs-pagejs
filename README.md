@@ -89,6 +89,23 @@ GROUP BY id ORDER BY name LIMIT 10 OFFSET 0;
 ## Git
 
     $ git push origin master:legisjuristas
+    
+## Conexión a la base de datos
+
+orm_helper.php
+```
+if(ENV == 'localhost'){
+  ORM::configure('mysql:host=localhost;port=3306;dbname=classroom;charset=utf8;', null, 'classroom');
+  ORM::configure('username', 'root', 'classroom');
+  ORM::configure('password', '123', 'classroom');
+}else if(ENV == '000webhost'){
+
+}else if(ENV == 'prod'){
+  ORM::configure('mysql:host=localhost;port=3306;dbname=josuemoi_legisv2;charset=utf8;', null, 'classroom');
+  ORM::configure('username', '', 'classroom');
+  ORM::configure('password', '', 'classroom');
+}
+```
 
 ---
 

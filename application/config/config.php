@@ -158,7 +158,7 @@ $config['composer_autoload'] = './vendor/autoload.php';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+#$config['permitted_uri_chars'] = '‘a-z 0-9~%.:\_\=+%\&';
 
 /*
 |--------------------------------------------------------------------------
@@ -554,8 +554,8 @@ if(ENV == 'localhost'){
   $config['admin_path'] = 'admin';
   $config['site_path'] = '';
 }else if(ENV == 'prod'){
-  $config['base_url'] = 'https://legisjuristas.com/';
-  $config['static_url'] = 'https://legisjuristas.com/public/';
+  $config['base_url'] = 'https://admin.legisjuristas.com/';
+  $config['static_url'] = 'https://admin.legisjuristas.com/public/';
   $config['admin_path'] = 'admin';
   $config['site_path'] = '';
   $config['env_static'] = 'dev';
