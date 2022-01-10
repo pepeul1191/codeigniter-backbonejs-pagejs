@@ -17,6 +17,7 @@ var EventService = {
         specialism_id: model.get('specialism_id'),
         picture_url: model.get('picture_url'), 
         description: model.get('description'),
+        pdf_base: model.get('pdf_base'),
       },
       headers: {
         [CSRF_KEY]: CSRF,

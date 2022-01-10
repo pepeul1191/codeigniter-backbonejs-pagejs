@@ -1,7 +1,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -14,12 +14,12 @@
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `departments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -27,15 +27,15 @@ CREATE TABLE `departments` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `districts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `province_id` int(11) DEFAULT NULL,
+  `province_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `province_id` (`province_id`),
   CONSTRAINT `districts_ibfk_1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1834 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1835 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,17 +43,17 @@ CREATE TABLE `districts` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `documents` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` text,
   `url` varchar(100) DEFAULT NULL,
-  `event_id` int(11) DEFAULT NULL,
+  `event_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,9 +61,9 @@ CREATE TABLE `documents` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `event_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(12) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -74,26 +74,27 @@ CREATE TABLE `event_types` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `events` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
-  `hours` int(11) DEFAULT NULL,
+  `hours` int DEFAULT NULL,
   `picture_url` varchar(100) DEFAULT NULL,
   `init_date` date NOT NULL,
   `init_hour` time NOT NULL,
   `gift` varchar(40) DEFAULT NULL,
   `description` text,
-  `event_type_id` int(11) DEFAULT NULL,
-  `specialism_id` int(11) DEFAULT NULL,
-  `code` int(11) DEFAULT NULL,
+  `event_type_id` int DEFAULT NULL,
+  `specialism_id` int DEFAULT NULL,
+  `pdf_base` varchar(70) DEFAULT NULL,
+  `code` int DEFAULT NULL,
   `upload_path` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_type_id` (`event_type_id`),
-  KEY `fk_specialims_events_1` (`specialism_id`),
-  CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_specialims_events_1` FOREIGN KEY (`specialism_id`) REFERENCES `classroom`.`specialisms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+  KEY `specialism_id` (`specialism_id`),
+  CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`),
+  CONSTRAINT `events_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,17 +102,17 @@ CREATE TABLE `events` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `events_speakers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `speaker_id` int(11) DEFAULT NULL,
-  `event_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `speaker_id` int DEFAULT NULL,
+  `event_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `speaker_id` (`speaker_id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_speakers_ibfk_1` FOREIGN KEY (`speaker_id`) REFERENCES `speakers` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_speakers_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,17 +120,17 @@ CREATE TABLE `events_speakers` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `events_students` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `student_id` int(11) DEFAULT NULL,
-  `event_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `student_id` int DEFAULT NULL,
+  `event_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `student_id` (`student_id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `events_students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   CONSTRAINT `events_students_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=748 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,9 +138,9 @@ CREATE TABLE `events_students` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `genders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
@@ -150,11 +151,11 @@ CREATE TABLE `genders` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `provinces` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `department_id` int(11) DEFAULT NULL,
+  `department_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `department_id` (`department_id`),
   CONSTRAINT `provinces_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE
@@ -166,7 +167,7 @@ CREATE TABLE `provinces` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `schema_migrations` (
   `version` varchar(255) NOT NULL,
   PRIMARY KEY (`version`)
@@ -178,11 +179,11 @@ CREATE TABLE `schema_migrations` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `speakers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` int(11) DEFAULT NULL,
-  `tuition` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` int DEFAULT NULL,
+  `tuition` int DEFAULT NULL,
   `dni` varchar(8) NOT NULL,
   `names` varchar(50) NOT NULL,
   `last_names` varchar(50) NOT NULL,
@@ -190,7 +191,7 @@ CREATE TABLE `speakers` (
   `phone` varchar(20) DEFAULT NULL,
   `picture_url` varchar(100) DEFAULT NULL,
   `resume` text,
-  `gender_id` int(11) DEFAULT NULL,
+  `gender_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `gender_id` (`gender_id`),
   CONSTRAINT `speakers_ibfk_1` FOREIGN KEY (`gender_id`) REFERENCES `genders` (`id`) ON DELETE CASCADE
@@ -202,9 +203,9 @@ CREATE TABLE `speakers` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `specialisms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
@@ -215,11 +216,11 @@ CREATE TABLE `specialisms` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `specialisms_speakers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `speaker_id` int(11) DEFAULT NULL,
-  `specialism_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `speaker_id` int DEFAULT NULL,
+  `specialism_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `speaker_id` (`speaker_id`),
   KEY `specialism_id` (`specialism_id`),
@@ -233,17 +234,17 @@ CREATE TABLE `specialisms_speakers` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `specialisms_students` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `student_id` int(11) DEFAULT NULL,
-  `specialism_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `student_id` int DEFAULT NULL,
+  `specialism_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `student_id` (`student_id`),
   KEY `specialism_id` (`specialism_id`),
   CONSTRAINT `specialisms_students_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   CONSTRAINT `specialisms_students_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=654 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,11 +252,11 @@ CREATE TABLE `specialisms_students` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `students` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` int(11) DEFAULT NULL,
-  `tuition` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` int DEFAULT NULL,
+  `tuition` int DEFAULT NULL,
   `dni` varchar(8) NOT NULL,
   `names` varchar(50) NOT NULL,
   `last_names` varchar(50) NOT NULL,
@@ -263,11 +264,11 @@ CREATE TABLE `students` (
   `phone` varchar(20) DEFAULT NULL,
   `picture_url` varchar(100) DEFAULT NULL,
   `address` varchar(120) DEFAULT NULL,
-  `district_id` int(11) DEFAULT NULL,
+  `district_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `district_id` (`district_id`),
   CONSTRAINT `students_ibfk_1` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=730 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,36 +276,36 @@ CREATE TABLE `students` (
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `videos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
   `description` text,
-  `url` varchar(50) DEFAULT NULL,
-  `event_id` int(11) DEFAULT NULL,
+  `url` varchar(150) DEFAULT NULL,
+  `event_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_id` (`event_id`),
   CONSTRAINT `videos_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Temporary table structure for view `vw_districts`
+-- Temporary view structure for view `vw_districts`
 --
 
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_districts` AS SELECT
  1 AS `id`,
  1 AS `name`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `vw_events_documents_students`
+-- Temporary view structure for view `vw_events_documents_students`
 --
 
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_events_documents_students` AS SELECT
  1 AS `event_id`,
  1 AS `student_id`,
@@ -315,11 +316,11 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `vw_events_speakers`
+-- Temporary view structure for view `vw_events_speakers`
 --
 
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_events_speakers` AS SELECT
  1 AS `event_id`,
  1 AS `event_name`,
@@ -330,11 +331,11 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `vw_events_specialisms`
+-- Temporary view structure for view `vw_events_specialisms`
 --
 
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_events_specialisms` AS SELECT
  1 AS `id`,
  1 AS `init_date`,
@@ -342,16 +343,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `vw_events_students`
+-- Temporary view structure for view `vw_events_students`
 --
 
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_events_students` AS SELECT
  1 AS `event_id`,
- 1 AS `event_name`,
- 1 AS `event_description`,
- 1 AS `picture_url`,
  1 AS `id`,
  1 AS `names`,
  1 AS `last_names`,
@@ -361,11 +359,11 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `vw_events_types`
+-- Temporary view structure for view `vw_events_types`
 --
 
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_events_types` AS SELECT
  1 AS `id`,
  1 AS `code`,
@@ -381,11 +379,11 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `vw_events_videos_students`
+-- Temporary view structure for view `vw_events_videos_students`
 --
 
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_events_videos_students` AS SELECT
  1 AS `event_id`,
  1 AS `student_id`,
@@ -396,7 +394,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping routines for database 'classroom2'
+-- Dumping routines for database 'classroomV2'
 --
 
 --
@@ -407,9 +405,9 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_districts` AS select `DI`.`id` AS `id`,concat(`DI`.`name`,', ',`PR`.`name`,', ',`DE`.`name`) AS `name` from ((`districts` `DI` join `provinces` `PR` on((`DI`.`province_id` = `PR`.`id`))) join `departments` `DE` on((`PR`.`department_id` = `DE`.`id`))) limit 2000 */;
@@ -425,9 +423,9 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_events_documents_students` AS select `E`.`id` AS `event_id`,`ES`.`student_id` AS `student_id`,`D`.`id` AS `document_id`,`D`.`name` AS `name`,`D`.`description` AS `description`,`D`.`url` AS `url` from ((`documents` `D` join `events` `E` on((`D`.`event_id` = `E`.`id`))) join `events_students` `ES` on((`ES`.`event_id` = `E`.`id`))) */;
@@ -443,9 +441,9 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_events_speakers` AS select `ES`.`event_id` AS `event_id`,`E`.`name` AS `event_name`,`S`.`gender_id` AS `gender_id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`picture_url` AS `picture_url` from ((`events_speakers` `ES` join `speakers` `S` on((`ES`.`speaker_id` = `S`.`id`))) join `events` `E` on((`ES`.`event_id` = `E`.`id`))) limit 2000 */;
@@ -461,9 +459,9 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_events_specialisms` AS select `E`.`specialism_id` AS `id`,`E`.`init_date` AS `init_date`,`S`.`name` AS `name` from (`events` `E` join `specialisms` `S` on((`S`.`id` = `E`.`specialism_id`))) */;
@@ -479,12 +477,12 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`E`.`name` AS `event_name`,`E`.`description` AS `event_description`,`E`.`picture_url` AS `picture_url`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from ((`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) join `events` `E` on((`E`.`id` = `ES`.`event_id`))) order by `S`.`last_names` */;
+/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from (`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) order by `S`.`last_names` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -497,9 +495,9 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_events_types` AS select `E`.`id` AS `id`,`E`.`code` AS `code`,`E`.`name` AS `name`,`E`.`hours` AS `hours`,`E`.`picture_url` AS `picture_url`,`E`.`init_date` AS `init_date`,`E`.`init_hour` AS `init_hour`,`E`.`gift` AS `gift`,`E`.`description` AS `description`,`E`.`event_type_id` AS `event_type_id`,`ET`.`name` AS `event_type_name` from (`events` `E` join `event_types` `ET` on((`ET`.`id` = `E`.`event_type_id`))) limit 2000 */;
@@ -515,9 +513,9 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_events_videos_students` AS select `E`.`id` AS `event_id`,`ES`.`student_id` AS `student_id`,`V`.`id` AS `video_id`,`V`.`name` AS `name`,`V`.`description` AS `description`,`V`.`url` AS `url` from ((`videos` `V` join `events` `E` on((`V`.`event_id` = `E`.`id`))) join `events_students` `ES` on((`ES`.`event_id` = `E`.`id`))) */;
@@ -577,5 +575,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20210624154008'),
   ('20210630130603'),
   ('20210701164647'),
-  ('20210713174155');
+  ('20210713174155'),
+  ('20220110220350');
 UNLOCK TABLES;

@@ -107,29 +107,48 @@
       <small id="txtDescriptionHelp" class="form-text"></small>
     </div>
   </div>
-  <div class="col-md-12" style="margin-bottom:20px; margin-top: -20px;">
+  <div class="col-md-3" id="uploadFormPDF">
     <div class="form-group">
-      <button id="btnSaveEventDetail" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-left: 20px;" >
+      <label for="txtPDF">Cerficiado Base en PDF</label><br>
+      <button id="btnSelectPdf" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary" style="margin-top: 3px;" >  
+        <i class="fa fa-search btn-icon" aria-hidden="true"></i>
+        Archivo
+      </button>
+      <input type="file" class="custom-file-input d-none" id="filePdf">
+      <button id="btnUploadPdf" <% if(disabled) { %> disabled <% } %> class="btn btn-primary" style="margin-top: 3px; margin-left: 10px;">  
+        <i class="fa fa-upload btn-icon" aria-hidden="true"></i>
+        Subir
+      </button>
+      <button id="btnViewPdfEvent" <% if(disabled) { %> disabled <% } %> class="btn btn-success" style="margin-top: 3px; margin-left: 10px;">  
+        <i class="fa fa-picture-o btn-icon" aria-hidden="true"></i>
+        Ver
+      </button><br>
+      <small id="txtPDFHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-9" style="margin-bottom:20px; margin-top: -20px;">
+    <div class="form-group">
+      <button id="btnSaveEventDetail" <% if(disabled) { %> disabled <% } %> class="btn btn-success pull-right" style="margin-left: 20px;     margin-top: 45px;" >
         <i class="fa fa-check" style="margin-right:5px"></i>
         Guardar Cambios
       </button>
     </div>
     <div class="form-group">
-      <button id="btnDocuments" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary pull-right" style="margin-top: 12px; margin-left: 20px;" >
+      <button id="btnDocuments" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary pull-right" style="margin-top: 33px; margin-left: 20px;" >
         <i class="fa fa-book" style="margin-right:5px"></i>
         Gestionar Documentos
       </button>
     </div>
     <div class="form-group">
-      <button id="btnVideos" <% if(disabled) { %> disabled <% } %> class="btn btn-info pull-right" style="margin-top: 12px; margin-left: 20px;" >
+      <button id="btnVideos" <% if(disabled) { %> disabled <% } %> class="btn btn-info pull-right" style="margin-top: 33px; margin-left: 20px;" >
         <i class="fa fa-video-camera" style="margin-right:5px"></i>
         Gestionar Videos
       </button>
     </div>
     <div class="form-group">
-      <button id="btnManStudent" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary pull-right" style="margin-top: 12px; margin-left: 20px;" > <i class="fa fa-users" style="margin-right:5px"></i>Gestionar Alumnos</button>
+      <button id="btnManStudent" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary pull-right" style="margin-top: 33px; margin-left: 20px;" > <i class="fa fa-users" style="margin-right:5px"></i>Gestionar Alumnos</button>
     </div>
   <div class="form-group"></div>
-    <button id="btnManSpeaker" <% if(disabled) { %> disabled <% } %> class="btn btn-info pull-right" style="margin-top: 12px; margin-left: 20px;" > <i class="fa fa-users" style="margin-right:5px"></i>Gestionar Ponentes</button>
+    <button id="btnManSpeaker" <% if(disabled) { %> disabled <% } %> class="btn btn-info pull-right" style="margin-top: 33px; margin-left: 20px;" > <i class="fa fa-users" style="margin-right:5px"></i>Gestionar Ponentes</button>
   </div>
 </div>

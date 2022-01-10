@@ -43,6 +43,7 @@ var EventDetailView = Backbone.View.extend({
     // form
     'click #btnSaveEventDetail': 'save',
     'click #btnViewPictureEvent': 'viewPicture',
+    'click #btnViewPdfEvent': 'viewPdf',
     // documents and videos
     'click #btnDocuments': 'showDocuments',
     'click #btnVideos': 'showVideos',
@@ -69,6 +70,7 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('code', '');
       this.event.set('specialisms', _this.specialisms);
       this.event.set('upload_path', '');
+      this.event.set('pdf_base', '');
       this.event.set('id', 'E');
       data.model = this.event;
       data.disabled = false;
@@ -92,6 +94,7 @@ var EventDetailView = Backbone.View.extend({
         this.event.set('code', resp.message.code);
         this.event.set('specialisms', _this.specialisms);
         this.event.set('upload_path',  resp.message.upload_path);
+        this.event.set('pdf_base',  resp.message.pdf_base);
         data.disabled = false;
         data.message = '';
         data.messageClass = '';
@@ -219,7 +222,7 @@ var EventDetailView = Backbone.View.extend({
       },
       messageForm: 'message',
     });
-    // upload
+    // upload imagen principal
     this.upload = new Upload({
       el: '#uploadForm',
       inputFile: 'filePicture',
@@ -242,6 +245,35 @@ var EventDetailView = Backbone.View.extend({
       extensions:{
         allow: ['image/jpeg', 'image/png', 'image/jpg'],
         message: 'Formato no válido',
+      },
+      size:{
+        allow: 600000,
+        message: 'Archivo supera el máximo permitido',
+      },
+    });
+    // upload PDF base
+    this.uploadPDF = new Upload({
+      el: '#uploadFormPDF',
+      inputFile: 'filePdf',
+      helpText: 'message',
+      buttonChoose: 'btnSelectPdf',
+      buttonUpload: 'btnUploadPdf',
+      img: 'imgPdf',
+      service: {
+        url: BASE_URL + 'upload/pdf',
+        formDataKey: 'file',
+        uploadMessage: 'Subiendo archivo...',
+        errorMessage: 'Ocurrió un error en subir el archivo',
+        successMessage: 'Carga completada'
+      },
+      statusClasses: { // bootstrap classes by default
+        success: 'alert-success',
+        warning: 'alert-warning',
+        danger: 'alert-danger',
+      },
+      extensions:{
+        allow: ['application/pdf'],
+        message: 'Formato no válido, sólo PDFs',
       },
       size:{
         allow: 600000,
@@ -279,6 +311,7 @@ var EventDetailView = Backbone.View.extend({
       this.event.set('event_type_id', $('#slcEventType').val());
       this.event.set('specialism_id', $('#slcSpecialism').val());
       this.event.set('picture_url', this.upload.path);
+      this.event.set('pdf_base', this.uploadPDF.path);
       this.event.set('description', $('#txtDescription').val());
       var respData = EventService.saveDetail(this.event, 'message');
       if(respData.status == 200){
@@ -309,14 +342,34 @@ var EventDetailView = Backbone.View.extend({
       $('#message').html('Debe subir primero la imagen');
     }
   },
+  viewPdf: function(e){
+    //console.log(this.upload.path)
+    if(
+      (this.uploadPDF.path != '' && this.uploadPDF.url != '') && 
+      (this.uploadPDF.path !== 'undefined' && this.uploadPDF.url !== 'undefined') && 
+      (this.uploadPDF.path != null && this.uploadPDF.url != null)
+    ){
+      var win = window.open(this.uploadPDF.url + this.uploadPDF.path, '_blank');
+      win.focus();
+    }else{
+      $('#message').removeClass('alert-success');
+      $('#message').removeClass('alert-danger');
+      $('#message').addClass('alert-warning');
+      $('#message').html('Debe subir primero el pdf');
+    }
+  },
   setComponentsData: function(){
     this.upload.path = this.event.get('picture_url');
     this.upload.url = STATIC_URL;
+    this.uploadPDF.path = this.event.get('pdf_base');
+    this.uploadPDF.url = STATIC_URL;
   },
   unSetComponentsData: function(){
     this.modalEventDocumentView = null;
     this.upload.path = null;
     this.upload.url = STATIC_URL;
+    this.uploadPDF.path = null;
+    this.uploadPDF.url = STATIC_URL;
   },
   showDocuments: function(){
     console.log(this.event);
