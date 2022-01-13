@@ -94,7 +94,7 @@ CREATE TABLE `events` (
   KEY `specialism_id` (`specialism_id`),
   CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_type_id`) REFERENCES `event_types` (`id`),
   CONSTRAINT `events_ibfk_2` FOREIGN KEY (`specialism_id`) REFERENCES `specialisms` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,6 +350,12 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `vw_events_students` AS SELECT
  1 AS `event_id`,
+ 1 AS `event_type_id`,
+ 1 AS `event_type_name`,
+ 1 AS `event_name`,
+ 1 AS `event_description`,
+ 1 AS `picture_url`,
+ 1 AS `pdf_base`,
  1 AS `id`,
  1 AS `names`,
  1 AS `last_names`,
@@ -479,10 +485,10 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from (`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) order by `S`.`last_names` */;
+/*!50001 VIEW `vw_events_students` AS select ifnull(`ES`.`event_id`,9999) AS `event_id`,`ET`.`id` AS `event_type_id`,`ET`.`name` AS `event_type_name`,`E`.`name` AS `event_name`,`E`.`description` AS `event_description`,`E`.`picture_url` AS `picture_url`,`E`.`pdf_base` AS `pdf_base`,`S`.`id` AS `id`,`S`.`names` AS `names`,`S`.`last_names` AS `last_names`,`S`.`code` AS `code`,`S`.`tuition` AS `tuition`,`S`.`dni` AS `dni` from (((`students` `S` left join `events_students` `ES` on((`ES`.`student_id` = `S`.`id`))) join `events` `E` on((`E`.`id` = `ES`.`event_id`))) join `event_types` `ET` on((`E`.`event_type_id` = `ET`.`id`))) order by `S`.`last_names` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -576,5 +582,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20210630130603'),
   ('20210701164647'),
   ('20210713174155'),
-  ('20220110220350');
+  ('20220110220350'),
+  ('20220111024126');
 UNLOCK TABLES;

@@ -314,7 +314,7 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 
-define('ENV', 'prod');
+define('ENV', 'localhost');
 
 if(ENV == 'prod'){
 	// check http o https

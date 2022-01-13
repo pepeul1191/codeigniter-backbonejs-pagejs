@@ -134,3 +134,4 @@ $route['api/event/recent']['GET'] = 'api/APIEvent/recentList';
 $route['api/event/search']['GET'] = 'api/APIEvent/search';
 $route['api/specialism/list-only-in-events']['GET'] = 'api/APISpecialism/listOnlyInEvents';
 $route['api/speaker/random-list']['GET'] = 'api/APISpeaker/randomList';
+$route['api/pdf/generate']['GET'] = 'api/APIPdf/generate';

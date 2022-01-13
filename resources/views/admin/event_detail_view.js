@@ -276,7 +276,7 @@ var EventDetailView = Backbone.View.extend({
         message: 'Formato no válido, sólo PDFs',
       },
       size:{
-        allow: 600000,
+        allow: 6000000,
         message: 'Archivo supera el máximo permitido',
       },
     });

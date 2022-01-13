@@ -536,6 +536,8 @@ if(ENV == 'localhost'){
   $config['env_static'] = 'dev';
   $config['access_api'] = false;
   $config['env_session'] = true;
+  $config['web_url'] = 'http://localhost:8090/';
+  $config['base_path'] = dirname(__FILE__) . '/../../';
   $config['login'] = array(
     'user' => 'admin',
     'password' => 'sistema123', 
@@ -556,6 +558,7 @@ if(ENV == 'localhost'){
 }else if(ENV == 'prod'){
   $config['base_url'] = 'https://admin.legisjuristas.com/';
   $config['static_url'] = 'https://admin.legisjuristas.com/public/';
+  $config['web_url'] = 'https://legisjuristas.com/';
   $config['admin_path'] = 'admin';
   $config['site_path'] = '';
   $config['env_static'] = 'dev';
