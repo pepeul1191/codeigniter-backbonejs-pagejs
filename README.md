@@ -107,6 +107,8 @@ if(ENV == 'localhost'){
 }
 ```
 
+http://192.168.1.26:8090/student/check?event_id=34&dni=28207572&code=R-18
+
 ---
 
 Fuentes:

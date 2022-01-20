@@ -536,7 +536,7 @@ if(ENV == 'localhost'){
   $config['env_static'] = 'dev';
   $config['access_api'] = false;
   $config['env_session'] = true;
-  $config['web_url'] = 'http://localhost:8090/';
+  $config['web_url'] = 'http://192.168.1.26:8090/';
   $config['base_path'] = dirname(__FILE__) . '/../../';
   $config['login'] = array(
     'user' => 'admin',

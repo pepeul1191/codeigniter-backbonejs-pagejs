@@ -2,6 +2,7 @@
 
 class APIPdf extends CI_Controller
 {
+  // http://localhost:8080/api/pdf/generate?event_id=34&dni=28207572&grade=182&code=R-18
   public function generate()
   {
     // libraries as filters
@@ -15,11 +16,11 @@ class APIPdf extends CI_Controller
     $resp = '';
     $status = 200;
     $event_id = $this->input->get('event_id');
-    $student_id = $this->input->get('student_id');
+    $dni = $this->input->get('dni');
     $code = $this->input->get('code'); // document code, only for 'Diplomado' and 'Curso', not 'curso libre'
     $grade = $this->input->get('grade'); // document code, only for 'Diplomado'
     try {
-      if($event_id != null && $student_id != null){
+      if($event_id != null && $dni != null){
         $info_document = \Model::factory('\Models\VWEventStudent', 'classroom')
           ->select('event_id')
           ->select('event_type_name')
@@ -27,10 +28,10 @@ class APIPdf extends CI_Controller
           ->select('pdf_base')
           ->select('names', 'student_names')
           ->select('last_names', 'student_last_names')
-          ->select('id', 'student_id')
+          ->select('dni')
           ->where(
             array(
-              'id' => $student_id,
+              'dni' => $dni,
               'event_id' => $event_id,
             )
           )

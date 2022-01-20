@@ -5,7 +5,7 @@ class CustomError extends CI_Controller
   public function orverride()
   {
     if($this->input->server('REQUEST_METHOD') == 'GET'){
-      header('Location: ' . $this->config->item('base_url') . 'error/access/404');
+      header('Location: /error/access/404');
       exit();
     }else{
       $rpta = 'Error 404: Recurso no encontrado';
