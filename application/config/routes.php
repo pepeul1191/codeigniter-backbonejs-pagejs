@@ -54,7 +54,7 @@ $route['404_override'] = 'customError/orverride';
 $route['translate_uri_dashes'] = FALSE;
 # errores
 $route['error/access/(:num)']['GET'] = 'customError/access/$1';
-$route['/']['GET'] = 'admin/adminLogin/index';
+$route['/']['GET'] = 'welcome/index';
 # login
 $route['admin/login']['GET'] = 'admin/adminLogin/index';
 $route['admin/login']['POST'] = 'admin/adminLogin/access';

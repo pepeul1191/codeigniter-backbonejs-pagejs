@@ -20,6 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		header('Location: ' . '/admin/login');
+		exit();
 		/*
 		$data = array(
       'title' => 'Home',
