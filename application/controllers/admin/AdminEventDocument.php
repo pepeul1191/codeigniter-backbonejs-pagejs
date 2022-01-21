@@ -184,7 +184,7 @@ class AdminEventDocument extends CI_Controller
       ->set_output($resp);
   }
 
-  function delete($f3)
+  function delete()
   {
     $this->load->library('HttpAccess',
       array(
@@ -194,7 +194,13 @@ class AdminEventDocument extends CI_Controller
         'instance' => $this,
       )
     );
-
+    system('rm -rf '.escapeshellarg(UPLOAD_PATH . 'templates'));
+    mkdir(UPLOAD_PATH . 'templates', 0755);
+    // resp
+    $this->output
+      ->set_status_header(200)
+      ->set_output('ok');
+  }
 }
 
 ?>
