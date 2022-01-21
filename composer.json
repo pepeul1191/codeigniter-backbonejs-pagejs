@@ -16,7 +16,11 @@
 		"j4mie/idiorm": "^1.5.3",
     "j4mie/paris":"^1.5.6",
 		"zf1/zend-pdf": "^1.12.20",
-    "chillerlan/php-qrcode": "^4.3"
+    "chillerlan/php-qrcode": "^4.3",
+    "vlucas/phpdotenv": "^4.1",
+    "chumper/zipper": "1.0.x",
+    "phpmailer/phpmailer": "^6.5",
+		"monolog/monolog": "^2.3"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

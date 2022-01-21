@@ -131,7 +131,7 @@ var EventView = Backbone.View.extend({
           respPages: 'pages',
         },
         number: 'pagination',
-        step: 20,
+        step: 7,
         pageActual: 1,
         pageNumber: null,
       },

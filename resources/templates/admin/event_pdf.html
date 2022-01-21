@@ -1,0 +1,68 @@
+<h5 id="formTitle"><%= title %></h5>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert <%= messageClass %>" id="message" role="alert" id="formTitle"><%= message %></div>
+  </div>
+  <div class="col-md-7">
+    <div class="form-group">
+      <label for="txtName">Nombre del Curso</label>
+      <input type="text" class="form-control" id="txtName" aria-describedby="txtNameHelp" disabled  placeholder="Ingrese regalo(opcional)" value="<%= model.get('name') %>">
+      <small id="txtNameHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-group">
+      <label for="txtGender">Tipo de Evento</label>
+      <select class="form-control" id="slcEventType" disabled >
+        <option value="E"></option>
+        <option value="1" <% if(model.get('event_type_id') == 1) { %> selected <% } %> >Curso</option>
+        <option value="2" <% if(model.get('event_type_id') == 2) { %> selected <% } %>>Diplomado</option>
+      </select>
+      <small id="slcEventTypeHelp" class="form-text"></small>
+    </div>
+  </div>
+  <div class="col-md-3" id="uploadFormPDFE">
+    <div class="form-group">
+      <label for="txtPDF">Cerficiado Base en PDF</label><br>
+      <button id="btnSelectPdfE" <% if(disabled) { %> disabled <% } %> class="btn btn-secondary" style="margin-top: 3px;" >  
+        <i class="fa fa-search btn-icon" aria-hidden="true"></i>
+        Archivo
+      </button>
+      <input type="file" class="custom-file-input d-none" id="filePdfE">
+      <button id="btnUploadPdfE" <% if(disabled) { %> disabled <% } %> class="btn btn-primary" style="margin-top: 3px; margin-left: 10px;">  
+        <i class="fa fa-upload btn-icon" aria-hidden="true"></i>
+        Subir
+      </button>
+      <button id="btnViewPdfEventE" <% if(disabled) { %> disabled <% } %> class="btn btn-success" style="margin-top: 3px; margin-left: 10px;">  
+        <i class="fa fa-picture-o btn-icon" aria-hidden="true"></i>
+        Ver
+      </button><br>
+      <small id="txtPDFHelp" class="form-text"></small>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3" style="margin-bottom:20px; margin-top: 0px;">
+    <div class="form-group">
+      <label for="">Seleccionar Archivo CSV</label>
+        <input type="file" class="form-control-file d-none" id="inputFileCSV">
+        <button class="btn btn-primary my-1" onclick="document.getElementById('inputFileCSV').click();"><i class="fa fa-search" aria-hidden="true"></i>Buscar Archivo</button>
+        <button class="btn btn-success my-1" id="btnLoadCSV"><i class="fa fa-upload" aria-hidden="true"></i>Cargar Archivo</button>
+    </div>
+  </div>
+  <div class="col-md-2" style="margin-bottom:20px; margin-top: 25px;">
+    <div class="form-group">
+      <% if(model.get('event_type_id') == 1) { %>
+        <button class="btn btn-success my-1" id="btnSend"><i class="fa fa-download" aria-hidden="true"></i>Descargar Documentos</button>
+      <% } else { %>
+        <button class="btn btn-success my-1" id="btnSend"><i class="fa fa-send" aria-hidden="true"></i> Enviar Constancias</button>
+      <% } %>
+    </div>
+  </div>
+</div>  
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped" id="studentTable">
+    </table>
+  </div>
+</div>

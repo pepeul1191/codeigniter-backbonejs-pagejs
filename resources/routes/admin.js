@@ -7,6 +7,7 @@ import SpecialismView from '../views/admin/specialism_view';
 import SpeakerDetailView from '../views/admin/speaker_detail_view';
 import EventDetailView from '../views/admin/event_detail_view';
 import EventView from '../views/admin/event_view';
+import EventPDFView from '../views/admin/event_pdf_view';
 // views
 var specialismView = null;
 var locationView = null;
@@ -17,6 +18,7 @@ var speakerView = null;
 var speakerDetailView = null;
 var eventView = null;
 var eventDetailView = null;
+var eventPDFView = null;
 // routes
 page.base('/admin');
 page('', loading, student);
@@ -31,6 +33,7 @@ page('/speaker/edit/:speaker_id', off, speakerEdit, closeToggle); // *
 page('/event', event, closeToggle);
 page('/event/new', off, eventNew, closeToggle); // *
 page('/event/edit/:event_id', off, eventEdit, closeToggle); // *
+page('/event/pdf/:event_id', off, eventPdf, closeToggle); // *
 // page('*', notfound)
 page();
 
@@ -186,6 +189,24 @@ function eventEdit(ctx, next) {
   eventDetailView.render(data, type, event_id);
   eventDetailView.loadComponents();
   eventDetailView.setComponentsData();
+  next();
+}
+
+function eventPdf(ctx, next) {
+  var event_id = ctx.params.event_id;
+  var data = {
+    title: 'Emisión de Certificados del Evento',
+    id: event_id,
+    messageClass: '',
+    disabled: false,
+  };
+  var type = 'edit';
+  if(eventPDFView == null){
+    eventPDFView = new EventPDFView();
+  }
+  eventPDFView.render(data, type, event_id);
+  eventPDFView.loadComponents();
+  eventPDFView.setComponentsData();
   next();
 }
 

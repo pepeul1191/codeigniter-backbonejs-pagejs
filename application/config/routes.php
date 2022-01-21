@@ -52,10 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = 'customError/orverride';
 $route['translate_uri_dashes'] = FALSE;
-
 # errores
 $route['error/access/(:num)']['GET'] = 'customError/access/$1';
-
+$route['/']['GET'] = 'admin/adminLogin/index';
 # login
 $route['admin/login']['GET'] = 'admin/adminLogin/index';
 $route['admin/login']['POST'] = 'admin/adminLogin/access';
@@ -74,6 +73,7 @@ $route['admin/speaker/edit/(:num)']['GET'] = 'admin/adminIndex/index';
 $route['admin/event']['GET'] = 'admin/adminIndex/index';
 $route['admin/event/new']['GET'] = 'admin/adminIndex/index';
 $route['admin/event/edit/(:num)']['GET'] = 'admin/adminIndex/index';
+$route['admin/event/pdf/(:num)']['GET'] = 'admin/adminIndex/index';
   # admin loctions
 $route['admin/department/list']['GET'] = 'admin/AdminDepartment/list';
 $route['admin/department/save']['POST'] = 'admin/AdminDepartment/save';
@@ -119,6 +119,7 @@ $route['admin/event/video/save']['POST'] = 'admin/AdminEventVideo/save';
   # admin event document
 $route['admin/event/document/list']['GET'] = 'admin/AdminEventDocument/list';
 $route['admin/event/document/save']['POST'] = 'admin/AdminEventDocument/save';
+$route['admin/event/document/send']['POST'] = 'admin/AdminEventDocument/send';
 # upload
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';
 $route['upload/pdf']['POST'] = 'admin/AdminUpload/pdf_event';
