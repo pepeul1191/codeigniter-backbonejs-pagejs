@@ -71,10 +71,10 @@ class AdminUpload extends CI_Controller
       $status = 200;
       $dateTime = new \DateTime();
       $timestamp = $dateTime->getTimestamp();
-      $path = UPLOAD_PATH . $timestamp;
-      mkdir($path, 0755);
+      $path = UPLOAD_PATH;// . 'templates/' . $timestamp;
+      //mkdir($path, 0755);
       $path = $path . '/' .$rand . '.' . $extension;
-      $response_path = 'uploads/' . $timestamp . '/' . $rand . '.' . $extension;
+      $response_path = 'uploads/'. $rand . '.' . $extension;
       move_uploaded_file(
         $_FILES['file']['tmp_name'], 
         $path

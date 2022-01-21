@@ -120,6 +120,7 @@ $route['admin/event/video/save']['POST'] = 'admin/AdminEventVideo/save';
 $route['admin/event/document/list']['GET'] = 'admin/AdminEventDocument/list';
 $route['admin/event/document/save']['POST'] = 'admin/AdminEventDocument/save';
 $route['admin/event/document/send']['POST'] = 'admin/AdminEventDocument/send';
+$route['admin/event/document/delete']['GET'] = 'admin/AdminEventDocument/delete';
 # upload
 $route['upload/file']['POST'] = 'admin/AdminUpload/file';
 $route['upload/pdf']['POST'] = 'admin/AdminUpload/pdf_event';

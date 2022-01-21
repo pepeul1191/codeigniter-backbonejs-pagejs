@@ -134,25 +134,30 @@ class AdminEventDocument extends CI_Controller
     $createdIds = [];
     $students = json_decode($this->input->post('data'));
 		$baseFile = explode('/', $this->input->post('file'));
-    $folder = substr(UPLOAD_PATH, 0, -8) . $baseFile[0] . '/' . $baseFile[1] . '/';
-    $baseFile = $baseFile[2];
+    $folder = substr(UPLOAD_PATH, 0, -8) . $baseFile[0] . '/';
+    $baseFile = $baseFile[1];
     $type = $this->input->post('type');
     $event_id = $this->input->post('event_id');
     $resp = array();
-    $logger->pushHandler(new StreamHandler($folder . 'sendding.log', Logger::DEBUG));
+    $dateTime = new \DateTime();
+    $timestamp = $dateTime->getTimestamp();
+    $rand_path = 'templates/' . $timestamp;
+    $logger->pushHandler(new StreamHandler(UPLOAD_PATH . $rand_path  . '/sendding.log', Logger::DEBUG));
     $logger->pushHandler(new FirePHPHandler());
     try {
       // load helpers
       $this->load->helper('admin/event_document');
+      mkdir(UPLOAD_PATH . $rand_path, 0755);
       foreach ($students as &$student) {
         try {
-          $pdfInfo = doPDF($student, $folder, $baseFile, $type, $event_id, $this->config->item('web_url'));
+          $pdfInfo = doPDF($student, $folder, $baseFile, $type, $event_id, $this->config->item('web_url'), $rand_path);
           $logger->info('Certificado (' . $type . ') del alumno ' . $student->{'last_names'} . ' ' . $student->{'first_names'} . 'creado. ');
           if($type == 'course' || $type == 'free-course'){
             sendEmail(
               $student,
               $this->config->item('web_url'),
               $pdfInfo,
+              $rand_path
             );
             $logger->info('Certificado (' . $type . ') del alumno ' . $student->{'last_names'} . ' ' . $student->{'first_names'} . 'enviado al correo ' . $student->{'email'} . '.');
           }
@@ -161,14 +166,14 @@ class AdminEventDocument extends CI_Controller
         }
       }
       // download zip
-      $zipper = new \Chumper\Zipper\Zipper;
-      $files = glob($folder . substr($baseFile, 0, -25) . '*');
       $rand = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 20);
-      $zipper->make(UPLOAD_PATH . $rand . '.zip');
+      $zipper = new \Chumper\Zipper\Zipper;
+      $files = glob(UPLOAD_PATH . $rand_path . '*');
+      $zipper->make(UPLOAD_PATH . 'templates/' . $rand . '.zip');
       $zipper->add($files); 
       $zipper->close();
       // response
-      $resp = 'uploads/' . $rand . '.zip';
+      $resp = 'uploads/templates/' . $rand . '.zip';
     }catch (Exception $e) {
       $status = 500;
       $resp = json_encode(['ups', $e->getMessage()]);
@@ -178,6 +183,18 @@ class AdminEventDocument extends CI_Controller
       ->set_status_header($status)
       ->set_output($resp);
   }
+
+  function delete($f3)
+  {
+    $this->load->library('HttpAccess',
+      array(
+        'config' => $this->config,
+        'allow' => ['GET'],
+        'received' => $this->input->server('REQUEST_METHOD'),
+        'instance' => $this,
+      )
+    );
+
 }
 
 ?>

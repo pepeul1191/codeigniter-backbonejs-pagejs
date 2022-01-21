@@ -23,7 +23,7 @@ function widthForStringUsingFontSize($string, $font, $fontSize)
 if ( ! function_exists('doPDF'))
 {
   // $folder = $this->input->post('folder'); # YA FUE!!!!
-  function doPDF($student, $folder, $baseFile, $type, $event_id, $webURL)
+  function doPDF($student, $folder, $baseFile, $type, $event_id, $webURL, $rand_path)
   {
     $resp = array();
     // qr
@@ -88,10 +88,10 @@ if ( ! function_exists('doPDF'))
       $page->drawText(strtoupper($student->{'last_names'} . ' ' . $student->{'first_names'}), $position, 330);
     }
     // save pdf
-    $pdf->save($folder . $student->{'id'} . ' ' . $student->{'last_names'} . ' ' . $student->{'first_names'});
+    $pdf->save($folder . $rand_path . '/' .$student->{'id'} . ' ' . $student->{'last_names'} . ' ' . $student->{'first_names'} . '.pdf');
     // resp
     if(empty($resp)){
-      $resp['filePath'] = $folder . $student->{'id'} . ' ' . $student->{'last_names'} . ' ' . $student->{'first_names'};
+      $resp['filePath'] =  UPLOAD_PATH . $rand_path . '/' . $student->{'id'} . ' ' . $student->{'last_names'} . ' ' . $student->{'first_names'} . '.pdf';
       $resp['qr'] = $qr;
     }
     return $resp;
@@ -100,7 +100,7 @@ if ( ! function_exists('doPDF'))
 
 if ( ! function_exists('sendEmail'))
 {
-  function sendEmail($student, $webURL, $pdf)
+  function sendEmail($student, $webURL, $pdf, $rand_path)
   {
     // add .env from helpers
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
