@@ -50,7 +50,8 @@ if ( ! function_exists('certified')) // diplomado
         $info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}, $customFont, 22
       );
       $position = (800 - $textWidth)/2;
-      $page->drawText(strtoupper($info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}), $position, 330);
+      $page->drawText(mb_strtoupper($info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}), $position, 330, 'UTF-8');
+      $pdf->pages[0] = $page;
       // code
       $page = $pdf->pages[1];
       $page->setFont($customFont, 26);
@@ -70,7 +71,7 @@ if ( ! function_exists('certified')) // diplomado
         $info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}, $customFont, 22
       );
       $position = (800 - $textWidth)/2;
-      $page->drawText(strtoupper($info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}), $position, 330);
+      $page->drawText(mb_strtoupper($info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}), $position, 330, 'UTF-8');
       // code
       $page = $pdf->pages[1];
       $page->setFont($customFont, 26);
@@ -87,7 +88,7 @@ if ( ! function_exists('certified')) // diplomado
         $info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}, $customFont, 22
       );
       $position = (800 - $textWidth)/2;
-      $page->drawText(strtoupper($info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}), $position, 330);
+      $page->drawText(mb_strtoupper($info_document->{'student_last_names'} . ' ' . $info_document->{'student_names'}), $position, 330, 'UTF-8');
     }
     // TODO
     return $pdf;

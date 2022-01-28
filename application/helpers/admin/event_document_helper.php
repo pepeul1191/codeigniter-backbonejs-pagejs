@@ -34,6 +34,7 @@ if ( ! function_exists('doPDF'))
     // pdf
     $pdf = Zend_Pdf::load($folder . $baseFile);
     $customFont = Zend_Pdf_Font::fontWithPath(BASE_PATH . '/public/assets/fonts/Palatino Linotype.ttf');
+    //$customFont = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
     //var_dump($type);
     if($type == 'certified'){ // diplomado
       // qr

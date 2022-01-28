@@ -315,7 +315,7 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 
-define('ENV', 'localhost');
+define('ENV', 'prod');
 
 if(ENV == 'prod'){
 	// check http o https
@@ -353,6 +353,16 @@ if(ENV == 'prod'){
 			header( "Location: https://" . $escaped_url );
 			exit();
 		}
+	}
+	// errors
+	ini_set('display_errors', 0);
+	if (version_compare(PHP_VERSION, '5.3', '>='))
+	{
+		error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+	}
+	else
+	{
+		error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
 	}
 }
 
